@@ -1,0 +1,105 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.CustomerEditWebModel
+
+@using (Ajax.BeginForm("_CustomerEdit", "Customer", new { Model.Id },
+ new AjaxOptions {
+     HttpMethod = "POST",
+     OnSuccess = "onCustomerEditSuccess"
+ }, new { @id = "customerEditForm", @class = "form-horizontal" })) {
+    <div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label class="col-sm-3">@Html.Raw(Labels.CustomerName)</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Labels.CustomerName, maxLength = 100, autocomplete = "off" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Html.Raw(Labels.Email)</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = Labels.Email, maxLength = 100, autocomplete = "off" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Html.Raw(Labels.Phone)</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = Labels.Phone, maxLength = 10, autocomplete = "off" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.BirthDate</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.BirthDate).HtmlAttributes(new { type = "text" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Address</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = Labels.Address })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Html.Raw(Labels.City)</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.CityId, Model.CityList, new { @class = "form-control", onchange = "GetCountyList('CityId','CountyId');" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Html.Raw(Labels.County)</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.CountyId, Model.CountyList, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Html.Raw(Labels.Notes)</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.Notes, new { @class = "form-control", placeholder = Labels.Notes, rows = 5 })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.CustomerIsExclusion</label>
+                <div class="col-sm-9">
+                    @Html.CheckBoxFor(m => m.IsExclusion)
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('customerEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ValidateForm("customerEditForm");
+    });
+
+    function onCustomerEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#customerGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#customerEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>

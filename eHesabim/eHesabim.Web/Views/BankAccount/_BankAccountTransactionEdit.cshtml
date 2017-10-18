@@ -1,0 +1,121 @@
+﻿@using eHesabim.Services
+@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankAccountTransactionEditWebModel
+
+@using (Ajax.BeginForm("_BankAccountTransactionEdit", "BankAccount", new { Model.Id },
+ new AjaxOptions {
+     HttpMethod = "POST",
+     OnSuccess = "onBankAccountTransactionEditSuccess"
+ }, new { @id = "bankAccountTransactionEditForm", @class = "form-horizontal" })) {
+    <div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.BankAccount</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.BankAccountId, Model.BankAccountList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankAccountId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Date</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.TrnDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.TrnDateTime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Description</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Labels.Description, maxLength = 255 })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.DebitClaim</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.TypeId, Model.TypeList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TypeId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Amount</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="spanSign">+</span>
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = Labels.Amount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Amount)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.OtherBankAccount</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.RelatedBankAccountId, Model.RelatedBankAccountList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.RelatedBankAccountId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Explanation</label>
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(m => m.Explanation, new { @class = "form-control", placeholder = Labels.Explanation, @readonly = true })
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('bankAccountTransactionEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    // global variables
+    var debitTypeEnum = '@BankAccountTransactionTypeEnum.Debit.GetHashCode()';
+    var claimTypeEnum = '@BankAccountTransactionTypeEnum.Claim.GetHashCode()';
+
+    $(document).ready(function () {
+        ValidateForm("bankAccountTransactionEditForm");
+        $("#TypeId").change(function () {
+            onTypeIdChanged();
+        });
+        onTypeIdChanged();
+    });
+
+    function onBankAccountTransactionEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#bankAccountTransactionGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#bankAccountTransactionEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+
+    function onTypeIdChanged() {
+        switch ($("#TypeId").val()) {
+            case debitTypeEnum:
+                $("#spanSign").html("+");
+                break;
+
+            case claimTypeEnum:
+                $("#spanSign").html("-");
+                break;
+        }
+    }
+</script>

@@ -1,0 +1,275 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.ExpenseListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "expenseForm", @class = "form-horizontal" })) {
+    <div id="accordion" class="panel-group">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse">
+                        <i class="fa fa-barcode fa-fw"></i> @Headers.ExpenseList
+                    </a>
+
+                    <a class="pull-right" href="#collapseOne" data-parent="#accordion" data-toggle="collapse">
+                        <i class="fa fa-angle-double-up"></i>
+                        <i class="fa fa-angle-double-down"></i>
+                    </a>
+                </h4>
+            </div>
+
+            <div class="panel-collapse collapse in" id="collapseOne">
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.BankCreditCard</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchBankCreditCardId, Model.SearchBankCreditCardList, new { @class = "form-control", onchange = "GetBankCreditCardPeriodList('SearchBankCreditCardId','SearchBankCreditCardPeriodId');" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.BankCreditCardPeriod2</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchBankCreditCardPeriodId, Model.SearchBankCreditCardPeriodList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.ExpenseType</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchTypeId, Model.SearchTypeList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.ExpenseStore</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchExpenseStoreId, Model.SearchExpenseStoreList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.ExpenseGroup</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchExpenseGroupId, Model.SearchExpenseGroupList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Html.Raw(Labels.StartDate)</label>
+                        <div class="col-sm-10">
+                            @Html.Kendo().DatePickerFor(m => m.SearchStartDate).HtmlAttributes(new { type = "text" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Html.Raw(Labels.EndDate)</label>
+                        <div class="col-sm-10">
+                            @Html.Kendo().DatePickerFor(m => m.SearchEndDate).HtmlAttributes(new { type = "text" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.ExpenseNextPeriod</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchNextPeriodId, Model.SearchNextPeriodList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.ExpenseExclusion</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownListFor(m => m.SearchExcludeId, Model.SearchExcludeList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2">@Labels.ExpenseNotes</label>
+                        <div class="col-sm-10">
+                            @Html.TextBoxFor(m => m.SearchNotes, new { @class = "form-control", placeholder = Labels.ExpenseNotes })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-2">&nbsp;</div>
+                        <div class="col-sm-10">
+                            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+                            <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+<div class="panel panel-yellow">
+    <div class="panel-body">
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("expenseGrid")
+                  .Columns(columns => {
+                      columns.Bound(x => x.ExpenseDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.Date);
+                      columns.Bound(x => x.ExpenseStoreName).Title(Labels.ExpenseStore);
+                      columns.Bound(x => x.ExpenseGroupName).Title(Labels.ExpenseGroup);
+                      columns.Bound(x => x.TotalAmount).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.TotalAmount);
+                      columns.Bound(x => x.Amount).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Amount);
+                      columns.Bound(x => x.Installment).Title(Labels.Installment);
+                      columns.Bound(x => x.BankCreditCardName).Title(Labels.BankCreditCard);
+                      columns.Bound(x => x.BankCreditCardPeriodName).Title(Labels.BankCreditCardPeriod);
+                      columns.Bound(x => x.IsExclusion).ClientTemplate("<input type='checkbox' name='chkIsExclusion' #= IsExclusion ? checked='checked' : '' # disabled />").HtmlAttributes(new { style = "text-align:center;" }).Title(Labels.IsExclusion);
+                      columns.Bound(x => x.Notes).Title(Labels.ExpenseNotes);
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onExpenseEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onDataBound"))
+                  .DataSource(dataSource =>
+                        dataSource
+                            .Ajax()
+                            .Model(model => model.Id(p => p.Id))
+                            .PageSize(20)
+                            .Total(Model.Total)
+                            .Read(read => read.Action("ExpenseList", "Expense").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+        <hr />
+
+        <!-- Alt Toplamlar -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th class="col-xs-4">
+                        <label>@Labels.ExpenseMe</label>
+                    </th>
+                    <td class="col-xs-8">
+                        <div class="input-group">
+                            <input type="text" id="expenseMe" class="form-control" style="text-align: right;" readonly="readonly" />
+                            <span class="input-group-addon">TL</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label>@Labels.ExpenseExclusion</label>
+                    </th>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="expenseExclusion" class="form-control" style="text-align: right;" readonly="readonly" />
+                            <span class="input-group-addon">TL</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label>@Labels.ExpenseTotal</label>
+                    </th>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="expenseTotal" class="form-control" style="text-align: right;" readonly="readonly" />
+                            <span class="input-group-addon">TL</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+          .Name("expenseEditWindow")
+          .Title(Headers.ExpenseEdit)
+          .Draggable(true)
+          .Modal(true)
+          .Visible(false)
+          .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("expenseForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "expenseGrid");
+            });
+
+            $('#form-detail').click(function () {
+                var wnd = $("#expenseEditWindow").kendoWindow({
+                    content: {
+                        url: "/Expense/_ExpenseEdit",
+                        data: {
+                            typeId: '' + $('#SearchTypeId').val() + '',
+                            storeId: '' + $('#SearchExpenseStoreId').val() + '',
+                            groupId: '' + $('#SearchExpenseGroupId').val() + '',
+                            creditCardId: '' + $('#SearchBankCreditCardId').val() + '',
+                            creditCardPeriodId: '' + $('#SearchBankCreditCardPeriodId').val() + ''
+                        }
+                    }
+                }).data("kendoWindow");
+
+                wnd.wrapper.addClass("col-sm-8 col-xs-10 max-width-650");
+                wnd.center();
+                wnd.open();
+            });
+        });
+
+        SetLeftMenu("liExpense");
+
+        function onExpenseEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("expenseEditWindow", "/Expense/_ExpenseEdit", dataItem.Id, "md");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchTypeId: $('#SearchTypeId').val(),
+                SearchExpenseStoreId: $('#SearchExpenseStoreId').val(),
+                SearchExpenseGroupId: $('#SearchExpenseGroupId').val(),
+                SearchBankCreditCardId: $('#SearchBankCreditCardId').val(),
+                SearchBankCreditCardPeriodId: $('#SearchBankCreditCardPeriodId').val(),
+                SearchStartDate: $('#SearchStartDate').val(),
+                SearchEndDate: $('#SearchEndDate').val(),
+                SearchNextPeriodId: $('#SearchNextPeriodId').val(),
+                SearchExcludeId: $('#SearchExcludeId').val(),
+                SearchNotes: $('#SearchNotes').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+
+        function onDataBound(e) {
+            if (e.sender._data[0] !== undefined) {
+                var expenseMe = e.sender._data[0].ExpenseMe;
+                var expenseExclusion = e.sender._data[0].ExpenseExclusion;
+                var expenseTotal = e.sender._data[0].ExpenseTotal;
+
+                $('#expenseMe').val(expenseMe);
+                $('#expenseExclusion').val(expenseExclusion);
+                $('#expenseTotal').val(expenseTotal);
+            } else {
+                $('#expenseMe').val("0,00");
+                $('#expenseExclusion').val("0,00");
+                $('#expenseTotal').val("0,00");
+            }
+
+            onGridDataBound();
+        }
+    </script>
+}

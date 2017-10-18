@@ -1,0 +1,224 @@
+﻿@using eHesabim.Services
+@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.CustomerTransactionEditWebModel
+
+<script type="text/javascript">
+    // global variables
+    var debitTypeEnum = '@CustomerTransactionTypeEnum.Debit.GetHashCode()';
+    var claimTypeEnum = '@CustomerTransactionTypeEnum.Claim.GetHashCode()';
+
+    $(document)
+        .ready(function () {
+            ValidateForm("customerTransactionEditForm");
+
+            $("#TypeId").change(function () {
+                onTypeIdChanged();
+            });
+
+            onTypeIdChanged();
+
+            setDivVisibility();
+
+            $('#delete-file').click(function () {
+                $.ajax({
+                    url: "/Customer/DeleteFile",
+                    data: {
+                        id: $('#Id').val(),
+                        fileName: $('#FileName').val()
+                    },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+                        if (data.Result) {
+                            $("#FileName").val("");
+                            setDivVisibility();
+                        }
+                    }
+                });
+            });
+        });
+
+    function onCustomerTransactionEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#customerTransactionGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#customerTransactionEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+
+    function onTypeIdChanged() {
+        switch ($("#TypeId").val()) {
+            case debitTypeEnum:
+                $("#spanSign").html("+");
+                break;
+
+            case claimTypeEnum:
+                $("#spanSign").html("-");
+                break;
+        }
+    }
+
+    function onFileSelect(e) {
+        var file = e.files[0];
+
+        var fileSize = (file.size / (1024 * 1024)).toFixed(2);
+        if (fileSize >= 2) {
+            alert('Belge 2 Mb dan küçük olmalı!');
+            e.preventDefault();
+            return false;
+        }
+
+        return true;
+    }
+
+    function onFileUpload(e) {
+        e.data = {
+            Id: $("#Id").val()
+        };
+    }
+
+    function onFileSuccess(e) {
+        if (e.response.Result) {
+            $("#FileName").val(e.response.FileName);
+            $("#FullPathLink").attr("href", e.response.FullPath);
+
+            setDivVisibility();
+
+            $("[class^='k-upload-files k-reset']").remove();
+        } else {
+            alert(e.response.Message);
+        }
+    }
+
+    function setDivVisibility() {
+        if ($("#FileName").val() != "") {
+            $("#divFileUpload").hide();
+            $("#divFileUploaded").show();
+        } else {
+            $("#divFileUpload").show();
+            $("#divFileUploaded").hide();
+        }
+    }
+</script>
+
+@using (Ajax.BeginForm("_CustomerTransactionEdit", "Customer", new { Model.Id }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "onCustomerTransactionEditSuccess" }, new { id = "customerTransactionEditForm", @class = "form-horizontal" })) {
+    <div>
+        <div class="panel-body">
+
+            @Html.HiddenFor(m => m.Id)
+            @Html.HiddenFor(m => m.FileName)
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Customer</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.CustomerId, Model.CustomerList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CustomerId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Date</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.TrnDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.TrnDateTime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.DueDate</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.DueDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.DueDateTime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Description</label>
+                <div class="col-sm-9">
+                    @Html.TextAreaFor(m => m.Name, new { @class = "form-control", placeholder = Labels.Description, rows = 5 })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.FileName</label>
+                <div class="col-sm-9">
+                    <div id="divFileUpload" style="float: left; width: 100px; height: 40px;">
+                        @(Html.Kendo()
+                              .Upload()
+                              .Multiple(false)
+                              .Name("file")
+                              .Async(a => a.Save("UploadFile", "Customer", new { Model.Id }).AutoUpload(true))
+                              .Events(events => events
+                                  .Upload("onFileUpload")
+                                  .Select("onFileSelect")
+                                  .Success("onFileSuccess")
+                              )
+                            )
+                    </div>
+
+                    <div id="divFileUploaded">
+                        <a id="FullPathLink" href="@Model.FullPath" target="_blank" class="btn btn-outline btn-warning">@Buttons.Show</a>
+                        <a id="delete-file" class="btn btn-outline btn-danger">@Buttons.Delete</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.DebitClaim</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.TypeId, Model.CustomerTransactionTypeList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TypeId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Amount</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="spanSign">+</span>
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = Labels.Amount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Amount)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Installment</label>
+                <div class="col-sm-9">
+                    <div class="col-sm-6" style="padding-left: 0; padding-bottom: 5px;">
+                        @Html.TextBoxFor(m => m.InstallmentNo, new { @class = "form-control", placeholder = Labels.InstallmentNo, maxLength = 3, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.InstallmentNo)
+                    </div>
+                    <div class="col-sm-6" style="padding-left: 0; padding-bottom: 5px;">
+                        @Html.TextBoxFor(m => m.InstallmentTotal, new { @class = "form-control", placeholder = Labels.InstallmentTotal, maxLength = 3, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.InstallmentTotal)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.BankAccount</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.BankAccountId, Model.BankAccountList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankAccountId)
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('customerTransactionEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

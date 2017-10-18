@@ -1,0 +1,162 @@
+﻿@using eHesabim.Framework.Localization
+@using eHesabim.Web.Portal.Engine
+@model eHesabim.Web.Portal.Models.ExpenseGroupReportWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+@{
+    var amount01Total = 0.0M;
+    var amount02Total = 0.0M;
+    var amount03Total = 0.0M;
+    var amount04Total = 0.0M;
+    var amount05Total = 0.0M;
+    var amount06Total = 0.0M;
+    var amount07Total = 0.0M;
+    var amount08Total = 0.0M;
+    var amount09Total = 0.0M;
+    var amount10Total = 0.0M;
+    var amount11Total = 0.0M;
+    var amount12Total = 0.0M;
+    var amountTotal = 0.0M;
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i class="fa fa-stack-overflow fa-fw"></i> @Headers.ExpenseGroupReport
+        </h4>
+    </div>
+    <div class="panel-body">
+        @if (Model.Data != null && Model.Data.Any()) {
+            if (Model.YearList != null && Model.YearList.Any()) {
+                <ul class="nav nav-tabs">
+                    @foreach (var year in Model.YearList) {
+                        {
+                            var active = year == Model.Year ? "active" : "";
+                            var expanded = year == Model.Year ? "true" : "false";
+
+                            <li class="@active">
+                                <a href="@Url.RouteUrl(RouteNames.ExpenseGroupReport,new { year })" aria-expanded="@expanded">@year</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            }
+
+            <div class="tab-content">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr class="info">
+                                <th></th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[0])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[1])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[2])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[3])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[4])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[5])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[6])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[7])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[8])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[9])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[10])</th>
+                                <th style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[11])</th>
+                                <th class="danger" style="text-align: center;">@Html.Raw(Labels.Months2.Split(';')[12])</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Data) {
+                                amount01Total += item.Amount01;
+                                amount02Total += item.Amount02;
+                                amount03Total += item.Amount03;
+                                amount04Total += item.Amount04;
+                                amount05Total += item.Amount05;
+                                amount06Total += item.Amount06;
+                                amount07Total += item.Amount07;
+                                amount08Total += item.Amount08;
+                                amount09Total += item.Amount09;
+                                amount10Total += item.Amount10;
+                                amount11Total += item.Amount11;
+                                amount12Total += item.Amount12;
+                                amountTotal += item.AmountTotal;
+
+                                <tr class="">
+                                    <td class="info">@Html.Raw(item.GroupName)</td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 1 })">@Html.Raw(item.Amount01.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 2 })">@Html.Raw(item.Amount02.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 3 })">@Html.Raw(item.Amount03.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 4 })">@Html.Raw(item.Amount04.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 5 })">@Html.Raw(item.Amount05.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 6 })">@Html.Raw(item.Amount06.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 7 })">@Html.Raw(item.Amount07.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 8 })">@Html.Raw(item.Amount08.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 9 })">@Html.Raw(item.Amount09.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 10 })">@Html.Raw(item.Amount10.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 11 })">@Html.Raw(item.Amount11.ToString("N2"))</a>
+                                    </td>
+                                    <td class="warning" style="text-align:right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 12 })">@Html.Raw(item.Amount12.ToString("N2"))</a>
+                                    </td>
+                                    <td class="danger" style="text-align:right;">@Html.Raw(item.AmountTotal.ToString("N2"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="danger">
+                                <th><label></label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount01Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount02Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount03Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount04Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount05Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount06Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount07Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount08Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount09Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount10Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount11Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amount12Total.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(amountTotal.ToString("N2"))</label></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        }
+        else {
+            @Html.Raw(Messages.ReportDataEmpty)
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        SetLeftMenu("liExpense");
+    </script>
+}

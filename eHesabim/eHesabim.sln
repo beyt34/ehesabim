@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Core", "eHesabim.Core\eHesabim.Core.csproj", "{42B3F7E7-5DB1-42E5-9CCA-1C8EE8C28661}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Data", "eHesabim.Data\eHesabim.Data.csproj", "{784D6270-83C9-4C27-AD40-BCA0A7D039E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Services", "eHesabim.Services\eHesabim.Services.csproj", "{40324432-096C-49E4-B265-214A7BC0C969}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "eHesabim.Db", "eHesabim.Db\eHesabim.Db.sqlproj", "{88FF9A66-D20E-49B9-902B-EA088A65DE82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Web.Portal", "eHesabim.Web\eHesabim.Web.Portal.csproj", "{FABAA855-D8B6-48A5-8334-514C8B299A6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Web.Task", "eHesabim.Web.Task\eHesabim.Web.Task.csproj", "{3AA6A909-DB5E-49D2-B06F-C9A632E32E05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Framework", "eHesabim.Framework\eHesabim.Framework.csproj", "{A0CAA5FE-076E-4138-9E85-4AD75C70BDF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Tasks", "eHesabim.Tasks\eHesabim.Tasks.csproj", "{ED5754E7-95F2-4B47-BD32-0A846F911329}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42B3F7E7-5DB1-42E5-9CCA-1C8EE8C28661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B3F7E7-5DB1-42E5-9CCA-1C8EE8C28661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B3F7E7-5DB1-42E5-9CCA-1C8EE8C28661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B3F7E7-5DB1-42E5-9CCA-1C8EE8C28661}.Release|Any CPU.Build.0 = Release|Any CPU
+		{784D6270-83C9-4C27-AD40-BCA0A7D039E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784D6270-83C9-4C27-AD40-BCA0A7D039E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784D6270-83C9-4C27-AD40-BCA0A7D039E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784D6270-83C9-4C27-AD40-BCA0A7D039E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40324432-096C-49E4-B265-214A7BC0C969}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40324432-096C-49E4-B265-214A7BC0C969}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40324432-096C-49E4-B265-214A7BC0C969}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40324432-096C-49E4-B265-214A7BC0C969}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AA6A909-DB5E-49D2-B06F-C9A632E32E05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AA6A909-DB5E-49D2-B06F-C9A632E32E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AA6A909-DB5E-49D2-B06F-C9A632E32E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AA6A909-DB5E-49D2-B06F-C9A632E32E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CAA5FE-076E-4138-9E85-4AD75C70BDF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CAA5FE-076E-4138-9E85-4AD75C70BDF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CAA5FE-076E-4138-9E85-4AD75C70BDF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CAA5FE-076E-4138-9E85-4AD75C70BDF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED5754E7-95F2-4B47-BD32-0A846F911329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED5754E7-95F2-4B47-BD32-0A846F911329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED5754E7-95F2-4B47-BD32-0A846F911329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED5754E7-95F2-4B47-BD32-0A846F911329}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://beyt34.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = eHesabim.Core\\eHesabim.Core.csproj
+		SccProjectName1 = eHesabim.Core
+		SccLocalPath1 = eHesabim.Core
+		SccProjectUniqueName2 = eHesabim.Data\\eHesabim.Data.csproj
+		SccProjectName2 = eHesabim.Data
+		SccLocalPath2 = eHesabim.Data
+		SccProjectUniqueName3 = eHesabim.Services\\eHesabim.Services.csproj
+		SccProjectName3 = eHesabim.Services
+		SccLocalPath3 = eHesabim.Services
+		SccProjectUniqueName4 = eHesabim.Db\\eHesabim.Db.sqlproj
+		SccProjectName4 = eHesabim.Db
+		SccLocalPath4 = eHesabim.Db
+		SccProjectUniqueName5 = eHesabim.Web.Task\\eHesabim.Web.Task.csproj
+		SccProjectName5 = eHesabim.Web.Task
+		SccLocalPath5 = eHesabim.Web.Task
+		SccProjectUniqueName6 = eHesabim.Framework\\eHesabim.Framework.csproj
+		SccProjectName6 = eHesabim.Framework
+		SccLocalPath6 = eHesabim.Framework
+		SccProjectUniqueName7 = eHesabim.Tasks\\eHesabim.Tasks.csproj
+		SccProjectName7 = eHesabim.Tasks
+		SccLocalPath7 = eHesabim.Tasks
+		SccProjectUniqueName8 = eHesabim.Web\\eHesabim.Web.Portal.csproj
+		SccProjectName8 = eHesabim.Web
+		SccLocalPath8 = eHesabim.Web
+	EndGlobalSection
+EndGlobal

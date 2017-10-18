@@ -1,0 +1,93 @@
+﻿@model eHesabim.Web.Task.Models.HomeTaskModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title>..:: eHesabim - Web Task ::..</title>
+    <link href="~/favicon.ico" rel="shurtcut icon" type="image/x-icon" />
+</head>
+<body>
+    <style>
+        .TableFourColls {
+            border: 1px solid #cccccc;
+            border-right: none;
+            border-bottom: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            width: 1000px;
+            background-color: #ffffff;
+        }
+
+            .TableFourColls td {
+                border: 1px solid #cccccc;
+                border-top: none;
+                border-left: none;
+                padding: 4px 6px;
+            }
+
+            .TableFourColls thead td {
+                font-weight: bold;
+                background-color: #444444;
+                color: #ffffff;
+            }
+    </style>
+
+    @using (Html.BeginForm()) {
+        <table class="TableFourColls">
+            <thead>
+                <tr>
+                    <td style="width: 60px;">Id</td>
+                    <td style="width: 250px;">Task</td>
+                    <td style="width: 100px;">Duration</td>
+                    <td style="width: 100px;">Aktif</td>
+                    <td style="width: 100px;">Running</td>
+                    <td style="width: 150px;">Last Run</td>
+                    <td style="width: 500px;">Last Status</td>
+                    <td style="width: 50px;"></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in @Model.Tasks) {
+                    string duration;
+                    if (item.Seconds < 60) {
+                        duration = string.Format("{0} sec(s)", item.Seconds);
+                    }
+                    else if (item.Seconds < 3600) {
+                        duration = string.Format("{0} min(s)", item.Seconds / 60);
+                    }
+                    else if (item.Seconds < 86400) {
+                        duration = string.Format("{0} hour(s)", item.Seconds / 3600);
+                    }
+                    else {
+                        duration = string.Format("{0} day(s)", item.Seconds / 86400);
+                    }
+                    <tr>
+                        <td>@Html.Raw(item.Id)</td>
+                        <td>@Html.Raw(item.TaskName)</td>
+                        <td style="text-align: right;">@Html.Raw(duration)</td>
+                        <td>@Html.Raw(item.IsActive)</td>
+                        <td>@Html.Raw(item.IsRunning)</td>
+                        <td>@Html.Raw(item.LastRun)</td>
+                        <td>@Html.Raw(item.LastStatus)</td>
+                        <td><button type="submit" name="executetask" value="@item.Id" @Html.Raw(!@Model.IsRunning || @item.IsRunning ? "disabled=\"disabled\"" : "")>Execute</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br />
+        <button type="submit" name="start" value="start" @Html.Raw(@Model.IsRunning ? "disabled=\"disabled\"" : "")>Start</button>
+        <button type="submit" name="stop" value="stop" @Html.Raw(@Model.IsRunning ? "" : "disabled=\"disabled\"")>Stop</button>
+        <button type="submit" name="refresh" value="refresh">Refresh</button>
+    }
+    @*<br />
+    <textarea rows="20" cols="120" wrap="hard">
+        @foreach (var line in @Model.Logs) {
+            @line @Html.Raw("\r\n")
+        }
+    </textarea>*@
+</body>
+</html>

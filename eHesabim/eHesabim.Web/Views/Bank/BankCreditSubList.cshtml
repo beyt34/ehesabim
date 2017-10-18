@@ -1,0 +1,116 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditSubListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-support fa-fw"></i> @Headers.BankCreditSubList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "bankCreditSubForm" })) {
+            <div class="form-group">
+                <label>@Html.Raw(Labels.BankCredit)</label>
+                @Html.DropDownListFor(m => m.SearchBankCreditId, Model.SearchBankCreditList, new { @class = "form-control", placeholder = Labels.Bank })
+            </div>
+
+            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+            <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+        }
+
+        <hr />
+
+        <div class="table-responsive col-xs-12">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("bankCreditSubGrid")
+                  .Columns(columns => {
+                      columns.Bound(x => x.BankName).Title(Labels.Bank);
+                      columns.Bound(x => x.CreditTerm).Title(Labels.Term);
+                      columns.Bound(x => x.CreditInfo).Title(Labels.CreditInfo);
+                      columns.Bound(x => x.Installment).Title(Labels.InstallmentNo);
+                      columns.Bound(x => x.InstallmentDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.Date);
+                      columns.Bound(x => x.PaymentDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.PaymentDate);
+                      columns.Bound(x => x.InstallmentAmount).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.InstallmentAmount);
+                      columns.Bound(x => x.CapitalAmount).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.CapitalAmount);
+                      columns.Bound(x => x.InterestAmount).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.InterestAmount);
+                      columns.Bound(x => x.RemainCapital).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.RemainCapital);
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onBankCreditSubEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onGridDataBound"))
+                  .DataSource(dataSource =>
+                                dataSource
+                                    .Ajax()
+                                    .Model(m => m.Id(p => p.Id))
+                                    .PageSize(20)
+                                    .Total(Model.Total)
+                                    .Read(read => read.Action("BankCreditSubList", "Bank").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+          .Name("bankCreditSubEditWindow")
+          .Title(Headers.BankCreditSubEdit)
+          .Draggable(true)
+          .Modal(true)
+          .Visible(false)
+          .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("bankCreditSubForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "bankCreditSubGrid");
+            });
+
+            $('#form-detail').click(function () {
+                var wnd = $("#bankCreditSubEditWindow").kendoWindow({
+                    content: {
+                        url: "/Bank/_BankCreditSubEdit"
+                    }
+                }).data("kendoWindow");
+
+                wnd.wrapper.addClass("col-sm-8 col-xs-10 max-width-650");
+                wnd.center();
+                wnd.open();
+            });
+        });
+
+        //SetLeftMenu("liBank");
+        SetLeftMenu("liBankCredit");
+
+        function onBankCreditSubEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("bankCreditSubEditWindow", "/Bank/_BankCreditSubEdit", dataItem.Id, "md");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchBankCreditId: $('#SearchBankCreditId').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+    </script>
+}

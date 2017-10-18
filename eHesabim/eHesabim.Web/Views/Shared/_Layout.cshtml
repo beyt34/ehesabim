@@ -1,0 +1,122 @@
+﻿@using System.Web.Optimization
+@using eHesabim.Web.Portal.Helper
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bireysel Bütçe Takibi eHesabim.com</title>
+    <meta name="description" content="Cari, K.Kartı, Kredi ve Harcama Modülleri içeren Online Bireysel Bütçe Takibi için eHesabim.com" />
+    <meta name="keywords" content="bütçe, bütçe takibi, varlık yönetimi, borç alacak takibi, cari ekstre, kredi kartı, kredi, harcama takibi, alışveriş, gider takibi" />
+
+    <link rel="icon" href="~/favicon2.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/favicon2.ico" type="image/x-icon">
+
+    @Styles.Render(CssBundles.JQueryUi)
+    @Styles.Render(CssBundles.Bootstrap)
+    @Styles.Render(CssBundles.SbAdmin)
+    @Styles.Render(CssBundles.Kendo)
+    @Styles.Render(CssBundles.Style)
+
+    @Scripts.Render(JsBundles.JQuery)
+
+    @RenderSection("head", false)
+
+    <!-- Google Analytics -->
+    <script type="text/javascript" language="javascript">
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments);
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-47095012-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- /Google Analytics -->
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter32268614 = new Ya.Metrika({
+                        id: 32268614,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    });
+                } catch (e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <!-- /Yandex.Metrika counter -->
+
+</head>
+<body>
+    <noscript><div><img src="https://mc.yandex.ru/watch/32268614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <div id="wrapper">
+        @Html.Partial("Menu")
+
+        <div id="page-wrapper">
+
+            @RenderBody()
+
+            @Scripts.Render(JsBundles.JQueryUi)
+            @Scripts.Render(JsBundles.JQueryMenu)
+            @Scripts.Render(JsBundles.Bootstrap)
+            @Scripts.Render(JsBundles.SbAdmin)
+            @Scripts.Render(JsBundles.Kendo)
+            @Scripts.Render(JsBundles.Scripts)
+
+            <script type="text/javascript" language="javascript">
+                $(document).ajaxStop($.unblockUI);
+                $(document).ready(function () {
+                    $('.UIButton').click(function () {
+                        var form = $(this).parents('form:first');
+                        if (form.valid()) {
+                            BlockUI();
+                        }
+                    });
+                });
+
+                // kendo
+                kendo.culture("tr-TR");
+                var culture = kendo.culture();
+                console.log(culture.name);
+            </script>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="pull-left" style="padding-right: 20px;">Tasarım: <a href="http://startbootstrap.com/sb-admin-v2" target="_blank">SB Admin</a></p>
+                    <p class="pull-left" style="padding-right: 20px;">Barındırma: <a href="http://4flyy.com" target="_blank">4Flyy</a></p>
+                    <p class="pull-left">İletişim: <a href="mailto:info@ehesabim.com">info@ehesabim.com</a></p>
+                    <p class="pull-right">Copyright &copy; eHesabim.com</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @RenderSection("scripts", false)
+
+</body>
+</html>

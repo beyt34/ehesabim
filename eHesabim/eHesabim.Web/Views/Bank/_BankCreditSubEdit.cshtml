@@ -1,0 +1,141 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditSubEditWebModel
+
+@using (Ajax.BeginForm("_BankCreditSubEdit", "Bank", new { Model.Id },
+ new AjaxOptions {
+     HttpMethod = "POST",
+     OnSuccess = "onBankCreditSubEditSuccess"
+ }, new { @id = "bankCreditEditSubForm", @class = "form-horizontal" })) {
+    <div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.BankCredit</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.BankCreditId, Model.BankCreditList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankCreditId)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Installment</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">#</span>
+                        @Html.TextBoxFor(m => m.Installment, new { @class = "form-control", placeholder = Labels.Installment, maxLength = 3, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Installment)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Date</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.InstallmentDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.InstallmentDateTime)
+                </div>
+            </div>
+            
+              <div class="form-group">
+                <label class="col-sm-3">@Labels.PaymentDate</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.PaymentDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.PaymentDateTime)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.InstallmentAmount</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.InstallmentAmount, new { @class = "form-control", placeholder = Labels.InstallmentAmount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.InstallmentAmount)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.CapitalAmount</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.CapitalAmount, new { @class = "form-control", placeholder = Labels.CapitalAmount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.CapitalAmount)</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.InterestAmount</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.InterestAmount, new { @class = "form-control", placeholder = Labels.InterestAmount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.InterestAmount)</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.BankAccount</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.BankAccountId, Model.BankAccountList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankAccountId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.ExpenseGroup</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.ExpenseGroupId, Model.ExpenseGroupList, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(m => m.ExpenseGroupId)
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3">&nbsp;</label>
+                <div class="col-sm-9">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('bankCreditSubEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ValidateForm("bankCreditEditSubForm");
+
+        $("#InstallmentAmount").keyup(function () {
+            CalculateInterest();
+        });
+        $("#CapitalAmount").keyup(function () {
+            CalculateInterest();
+        });
+    });
+
+    function CalculateInterest() {
+        var installmentAmount = ParseToDecimal($("#InstallmentAmount").val());
+        var capitalAmount = ParseToDecimal($("#CapitalAmount").val());
+        var interestAmount = installmentAmount - capitalAmount;
+        SetDecimalValue(interestAmount, "#InterestAmount");
+    }
+
+    function onBankCreditSubEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#bankCreditSubGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#bankCreditSubEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>

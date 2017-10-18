@@ -1,0 +1,244 @@
+﻿@using eHesabim.Services
+@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.ExpenseEditWebModel
+
+@using (Ajax.BeginForm("_ExpenseEdit", "Expense", new { Model.Id },
+                new AjaxOptions {
+                    HttpMethod = "POST",
+                    OnSuccess = "onExpenseEditSuccess"
+                }, new { @id = "expenseEditForm", @class = "form-horizontal" })) {
+
+    @Html.HiddenFor(m => m.Id)
+
+    <div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseType</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.TypeId, Model.TypeList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TypeId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.Date</label>
+                <div class="col-sm-8">
+                    @Html.Kendo().DatePickerFor(m => m.ExpenseDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.ExpenseDateTime)
+                </div>
+            </div>
+
+            <div id="divExpenseStoreId" class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseStore</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.ExpenseStoreId, Model.ExpenseStoreList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ExpenseStoreId)
+                </div>
+            </div>
+            <div id="divExpenseStoreName" class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseStoreName</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.ExpenseStoreName, new { @class = "form-control", placeholder = Labels.ExpenseStoreName, maxLength = 100 })
+                    @Html.ValidationMessageFor(m => m.ExpenseStoreName)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseStoreNotExists</label>
+                <div class="col-sm-8">
+                    @Html.CheckBoxFor(m => m.ExpenseStoreNotExists)
+                </div>
+            </div>
+
+            <div id="divExpenseGroupId" class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseGroup</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.ExpenseGroupId, Model.ExpenseGroupList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ExpenseGroupId)
+                </div>
+            </div>
+            <div id="divExpenseGroupName" class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseGroupName</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.ExpenseGroupName, new { @class = "form-control", placeholder = Labels.ExpenseGroupName, maxLength = 100 })
+                    @Html.ValidationMessageFor(m => m.ExpenseGroupName)
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseGroupNotExists</label>
+                <div class="col-sm-8">
+                    @Html.CheckBoxFor(m => m.ExpenseGroupNotExists)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.Amount</label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = Labels.Amount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Amount)</div>
+                </div>
+            </div>
+
+            <div id="divExpenseInstallment" class="form-group">
+                <label class="col-sm-4">@Labels.Installment</label>
+                <div class="col-sm-8">
+                    <div class="col-sm-6" style="padding-left: 0; padding-bottom: 5px;">
+                        @Html.TextBoxFor(m => m.InstallmentNo, new { @class = "form-control", placeholder = Labels.InstallmentNo, maxLength = 3, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.InstallmentNo)
+                    </div>
+                    <div class="col-sm-6" style="padding-left: 0; padding-bottom: 5px;">
+                        @Html.TextBoxFor(m => m.InstallmentTotal, new { @class = "form-control", placeholder = Labels.InstallmentTotal, maxLength = 3, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.InstallmentTotal)
+                    </div>
+                </div>
+            </div>
+
+            <div id="divExpenseBankCreditCard">
+                <div class="form-group">
+                    <label class="col-sm-4">@Labels.BankCreditCard</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(m => m.BankCreditCardId, Model.BankCreditCardList, new { @class = "form-control", onchange = "GetBankCreditCardPeriodList('BankCreditCardId','BankCreditCardPeriodId');" })
+                        @Html.ValidationMessageFor(m => m.BankCreditCardId)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4">@Labels.BankCreditCardPeriod2</label>
+                    <div class="col-sm-8">
+                        @Html.DropDownListFor(m => m.BankCreditCardPeriodId, Model.BankCreditCardPeriodList, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.BankCreditCardPeriodId)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseIsExclusion</label>
+                <div class="col-sm-8">
+                    @Html.CheckBoxFor(m => m.IsExclusion)
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.ExpenseNotes</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Notes, new { @class = "form-control", placeholder = Labels.ExpenseNotes, maxLength = 100 })
+                    @Html.ValidationMessageFor(m => m.Notes)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.BankAccount</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(m => m.BankAccountId, Model.BankAccountList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankAccountId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4">@Labels.Explanation</label>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(m => m.Explanation, new { @class = "form-control", placeholder = Labels.Explanation, @readonly = true })
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('expenseEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    // global variables
+    var expenseTypeEnumCash = '@ExpenseTypeEnum.Cash.GetHashCode()';
+    var expenseTypeEnumCreditCard = '@ExpenseTypeEnum.CreditCard.GetHashCode()';
+    var expenseTypeEnumCreditCardMulti = '@ExpenseTypeEnum.CreditCardMulti.GetHashCode()';
+
+    $(document).ready(function () {
+        ValidateForm("expenseEditForm");
+        onTypeChanged();
+        onNotExistsChanged("ExpenseStore");
+        onNotExistsChanged("ExpenseGroup");
+    });
+
+    $("#TypeId").change(function () {
+        onTypeChanged();
+    });
+
+    $("#ExpenseStoreNotExists").change(function () {
+        onNotExistsChanged("ExpenseStore");
+    });
+
+    $("#ExpenseGroupNotExists").change(function () {
+        onNotExistsChanged("ExpenseGroup");
+    });
+
+    function onTypeChanged() {
+        if ($("#Id").val() == "") {
+            $("#Id").val("00000000-0000-0000-0000-000000000000");
+        }
+
+        $("#TypeId").prop("disabled", ($("#Id").val() != "00000000-0000-0000-0000-000000000000"));
+
+        $("#divExpenseBankCreditCard").hide();
+        $("#divExpenseInstallment").hide();
+
+        switch ($("#TypeId").val()) {
+            case expenseTypeEnumCash: // taksit olabilir, k.kartı yok
+                $("#divExpenseInstallment").show();
+
+                $("#BankCreditCardId").val("");
+                $("#BankCreditCardPeriodId").val("");
+                break;
+
+            case expenseTypeEnumCreditCard: // taksit yok, k.kartı var
+                $("#InstallmentNo").val("");
+                $("#InstallmentTotal").val("");
+
+                $("#divExpenseBankCreditCard").show();
+                break;
+
+            case expenseTypeEnumCreditCardMulti: // taksit, k.kartı var
+                $("#divExpenseInstallment").show();
+                $("#divExpenseBankCreditCard").show();
+                break;
+
+        }
+    }
+
+    function onNotExistsChanged(fieldName) {
+        if ($('#' + fieldName + 'NotExists').is(":checked")) {
+            $('#' + 'div' + fieldName + 'Id').hide();
+            $('#' + 'div' + fieldName + 'Name').show();
+
+            $('#' + fieldName + 'Id').val("");
+        } else {
+            $('#' + 'div' + fieldName + 'Id').show();
+            $('#' + 'div' + fieldName + 'Name').hide();
+
+            $('#' + fieldName + 'Name').val("");
+        }
+    }
+
+    function onExpenseEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#expenseGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#expenseEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>

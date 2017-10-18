@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>eHesabim.Web.Portal</id>
+    <title>eHesabim Portal Project</title>
+    <version>1.0.0</version>
+    <authors>eHesabim</authors>
+    <owners>eHesabim</owners>
+    <licenseUrl>http://eHesabim.com</licenseUrl>
+    <projectUrl>http://eHesabim.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>eHesabim Project</description>
+    <releaseNotes>...</releaseNotes>
+  </metadata>
+</package>

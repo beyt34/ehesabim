@@ -1,0 +1,90 @@
+﻿@using eHesabim.Framework.Localization
+
+@model eHesabim.Web.Portal.Models.UserUpdateProfileWebModel
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ValidateForm("updateProfileForm");
+    });
+
+    function onUpdateProfileSuccess(data) {
+        if (data.Success) {
+            $("#updateProfileWindow").data("kendoWindow").close();
+            location.reload();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>
+
+@using (Ajax.BeginForm("_UpdateProfile", "User", new { Model.Id }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "onUpdateProfileSuccess" }, new { id = "updateProfileForm" })) {
+    <div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label>@Labels.UserName</label>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", maxLength = 50, autocomplete = "off", placeholder = Labels.UserName })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+
+            <div class="form-group">
+                <label>@Labels.Email</label>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxLength = 100, autocomplete = "off", placeholder = Labels.Email })
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+
+            <div class="form-group">
+                <label>@Labels.Phone</label>
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", maxLength = 20, autocomplete = "off", placeholder = Labels.Phone })
+                @Html.ValidationMessageFor(m => m.Phone)
+            </div>
+
+            <div class="form-group">
+                <label>@Headers.UserModule</label>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ShowCustomer)
+                        @Labels.ShowCustomer
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ShowAccount)
+                        @Labels.ShowAccount
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ShowCredit)
+                        @Labels.ShowCredit
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ShowCard)
+                        @Labels.ShowCard
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ShowExpense)
+                        @Labels.ShowExpense
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.ShowCustomerExclusion)
+                        @Labels.ShowCustomerExclusion
+                    </label>
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+            <button type="button" onclick="closeModal('updateProfileWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+
+        </div>
+    </div>
+}
+

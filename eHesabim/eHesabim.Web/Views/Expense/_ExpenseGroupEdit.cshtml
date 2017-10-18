@@ -1,0 +1,41 @@
+﻿@using eHesabim.Framework.Localization
+@model eHesabim.Web.Portal.Models.ExpenseGroupEditWebModel
+
+@using (Ajax.BeginForm("_ExpenseGroupEdit", "Expense", new { Model.Id },
+ new AjaxOptions {
+     HttpMethod = "POST",
+     OnSuccess = "onExpenseGroupEditSuccess"
+ }, new { id = "expenseGroupEditForm" })) {
+    
+    <div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label>@Labels.ExpenseGroupName</label>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = Labels.ExpenseGroupName, maxLength = 100 })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+        
+            <div id="resultDiv"></div>
+
+            <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+            <button type="button" onclick="closeModal('expenseGroupEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ValidateForm("expenseGroupEditForm");
+    });
+
+    function onExpenseGroupEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#expenseGroupGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#expenseGroupEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>

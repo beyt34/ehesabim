@@ -1,0 +1,120 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.UserListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-users fa-fw"></i> @Headers.UserList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "userForm" })) {
+            <div class="form-group">
+                <label>@Html.Raw(Labels.UserName)</label>
+                @Html.TextBoxFor(m => m.SearchName, new { @class = "form-control", placeholder = Labels.UserName })
+            </div>
+
+            <div class="form-group">
+                <label>@Html.Raw(Labels.Email)</label>
+                @Html.TextBoxFor(m => m.SearchEmail, new { @class = "form-control", placeholder = Labels.Email })
+            </div>
+
+            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+        }
+
+        <hr />
+
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("userGrid")
+                  .Columns(columns => {
+                      columns.Bound(p => p.Id).Title(Labels.Id);
+                      columns.Bound(p => p.Name).Title(Labels.UserName);
+                      columns.Bound(p => p.Email).Title(Labels.Email);
+                      columns.Bound(p => p.Phone).Title(Labels.Phone);
+                      columns.Bound(p => p.CreatedDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.CreatedDateTime);
+                      columns.Command(x => x.Custom(Buttons.Login).Click("onLogin")).Width(50).HtmlAttributes(new { cmd = "login", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onUserEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onGridDataBound"))
+                  .DataSource(dataSource =>
+                            dataSource
+                                .Ajax()
+                                .Model(model => model.Id(p => p.Id))
+                                .PageSize(10)
+                                .Total(Model.Total)
+                                .Read(read => read.Action("UserList", "User").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+                    .Name("userEditWindow")
+                    .Title(Headers.UserEdit)
+                    .Draggable(true)
+                    .Modal(true)
+                    .Visible(false)
+                    .Render(); }
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("userForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "userGrid");
+            });
+        });
+
+        SetLeftMenu("liSystem");
+
+        function onUserEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("userEditWindow", "/User/_UserEdit", dataItem.Id, "sm");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchName: $('#SearchName').val(),
+                SearchEmail: $('#SearchEmail').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+
+        function onLogin(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            $.ajax({
+                url: "/User/LoginAs",
+                data: { id: '' + dataItem.Id + '' },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.Success) {
+                        window.open("dashboard");
+                    } else {
+                        alert('Error!');
+                    }
+                }
+            });
+        }
+    </script>
+}

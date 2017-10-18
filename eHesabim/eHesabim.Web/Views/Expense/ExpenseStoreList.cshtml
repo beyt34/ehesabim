@@ -1,0 +1,104 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.ExpenseStoreListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-shopping-cart fa-fw"></i> @Headers.ExpenseStoreList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "expenseStoreForm" })) {
+            <div class="form-group">
+                <label>@Labels.ExpenseStoreName</label>
+                @Html.TextBoxFor(m => m.SearchName, new { @class = "form-control", placeholder = Labels.ExpenseStoreName })
+            </div>
+
+            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+            <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+        }
+
+        <hr />
+
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("expenseStoreGrid")
+                  .Columns(columns => {
+                      columns.Bound(x => x.Name).Title(Labels.ExpenseStoreName);
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onExpenseStoreEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onDataBound"))
+                  .DataSource(dataSource =>
+                        dataSource
+                            .Ajax()
+                            .Model(model => model.Id(p => p.Id))
+                            .PageSize(20)
+                            .Total(Model.Total)
+                            .Read(read => read.Action("ExpenseStoreList", "Expense").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+        <hr />
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+        .Name("expenseStoreEditWindow")
+        .Title(Headers.ExpenseStoreEdit)
+        .Draggable(true)
+        .Modal(true)
+        .Visible(false)
+        .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("expenseStoreForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "expenseStoreGrid");
+            });
+
+            $('#form-detail').click(function () {
+                openModal("expenseStoreEditWindow", "/Expense/_ExpenseStoreEdit", "", "sm");
+            });
+        });
+
+        SetLeftMenu("liExpense");
+
+        function onExpenseStoreEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("expenseStoreEditWindow", "/Expense/_ExpenseStoreEdit", dataItem.Id, "sm");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchName: $('#SearchName').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+
+        function onDataBound(e) {
+            onGridDataBound();
+        }
+    </script>
+}

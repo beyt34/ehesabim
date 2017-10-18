@@ -1,0 +1,86 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditCardPaymentEditWebModel
+
+@using (Ajax.BeginForm("_BankCreditCardPaymentEdit", "Bank", new { Model.Id },
+ new AjaxOptions {
+     HttpMethod = "POST",
+     OnSuccess = "onBankCreditCardPaymentEditSuccess"
+ }, new { @id = "bankCreditCardPaymentEditForm", @class = "form-horizontal" })) {
+    <div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label class="col-sm-2">@Labels.BankCreditCard</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.BankCreditCardId, Model.BankCreditCardList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankCreditCardId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2">@Labels.Date</label>
+                <div class="col-sm-10">
+                    @Html.Kendo().DatePickerFor(m => m.PaymentDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.PaymentDateTime)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2">@Labels.Amount</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = Labels.Amount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Amount)</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2">@Labels.HasPoint</label>
+                <div class="col-sm-10">
+                    @Html.CheckBoxFor(m => m.HasPoint)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2">@Labels.BankAccount</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.BankAccountId, Model.BankAccountList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankAccountId)
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <label class="col-sm-2">&nbsp;</label>
+                <div class="col-sm-10">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('bankCreditCardPaymentEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ValidateForm("bankCreditCardPaymentEditForm");
+    });
+
+    function onBankCreditCardPaymentEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#bankCreditCardPaymentGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#bankCreditCardPaymentEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>
+

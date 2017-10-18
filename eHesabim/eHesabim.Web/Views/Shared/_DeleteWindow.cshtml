@@ -1,0 +1,70 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.DeleteWebModel
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#delete-record').click(function () {
+            $.ajax({
+                url: "/Common/Delete",
+                data: {
+                    permissionId: '' + $('#Permission').val() + '',
+                    formId: '' + $('#Form').val() + '',
+                    id: '' + $('#Id').val() + ''
+                },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.Success) {
+                        // Gridi refresh et
+                        $('#@Model.GridName').data('kendoGrid').dataSource.read();
+                        // Pop-up ı kapat
+                        $("#deleteWindow").data("kendoWindow").close();
+                    } else {
+                        $('#resultDiv').html(data.Result);
+                    }
+                }
+            });
+        });
+    });
+
+    function onDeleteWindow(e) {
+        e.preventDefault();
+        $('#Id').val(this.dataItem($(e.currentTarget).closest("tr")).Id.toString());
+        var wnd = $("#deleteWindow").kendoWindow().data("kendoWindow");
+
+        wnd.wrapper.addClass("col-sm-6 col-xs-10 max-width-400");
+        wnd.center();
+        wnd.open();
+    }
+</script>
+
+@{Html.Kendo()
+      .Window()
+      .Name("deleteWindow")
+      .Title(Buttons.Delete)
+      .Content(@<text>
+
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Permission)
+        @Html.HiddenFor(m => m.Form)
+
+        <div>
+            <div class="panel-body">
+                <p>
+                    @Messages.DeleteConfirmation
+                </p>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <input type="submit" id="delete-record" value="@Buttons.Delete" class="btn btn-danger">
+            <button type="button" onclick="closeModal('deleteWindow');" class="btn btn-outline btn-danger">@Buttons.Close</button>
+        </div>
+
+    </text>)
+        .Draggable(true)
+        .Modal(true)
+        .Visible(false)
+        .Render();
+}

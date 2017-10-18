@@ -1,0 +1,113 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditCardPaymentListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-check fa-fw"></i> @Headers.BankCreditCardPaymentList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "bankCreditCardPaymentForm" })) {
+            <div class="form-group">
+                <label>@Html.Raw(Labels.BankCreditCard)</label>
+                @Html.DropDownListFor(m => m.SearchBankCreditCardId, Model.SearchBankCreditCardList, new { @class = "form-control", placeholder = Labels.Bank })
+            </div>
+
+            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+            <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+        }
+
+        <hr />
+
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("bankCreditCardPaymentGrid")
+                  .Columns(columns => {
+                      columns.Bound(x => x.BankCreditCardName).Title(Labels.BankCreditCard);
+                      columns.Bound(x => x.PaymentDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.Date);
+                      columns.Bound(p => p.Amount).Format("{0:C2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Amount);
+                      columns.Bound(x => x.HasPoint).ClientTemplate("<input type='checkbox' name='chkCanRead' #= HasPoint ? checked='checked' : '' # disabled />").Title(Labels.HasPoint);
+                      ////columns.Bound(x => x.BankAccountName).Title(Labels.BankAccount);
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onBankCreditCardPaymentEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onGridDataBound"))
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Model(m => m.Id(p => p.Id))
+                      .PageSize(20)
+                      .Total(Model.Total)
+                      .Read(read => read.Action("BankCreditCardPaymentList", "Bank").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+          .Name("bankCreditCardPaymentEditWindow")
+          .Title(Headers.BankCreditCardPaymentEdit)
+          .Draggable(true)
+          .Modal(true)
+          .Visible(false)
+          .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("bankCreditCardPaymentForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "bankCreditCardPaymentGrid");
+            });
+
+            $('#form-detail').click(function () {
+                var wnd = $("#bankCreditCardPaymentEditWindow").kendoWindow({
+                    content: {
+                        url: "/Bank/_BankCreditCardPaymentEdit",
+                        data: {
+                            creditCardId: '' + $('#SearchBankCreditCardId').val() + ''
+                        }
+                    }
+                }).data("kendoWindow");
+
+                wnd.wrapper.addClass("col-sm-6 col-xs-10 max-width-400");
+                wnd.center();
+                wnd.open();
+            });
+        });
+
+        //SetLeftMenu("liBank");
+        SetLeftMenu("liBankCreditCard");
+
+        function onBankCreditCardPaymentEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("bankCreditCardPaymentEditWindow", "/Bank/_BankCreditCardPaymentEdit", dataItem.Id, "sm");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchBankCreditCardId: $('#SearchBankCreditCardId').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+    </script>
+}

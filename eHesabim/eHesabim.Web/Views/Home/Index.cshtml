@@ -1,0 +1,344 @@
+﻿@using eHesabim.Framework.Localization
+@using eHesabim.Web.Portal.Engine
+@model eHesabim.Web.Portal.Models.DashboardWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+@{ var customerDebitTotal = 0.0M; var customerClaimTotal = 0.0M; var customerNetTotal = 0.0M; var customerDueDebitTotal = 0.0M; }
+@{ var bankAccountDebitTotal = 0.0M; var bankAccountClaimTotal = 0.0M; var bankAccountNetTotal = 0.0M; }
+@{ var capitalTotal = 0.0M; var monthlyPaymentTotal = 0.0M; var remainCapitalTotal = 0.0M; }
+@{ var limitTotal = 0.0M; var availableLimitTotal = 0.0M; var lastDebtTotal = 0.0M; var currentDebtTotal = 0.0M; var nextDebtTotal = 0.0M; var debtTotal = 0.0M; }
+
+@if (WorkContext.CurrentUser.ShowCustomer) {
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a href="@Url.RouteUrl(RouteNames.CustomerTransactionList)"><i class="fa fa-edit fa-fw"></i> @Headers.Customer</a>
+            </h4>
+        </div>
+        <div class="panel-body">
+            @if (Model.Customers != null && Model.Customers.Any()) {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr class="">
+                                <th class="col-xs-2">@Html.Raw(Labels.CustomerName)</th>
+                                <th class="col-xs-3" style="text-align: right;">@Html.Raw(Labels.Debit)</th>
+                                <th class="col-xs-3" style="text-align: right;">@Html.Raw(Labels.Claim)</th>
+                                <th class="col-xs-2" style="text-align: right;">@Html.Raw(Labels.Net)</th>
+                                <th class="col-xs-2" style="text-align: right;">@Html.Raw(Labels.DueDebit)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Customers) {
+                                customerDebitTotal += item.Debit;
+                                customerClaimTotal += item.Claim;
+                                customerNetTotal += item.Net;
+                                customerDueDebitTotal += item.DueDebit;
+
+                                var trClass = item.Net < 0 ? "danger" : "success";
+                                var nameExt = item.IsExclusion ? string.Format("(*) {0}", item.Name) : item.Name;
+
+                                <tr class="@trClass">
+                                    <td>@Html.Raw(nameExt)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.Debit.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.Claim.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.Net.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.DueDebit.ToString("N2"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="">
+                                <th><label></label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(customerDebitTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(customerClaimTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(customerNetTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(customerDueDebitTotal.ToString("N2"))</label></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+            else {
+                @Html.Raw(Messages.ReportDataEmpty)
+            }
+        </div>
+    </div>
+}
+
+@if (WorkContext.CurrentUser.ShowAccount) {
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a href="@Url.RouteUrl(RouteNames.BankAccountTransactionList)"><i class="fa fa-pagelines fa-fw"></i> @Headers.BankAccounts</a>
+            </h4>
+        </div>
+        <div class="panel-body">
+            @if (Model.BankAccounts != null && Model.BankAccounts.Any()) {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr class="">
+                                <th class="col-xs-2">@Html.Raw(Labels.BankAccount)</th>
+                                <th class="col-xs-3" style="text-align: right;">@Html.Raw(Labels.Debit)</th>
+                                <th class="col-xs-3" style="text-align: right;">@Html.Raw(Labels.Claim)</th>
+                                <th class="col-xs-2" style="text-align: right;">@Html.Raw(Labels.Net)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.BankAccounts) {
+                                bankAccountDebitTotal += item.DebitTotal;
+                                bankAccountClaimTotal += item.ClaimTotal;
+                                bankAccountNetTotal += item.NetTotal;
+
+                                var trClass = item.NetTotal < 0 ? "danger" : "success";
+
+                                <tr class="@trClass">
+                                    <td>@Html.Raw(item.Name)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.DebitTotal.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.ClaimTotal.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.NetTotal.ToString("N2"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="">
+                                <th><label></label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(bankAccountDebitTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(bankAccountClaimTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(bankAccountNetTotal.ToString("N2"))</label></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+            else {
+                @Html.Raw(Messages.ReportDataEmpty)
+            }
+        </div>
+    </div>
+}
+
+@if (WorkContext.CurrentUser.ShowCredit) {
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a href="@Url.RouteUrl(RouteNames.BankCreditSubList)"><i class="fa fa-money fa-fw"></i> @Headers.BankCredits</a>
+            </h4>
+        </div>
+        <div class="panel-body">
+            @if (Model.BankCredits != null && Model.BankCredits.Any()) {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr class="">
+                                <th class="col-xs-1">@Labels.Bank</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.Installment</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.RemainInstallment</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.PaymentDate</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.MonthlyPayment</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.Capital</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.RemainCapital</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.BankCredits) {
+                                monthlyPaymentTotal += item.MonthlyPayment;
+                                capitalTotal += item.Capital;
+                                remainCapitalTotal += item.RemainCapital;
+
+                                var day = item.PaymentDateTime == DateTime.MinValue ? 999 : item.PaymentDateTime.Subtract(DateTime.Today).TotalDays;
+                                var trClass = day <= 0 ? "danger" : day <= 15 ? "warning" : "success";
+
+                                <tr class="@trClass">
+                                    <td>@Html.Raw(item.BankName)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.Installment.ToString("N0"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.RemainInstallment.ToString("N0"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.PaymentDateTime != DateTime.MinValue ? item.PaymentDateTime.ToString("dd.MM.yyyy") : string.Empty)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.MonthlyPayment.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.Capital.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.RemainCapital.ToString("N2"))</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="">
+                                <th><label></label></th>
+                                <th><label></label></th>
+                                <th><label></label></th>
+                                <th><label></label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(monthlyPaymentTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(capitalTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(remainCapitalTotal.ToString("N2"))</label></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+            else {
+                @Html.Raw(Messages.ReportDataEmpty)
+            }
+        </div>
+    </div>
+}
+
+@if (WorkContext.CurrentUser.ShowCredit) {
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a href="@Url.RouteUrl(RouteNames.ExpenseList)"><i class="fa fa-credit-card fa-fw"></i> @Headers.BankCreditCards</a>
+            </h4>
+        </div>
+        <div class="panel-body">
+            @if (Model.BankCreditCards != null && Model.BankCreditCards.Any()) {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr class="">
+                                <th class="col-xs-1">@Labels.BankCreditCardName</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.BankCreditCardLimit</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.AvailableLimit</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.EndDate</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.PaymentDate</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.LastDebt</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.CurrentDebt</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.NextDebt</th>
+                                <th class="col-xs-1" style="text-align: right;">@Labels.DebtTotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.BankCreditCards) {
+                                limitTotal += item.Limit;
+                                availableLimitTotal += item.AvailableLimit;
+                                lastDebtTotal += item.LastDebt;
+                                currentDebtTotal += item.CurrentDebt;
+                                nextDebtTotal += item.NextDebt;
+                                debtTotal += item.DebtTotal;
+
+                                var day = item.PaymentDateTime == DateTime.MinValue ? 999 : item.PaymentDateTime.Subtract(DateTime.Today).TotalDays;
+                                var trClass = day <= 0 ? "danger" : day <= 15 ? "warning" : "success";
+
+                                <tr class="@trClass">
+                                    <td>@Html.Raw(item.Name)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.Limit.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.AvailableLimit.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.EndDateTime != DateTime.MinValue ? item.EndDateTime.ToString("dd.MM.yyyy") : string.Empty)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.PaymentDateTime != DateTime.MinValue ? item.PaymentDateTime.ToString("dd.MM.yyyy") : string.Empty)</td>
+                                    <td style="text-align: right;">@Html.Raw(item.LastDebt.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.CurrentDebt.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.NextDebt.ToString("N2"))</td>
+                                    <td style="text-align: right;">@Html.Raw(item.DebtTotal.ToString("N2"))</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="">
+                                <th><label></label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(limitTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(availableLimitTotal.ToString("N2"))</label></th>
+                                <th><label></label></th>
+                                <th><label></label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(lastDebtTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(currentDebtTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(nextDebtTotal.ToString("N2"))</label></th>
+                                <th style="text-align: right;"><label>@Html.Raw(debtTotal.ToString("N2"))</label></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            }
+            else {
+                @Html.Raw(Messages.ReportDataEmpty)
+            }
+        </div>
+    </div>
+}
+
+<!-- Alt Toplamlar -->
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        @if (WorkContext.CurrentUser.ShowCustomer) {
+            <tr>
+                <th class="col-xs-4" style="vertical-align: middle;">
+                    <label>@Headers.Customer</label>
+                </th>
+                <td class="col-xs-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="@Html.Raw(customerNetTotal.ToString("N2"))" style="text-align: right;" readonly="readonly" />
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        @if (WorkContext.CurrentUser.ShowAccount) {
+            <tr>
+                <th style="vertical-align: middle;">
+                    <label>@Headers.BankAccounts</label>
+                </th>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="@Html.Raw(bankAccountNetTotal.ToString("N2"))" style="text-align: right;" readonly="readonly" />
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        @if (WorkContext.CurrentUser.ShowCredit) {
+            <tr>
+                <th style="vertical-align: middle;">
+                    <label>@Headers.BankCredits</label>
+                </th>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="@Html.Raw(remainCapitalTotal.ToString("N2"))" style="text-align: right;" readonly="readonly" />
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        @if (WorkContext.CurrentUser.ShowCard) {
+            <tr>
+                <th style="vertical-align: middle;">
+                    <label>@Headers.BankCreditCards</label>
+                </th>
+                <td>
+                    <div class="input-group">
+                        <input type="text" class="form-control" value="@Html.Raw(debtTotal.ToString("N2"))" style="text-align: right;" readonly="readonly" />
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <th style="vertical-align: middle;">
+                <label>@Labels.AssetTotal</label>
+            </th>
+            <td>
+                <div class="input-group">
+                    @{ var assetTotal = customerNetTotal + bankAccountNetTotal - remainCapitalTotal - debtTotal; }
+                    <input type="text" class="form-control" value="@Html.Raw(assetTotal.ToString("N2"))" style="text-align: right;" readonly="readonly" />
+                    <span class="input-group-addon">TL</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+}

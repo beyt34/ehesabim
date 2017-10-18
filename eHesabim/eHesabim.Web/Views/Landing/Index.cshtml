@@ -1,0 +1,34 @@
+﻿@using eHesabim.Web.Portal.Engine
+@{
+    Layout = "../Shared/_LayoutLanding.cshtml";
+}
+
+<header id="top" class="header">
+    <div class="text-vertical-center">
+        <h1>eHesabim</h1>
+
+        <h2>Bireysel & Küçük ölçekli işletmelere yönelik Online Hesap Takip Portalı</h2>
+        
+        <div>
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-4">
+                    <ul class="features">
+                        <li>Varlık Yönetimi</li>
+                        <li>Hesap Takibi</li>
+                        <li>Cari Borç / Alacak Takibi</li>
+                        <li>Cari Ekstre</li>
+                        <li>Kredi Borç Takibi</li>
+                        <li>Kredi Kartı / Harcama Takibi</li>
+                        <li>Gider Raporu</li>
+                    </ul>
+                    <a href="@Url.RouteUrl(RouteNames.Login)" class="btn btn-dark btn-lg">ÜCRETSİZ ÜYE OL</a>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+
+        <div class="col-md-12 footer">
+            <p class="text-right">Copyright &copy; eHesabim.com</p>
+        </div>
+        <br>
+    </div>
+</header>

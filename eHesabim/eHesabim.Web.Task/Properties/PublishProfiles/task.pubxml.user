@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>c:\Publish\task</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>05/17/2017 12:38:22</publishTime>
+    </File>
+    <File Include="bin/Autofac.dll">
+      <publishTime>05/02/2017 06:51:32</publishTime>
+    </File>
+    <File Include="bin/Autofac.Integration.Mvc.dll">
+      <publishTime>05/17/2017 12:38:54</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>06/14/2017 02:58:58</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.Net4.dll">
+      <publishTime>07/11/2016 12:54:36</publishTime>
+    </File>
+    <File Include="bin/eHesabim.Core.dll">
+      <publishTime>07/03/2017 10:41:13</publishTime>
+    </File>
+    <File Include="bin/eHesabim.Data.dll">
+      <publishTime>07/03/2017 10:41:11</publishTime>
+    </File>
+    <File Include="bin/eHesabim.Framework.dll">
+      <publishTime>07/11/2017 16:41:11</publishTime>
+    </File>
+    <File Include="bin/eHesabim.Services.dll">
+      <publishTime>07/11/2017 16:41:10</publishTime>
+    </File>
+    <File Include="bin/eHesabim.Tasks.dll">
+      <publishTime>07/12/2017 15:09:36</publishTime>
+    </File>
+    <File Include="bin/eHesabim.Web.Task.dll">
+      <publishTime>07/12/2017 15:09:37</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>05/17/2017 12:38:16</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>05/17/2017 12:38:16</publishTime>
+    </File>
+    <File Include="bin/Facebook.dll">
+      <publishTime>05/17/2017 12:39:02</publishTime>
+    </File>
+    <File Include="bin/FluentValidationNA.dll">
+      <publishTime>05/17/2017 12:38:17</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>05/17/2017 12:38:17</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/18/2017 13:57:10</publishTime>
+    </File>
+    <File Include="bin/NLog.dll">
+      <publishTime>06/17/2017 11:41:30</publishTime>
+    </File>
+    <File Include="bin/System.Linq.Dynamic.dll">
+      <publishTime>05/17/2017 12:38:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>05/17/2017 12:38:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>05/17/2017 12:38:17</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>05/17/2017 12:38:26</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>05/17/2017 12:38:17</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>05/17/2017 12:38:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>05/17/2017 12:38:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>05/17/2017 12:38:18</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>05/17/2017 12:38:24</publishTime>
+    </File>
+    <File Include="Content/css/jquery-ui.css">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/kendo.common.min.css">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/kendo.metro.min.css">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/editor.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/imagebrowser.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/loading-image.gif">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/loading.gif">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/slider-h.gif">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/slider-v.gif">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/sprite%402x.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/Metro/sprite.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/css/style.css">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/images/artwork-pattern.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_add.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_cancel.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_delete.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_download.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_edit.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_favorite.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_left.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_lock.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_power.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_print.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_refresh.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_right.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_settings.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_upload.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_up_circle.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/ic_zoom.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-email-over.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-email-special.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-email.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-logoff-over.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-logoff.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-settings-over.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-settings.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/menu/menu-user.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/message-boxes/confirmation.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/message-boxes/error.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/message-boxes/information.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/message-boxes/warning.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/table/actions-delete.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/icons/table/actions-edit.png">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/images/login-icon.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/images/menu-dark-indicator.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/images/menu-indicator.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/images/separator-bg.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/images/tab-dashboard.png">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="Content/js/jquery-1.10.2.min.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/jquery-ui-1.10.3.min.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/jquery.blockUI.min.js">
+      <publishTime>11/03/2016 10:29:44</publishTime>
+    </File>
+    <File Include="Content/js/jquery.carouFredSel-6.2.1.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/jquery.unobtrusive-ajax.min.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/jquery.validate.min.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/jquery.validate.unobtrusive.min.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/kendo.all.min.js">
+      <publishTime>11/03/2016 10:29:47</publishTime>
+    </File>
+    <File Include="Content/js/kendo.aspnetmvc.min.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Content/js/kendo.web.min.js">
+      <publishTime>11/03/2016 10:29:46</publishTime>
+    </File>
+    <File Include="Content/js/scripts.js">
+      <publishTime>11/03/2016 10:29:45</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/03/2016 10:29:43</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>06/23/2017 12:02:21</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>11/03/2016 10:29:46</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>07/11/2016 12:20:11</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>11/03/2016 10:29:46</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>07/12/2017 15:09:43</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

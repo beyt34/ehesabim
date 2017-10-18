@@ -1,0 +1,108 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditCardListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-credit-card fa-fw"></i> @Headers.BankCreditCardList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "bankCreditCardForm" })) {
+            <div class="form-group">
+                <label>@Html.Raw(Labels.Bank)</label>
+                @Html.DropDownListFor(m => m.SearchBankId, Model.SearchBankList, new { @class = "form-control", placeholder = Labels.Bank })
+            </div>
+
+            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+            <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+        }
+
+        <hr />
+
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("bankCreditCardGrid")
+                  .Columns(columns => {
+                      columns.Bound(x => x.Name).Title(Labels.BankCreditCardName);
+                      columns.Bound(x => x.Limit).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.BankCreditCardLimit);
+                      columns.Bound(x => x.AvailableLimit).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.AvailableLimit);
+                      columns.Bound(x => x.LastDebt).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.LastDebt);
+                      columns.Bound(x => x.CurrentDebt).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.CurrentDebt);
+                      columns.Bound(x => x.NextDebt).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.NextDebt);
+                      columns.Bound(x => x.DebtTotal).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.DebtTotal);
+                      columns.Bound(x => x.Order).Title(Labels.Order);
+                      columns.Bound(x => x.IsActive).HtmlAttributes(new { style = "text-align:center;" }).ClientTemplate("<input type='checkbox' name='chkIsActive' #= IsActive ? checked='checked' : '' # disabled />").Title(Labels.IsActive);
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onBankCreditCardEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onGridDataBound"))
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Model(m => m.Id(p => p.Id))
+                      .PageSize(20)
+                      .Total(Model.Total)
+                      .Read(read => read.Action("BankCreditCardList", "Bank").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+        <hr />
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+          .Name("bankCreditCardEditWindow")
+          .Title(Headers.BankCreditCardEdit)
+          .Draggable(true)
+          .Modal(true)
+          .Visible(false)
+          .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("bankCreditCardForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "bankCreditCardGrid");
+            });
+
+            $('#form-detail').click(function () {
+                openModal("bankCreditCardEditWindow", "/Bank/_BankCreditCardEdit", "", "md");
+            });
+        });
+
+        //SetLeftMenu("liBank");
+        SetLeftMenu("liBankCreditCard");
+
+        function onBankCreditCardEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("bankCreditCardEditWindow", "/Bank/_BankCreditCardEdit", dataItem.Id, "md");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchBankId: $('#SearchBankId').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+    </script>
+}

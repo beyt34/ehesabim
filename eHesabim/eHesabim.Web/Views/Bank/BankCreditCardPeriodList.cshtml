@@ -1,0 +1,129 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditCardPeriodListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-leaf fa-fw"></i> @Headers.BankCreditCardPeriodList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "bankCreditCardPeriodForm" })) {
+            <div class="form-group">
+                <label>@Html.Raw(Labels.BankCreditCard)</label>
+                @Html.DropDownListFor(m => m.SearchBankCreditCardId, Model.SearchBankCreditCardList, new { @class = "form-control", placeholder = Labels.Bank })
+            </div>
+
+            <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+            <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+        }
+
+        <hr />
+
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("bankCreditCardPeriodGrid")
+                  .Columns(columns => {
+                      columns.Bound(x => x.BankCreditCardName).Title(Labels.BankCreditCard);
+                      columns.Bound(x => x.StartDate).Format("{0:dd.MM.yyyy}").Title(Labels.StartDate);
+                      columns.Bound(x => x.EndDate).Format("{0:dd.MM.yyyy}").Title(Labels.EndDate);
+                      columns.Bound(x => x.PaymentDate).Format("{0:dd.MM.yyyy}").Title(Labels.PaymentDate);
+                      columns.Command(x => x.Custom(Buttons.Set).Click("onSetExpensePeriod")).Width(50).HtmlAttributes(new { cmd = "link", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onBankCreditCardPeriodEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onGridDataBound"))
+                  .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Model(m => m.Id(p => p.Id))
+                      .PageSize(20)
+                      .Total(Model.Total)
+                      .Read(read => read.Action("BankCreditCardPeriodList", "Bank").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+          .Name("bankCreditCardPeriodEditWindow")
+          .Title(Headers.BankCreditCardPeriodEdit)
+          .Draggable(true)
+          .Modal(true)
+          .Visible(false)
+          .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("bankCreditCardPeriodForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "bankCreditCardPeriodGrid");
+            });
+
+            $('#form-detail').click(function () {
+                var wnd = $("#bankCreditCardPeriodEditWindow").kendoWindow({
+                    content: {
+                        url: "/Bank/_BankCreditCardPeriodEdit",
+                        data: {
+                            creditCardId: '' + $('#SearchBankCreditCardId').val() + ''
+                        }
+                    }
+                }).data("kendoWindow");
+
+                wnd.wrapper.addClass("col-sm-8 col-xs-10 max-width-650");
+                wnd.center();
+                wnd.open();
+            });
+        });
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchBankCreditCardId: $('#SearchBankCreditCardId').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+        
+        function onBankCreditCardPeriodEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("bankCreditCardPeriodEditWindow", "/Bank/_BankCreditCardPeriodEdit", dataItem.Id, "md");
+        }
+
+        function onSetExpensePeriod(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            $.ajax({
+                url: "/Bank/SetExpensePeriod",
+                data: { id: '' + dataItem.Id + '' },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.Success) {
+                        alert(data.Message);
+                    }
+                }
+            });
+        }
+
+        //SetLeftMenu("liBank");
+        SetLeftMenu("liBankCreditCard");
+    </script>
+}

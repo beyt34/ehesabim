@@ -1,0 +1,116 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.BankCreditEditWebModel
+
+@using (Ajax.BeginForm("_BankCreditEdit", "Bank", new { Model.Id },
+ new AjaxOptions {
+     HttpMethod = "POST",
+     OnSuccess = "onBankCreditEditSuccess"
+ }, new { @id = "bankCreditEditForm", @class = "form-horizontal" })) {
+    <div>
+        <div class="panel-body">
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Bank</label>
+                <div class="col-sm-9">
+                    @Html.DropDownListFor(m => m.BankId, Model.BankList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.BankId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Date</label>
+                <div class="col-sm-9">
+                    @Html.Kendo().DatePickerFor(m => m.CreditDateTime).HtmlAttributes(new { type = "text" })
+                    @Html.ValidationMessageFor(m => m.CreditDateTime)
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Capital</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Capital, new { @class = "form-control", placeholder = Labels.Capital, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Capital)</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Installment</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">#</span>
+                        @Html.TextBoxFor(m => m.Installment, new { @class = "form-control", placeholder = Labels.Installment, maxLength = 3, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Installment)</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Rate</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <span class="input-group-addon">%</span>
+                        @Html.TextBoxFor(m => m.Rate, new { @class = "form-control", placeholder = Labels.Rate, maxLength = 5, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Rate)</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.MonthlyPayment</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.MonthlyPayment, new { @class = "form-control", placeholder = Labels.MonthlyPayment, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.MonthlyPayment)</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-3">@Labels.Expense</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        @Html.TextBoxFor(m => m.Expense, new { @class = "form-control", placeholder = Labels.Expense, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        <span class="input-group-addon">TL</span>
+                    </div>
+                    <div>@Html.ValidationMessageFor(m => m.Expense)</div>
+                </div>
+            </div>
+
+            <div id="resultDiv"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3">&nbsp;</label>
+                <div class="col-sm-9">
+                    <input type="submit" name="save" value="@Buttons.Save" class="btn btn-warning">
+                    <button type="button" onclick="closeModal('bankCreditEditWindow');" class="btn btn-outline btn-warning">@Buttons.Close</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        ValidateForm("bankCreditEditForm");
+    });
+
+    function onBankCreditEditSuccess(data) {
+        if (data.Success) {
+            // Gridi refresh et
+            $('#bankCreditGrid').data('kendoGrid').dataSource.read();
+            // Pop-up ı kapat
+            $("#bankCreditEditWindow").data("kendoWindow").close();
+        } else {
+            $('#resultDiv').html(data.Result);
+        }
+    }
+</script>
+
+

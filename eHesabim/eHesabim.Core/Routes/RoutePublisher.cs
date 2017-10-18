@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Routing;
+using eHesabim.Core.Engine;
+
+namespace eHesabim.Core.Routes {
+    public class RoutePublisher : IRoutePublisher {
+        private readonly ITypeFinder typeFinder;
+
+        public RoutePublisher(ITypeFinder typeFinder) {
+            this.typeFinder = typeFinder;
+        }
+
+        public void RegisterRoutes(RouteCollection routes) {
+            var routeProviderTypes = this.typeFinder.FindClassesOfType<IRouteProvider>();
+            var routeProviders = new List<IRouteProvider>();
+
+            foreach (var providerType in routeProviderTypes) {
+                var provider = Activator.CreateInstance(providerType) as IRouteProvider;
+                routeProviders.Add(provider);
+            }
+
+            routeProviders = routeProviders.OrderByDescending(rp => rp.Priority).ToList();
+            routeProviders.ForEach(rp => rp.RegisterRoutes(routes));
+        }
+    }
+}

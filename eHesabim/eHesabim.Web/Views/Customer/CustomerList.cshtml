@@ -1,0 +1,179 @@
+﻿@using eHesabim.Framework.Localization
+@using Kendo.Mvc.UI
+@model eHesabim.Web.Portal.Models.CustomerListWebModel
+
+<div class="row">
+    <div class="col-lg-12">
+        &nbsp;
+    </div>
+</div>
+
+<div class="panel panel-yellow">
+
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-book fa-fw"></i> @Headers.CustomerList
+        </h3>
+    </div>
+
+    <div class="panel-body">
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "customerForm", @class = "form-horizontal" })) {
+            <div class="form-group">
+                <label class="col-sm-2">@Html.Raw(Labels.CustomerName)</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.SearchName, new { @class = "form-control", placeholder = Labels.CustomerName })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2">@Html.Raw(Labels.Email)</label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(m => m.SearchEmail, new { @class = "form-control", placeholder = Labels.Email })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2">&nbsp;</div>
+                <div class="col-sm-10">
+                    <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
+                    <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
+                </div>
+            </div>
+        }
+
+        <hr />
+
+        <div class="table-responsive">
+            @(Html.Kendo().Grid(Model.Data)
+                  .Name("customerGrid")
+                  .Columns(columns => {
+                      columns.Bound(p => p.Name).Title(Labels.CustomerName);
+                      columns.Bound(p => p.Debit).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Debit);
+                      columns.Bound(p => p.Claim).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Claim);
+                      columns.Bound(p => p.Net).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Net);
+                      columns.Bound(p => p.IsExclusion)
+                          .ClientTemplate("<input type='checkbox' name='chkIsExclusion' #= IsExclusion ? checked='checked' : '' # disabled />")
+                          .HtmlAttributes(new { style = "text-align:center;" }).Title(Labels.IsExclusion);
+                      columns.Bound(p => p.CreatedDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.CreatedDateTime);
+                      columns.Command(x => x.Custom(Buttons.Edit).Click("onCustomerEditWindow")).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
+                      columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow"))
+                          .HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
+                  })
+                  .Pageable(p => p.Refresh(true).PreviousNext(true))
+                  .Sortable()
+                  .EnableCustomBinding(true)
+                  .Events(events => events.DataBound("onDataBound"))
+                  .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Model(m => m.Id(p => p.Id))
+                    .PageSize(20)
+                    .Total(Model.Total)
+                    .Read(read => read.Action("CustomerList", "Customer").Data("GetSearchModel"))
+                  )
+            )
+        </div>
+
+        <hr />
+
+        <!-- Alt Toplamlar -->
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tr>
+                    <th class="col-xs-4">
+                        <label>@Labels.DebitTotal</label>
+                    </th>
+                    <td class="col-xs-8">
+                        <div class="input-group">
+                            <input type="text" id="debitTotal" class="form-control" style="text-align: right;" readonly="readonly" />
+                            <span class="input-group-addon">TL</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label>@Labels.ClaimTotal</label>
+                    </th>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="claimTotal" class="form-control" style="text-align: right;" readonly="readonly" />
+                            <span class="input-group-addon">TL</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label>@Labels.NetTotal</label>
+                    </th>
+                    <td>
+                        <div class="input-group">
+                            <input type="text" id="netTotal" class="form-control" style="text-align: right;" readonly="readonly" />
+                            <span class="input-group-addon">TL</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@{Html.Kendo().Window()
+          .Name("customerEditWindow")
+          .Title(Headers.CustomerEdit)
+          .Draggable(true)
+          .Modal(true)
+          .Visible(false)
+          .Render();
+}
+
+@Html.Partial("_DeleteWindow", Model.DeleteData)
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            DefaultButton("customerForm", "form-search");
+
+            $('#form-search').click(function () {
+                FormSearch(GetSearchModel(true), "customerGrid");
+            });
+
+            $('#form-detail').click(function () {
+                openModal("customerEditWindow", "/Customer/_CustomerEdit", "", "md");
+            });
+        });
+
+        SetLeftMenu("liCustomer");
+
+        function onCustomerEditWindow(e) {
+            e.preventDefault();
+            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            openModal("customerEditWindow", "/Customer/_CustomerEdit", dataItem.Id, "md");
+        }
+
+        function GetSearchModel(searchViaForm) {
+            return {
+                SearchName: $('#SearchName').val(),
+                SearchEmail: $('#SearchEmail').val(),
+                SearchViaForm: searchViaForm == undefined ? false : searchViaForm
+            };
+        }
+
+        function onDataBound(e) {
+            if (e.sender._data[0] !== undefined) {
+                var debitTotal = e.sender._data[0].DebitTotal;
+                var claimTotal = e.sender._data[0].ClaimTotal;
+                var netTotal = e.sender._data[0].NetTotal;
+
+                $('#debitTotal').val(debitTotal);
+                $('#claimTotal').val(claimTotal);
+                $('#netTotal').val(netTotal);
+            } else {
+                $('#debitTotal').val("0,00");
+                $('#claimTotal').val("0,00");
+                $('#netTotal').val("0,00");
+            }
+
+            onGridDataBound();
+        }
+    </script>
+}

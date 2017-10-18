@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BankCreditAdd" xml:space="preserve">
+    <value>Kredi Ekle</value>
+  </data>
+  <data name="BankCreditCardEdit" xml:space="preserve">
+    <value>Kredi Kartı Ekle/Düzenle</value>
+  </data>
+  <data name="BankCreditCardList" xml:space="preserve">
+    <value>Kredi Kartları</value>
+  </data>
+  <data name="BankCreditCardPaymentEdit" xml:space="preserve">
+    <value>K.Kartı Ödeme Ekle/Düzenle</value>
+  </data>
+  <data name="BankCreditCardPaymentList" xml:space="preserve">
+    <value>K.Kartı Ödemeleri</value>
+  </data>
+  <data name="BankCreditCardPeriodEdit" xml:space="preserve">
+    <value>K.Kartı Dönem Ekle/Düzenle</value>
+  </data>
+  <data name="BankCreditCardPeriodList" xml:space="preserve">
+    <value>K.Kartı Dönemleri</value>
+  </data>
+  <data name="BankCreditCards" xml:space="preserve">
+    <value>Kredi Kartları</value>
+  </data>
+  <data name="BankCreditEdit" xml:space="preserve">
+    <value>Kredi Düzenle</value>
+  </data>
+  <data name="BankCreditList" xml:space="preserve">
+    <value>Krediler</value>
+  </data>
+  <data name="BankCredits" xml:space="preserve">
+    <value>Krediler</value>
+  </data>
+  <data name="BankCreditSubList" xml:space="preserve">
+    <value>Kredi Taksitleri</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Cari</value>
+  </data>
+  <data name="CustomerAbstract" xml:space="preserve">
+    <value>Cari Ekstre</value>
+  </data>
+  <data name="CustomerEdit" xml:space="preserve">
+    <value>Cari Ekle/Düzenle</value>
+  </data>
+  <data name="CustomerList" xml:space="preserve">
+    <value>Cari Kartlar</value>
+  </data>
+  <data name="CustomerTransactionEdit" xml:space="preserve">
+    <value>Hareket Ekle/Düzenle</value>
+  </data>
+  <data name="CustomerTransactionList" xml:space="preserve">
+    <value>Cari Hareketler</value>
+  </data>
+  <data name="ExpenseEdit" xml:space="preserve">
+    <value>Harcama Ekle/Düzenle</value>
+  </data>
+  <data name="ExpenseGroupEdit" xml:space="preserve">
+    <value>Gider Grubu Düzenle</value>
+  </data>
+  <data name="ExpenseGroupList" xml:space="preserve">
+    <value>Gider Grupları</value>
+  </data>
+  <data name="ExpenseGroupReport" xml:space="preserve">
+    <value>Gider Raporu</value>
+  </data>
+  <data name="ExpenseList" xml:space="preserve">
+    <value>Harcamalar</value>
+  </data>
+  <data name="ExpenseStoreEdit" xml:space="preserve">
+    <value>Mağaza Düzenle</value>
+  </data>
+  <data name="ExpenseStoreList" xml:space="preserve">
+    <value>Mağazalar</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Genel</value>
+  </data>
+  <data name="Homepage" xml:space="preserve">
+    <value>Anasayfa</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Giriş</value>
+  </data>
+  <data name="PasswordChange" xml:space="preserve">
+    <value>Şifre Değiştir</value>
+  </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Şifre Kurtarma</value>
+  </data>
+  <data name="PasswordRecoveryConfirm" xml:space="preserve">
+    <value>Yeni Şifre Belirle</value>
+  </data>
+  <data name="PermissionEdit" xml:space="preserve">
+    <value>Yetki Ekle/Düzenle</value>
+  </data>
+  <data name="PermissionList" xml:space="preserve">
+    <value>Yetkiler</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Üye Ol</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roller</value>
+  </data>
+  <data name="UpdateProfile" xml:space="preserve">
+    <value>Profil Güncelle</value>
+  </data>
+  <data name="UserAdd" xml:space="preserve">
+    <value>Kullanıcı Ekle</value>
+  </data>
+  <data name="UserEdit" xml:space="preserve">
+    <value>Kullanıcı Düzenle</value>
+  </data>
+  <data name="UserList" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
+  <data name="BankCreditSubEdit" xml:space="preserve">
+    <value>Kredi Taksiti Düzenle</value>
+  </data>
+  <data name="BankAccountEdit" xml:space="preserve">
+    <value>Hesap Ekle/Düzenle</value>
+  </data>
+  <data name="BankAccountList" xml:space="preserve">
+    <value>Hesaplar</value>
+  </data>
+  <data name="BankAccountTransactionEdit" xml:space="preserve">
+    <value>Hesap Hareket Ekle/Düzenle</value>
+  </data>
+  <data name="BankAccountTransactionList" xml:space="preserve">
+    <value>Hesap Hareketleri</value>
+  </data>
+  <data name="BankAccounts" xml:space="preserve">
+    <value>Hesaplar</value>
+  </data>
+  <data name="UserModule" xml:space="preserve">
+    <value>Çalışılan Modüller</value>
+  </data>
+</root>

@@ -1,0 +1,88 @@
+﻿@using eHesabim.Framework.Localization
+@using eHesabim.Web.Portal.Engine
+@model eHesabim.Web.Portal.Models.UserLoginWebModel
+@{
+    Layout = "../Shared/_LayoutLogin.cshtml";
+}
+
+<div class="col-md-12">
+
+    <div class="col-md-6">
+        <div class="login-panel panel panel-yellow">
+            <div class="panel-heading">
+                <h3 class="panel-title">@Headers.Login</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "loginForm" })) {
+                    @Html.HiddenFor(m => m.LoginReturnUrl)
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.LoginEmail, new { @class = "form-control", placeholder = Labels.Email })
+                        @Html.ValidationMessageFor(m => m.LoginEmail)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.LoginPassword, new { @class = "form-control", placeholder = Labels.Password })
+                        @Html.ValidationMessageFor(m => m.LoginPassword)
+                    </div>
+
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(m => m.LoginRememberMe)
+                            <label>@Labels.RememberMe</label>
+                        </label>
+                    </div>
+
+                    if (!string.IsNullOrEmpty(Model.LoginErrorMessage)) {
+                        <div id="resultDiv" class="alert alert-danger">
+                            @Html.Raw(Model.LoginErrorMessage)
+                        </div>
+                    }
+
+                    <input type="submit" name="login" class="btn btn-lg btn-warning btn-block" value="@Buttons.Login" />
+                    <a href="@Url.RouteUrl(RouteNames.PasswordRecovery)" class="">@Buttons.ForgetPassword</a>
+
+                    <a href="@Url.RouteUrl(RouteNames.RegisterFacebook)" class="btn btn-social btn-facebook pull-right pull-right" style="margin-top: 10px;">
+                        <i class="fa fa-facebook"></i> @Buttons.FacebookLogin
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="login-panel panel panel-yellow">
+            <div class="panel-heading">
+                <h3 class="panel-title">@Headers.Register</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "registerForm" })) {
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.RegisterName, new { @class = "form-control", placeholder = Labels.UserName, maxLength = 50, autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.RegisterName)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", placeholder = Labels.Email, maxLength = 100, autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.RegisterEmail)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", placeholder = Labels.Password, maxLength = 10, autocomplete = "off" })
+                        @Html.ValidationMessageFor(m => m.RegisterPassword)
+                    </div>
+
+                    if (!string.IsNullOrEmpty(Model.RegisterErrorMessage)) {
+                        <div id="resultDiv" class="alert alert-danger">
+                            @Html.Raw(Model.RegisterErrorMessage)
+                        </div>
+                    }
+
+                    <input type="submit" name="register" class="btn btn-lg btn-warning btn-block" value="@Buttons.Register" />
+                    
+                    <div style="margin-bottom: 25px;"></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
