@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Data", "eHesabim.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Services", "eHesabim.Services\eHesabim.Services.csproj", "{40324432-096C-49E4-B265-214A7BC0C969}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "eHesabim.Db", "eHesabim.Db\eHesabim.Db.sqlproj", "{88FF9A66-D20E-49B9-902B-EA088A65DE82}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Web.Portal", "eHesabim.Web\eHesabim.Web.Portal.csproj", "{FABAA855-D8B6-48A5-8334-514C8B299A6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eHesabim.Web.Task", "eHesabim.Web.Task\eHesabim.Web.Task.csproj", "{3AA6A909-DB5E-49D2-B06F-C9A632E32E05}"
@@ -37,12 +35,6 @@ Global
 		{40324432-096C-49E4-B265-214A7BC0C969}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40324432-096C-49E4-B265-214A7BC0C969}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40324432-096C-49E4-B265-214A7BC0C969}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88FF9A66-D20E-49B9-902B-EA088A65DE82}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FABAA855-D8B6-48A5-8334-514C8B299A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,35 +54,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://beyt34.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = eHesabim.Core\\eHesabim.Core.csproj
-		SccProjectName1 = eHesabim.Core
-		SccLocalPath1 = eHesabim.Core
-		SccProjectUniqueName2 = eHesabim.Data\\eHesabim.Data.csproj
-		SccProjectName2 = eHesabim.Data
-		SccLocalPath2 = eHesabim.Data
-		SccProjectUniqueName3 = eHesabim.Services\\eHesabim.Services.csproj
-		SccProjectName3 = eHesabim.Services
-		SccLocalPath3 = eHesabim.Services
-		SccProjectUniqueName4 = eHesabim.Db\\eHesabim.Db.sqlproj
-		SccProjectName4 = eHesabim.Db
-		SccLocalPath4 = eHesabim.Db
-		SccProjectUniqueName5 = eHesabim.Web.Task\\eHesabim.Web.Task.csproj
-		SccProjectName5 = eHesabim.Web.Task
-		SccLocalPath5 = eHesabim.Web.Task
-		SccProjectUniqueName6 = eHesabim.Framework\\eHesabim.Framework.csproj
-		SccProjectName6 = eHesabim.Framework
-		SccLocalPath6 = eHesabim.Framework
-		SccProjectUniqueName7 = eHesabim.Tasks\\eHesabim.Tasks.csproj
-		SccProjectName7 = eHesabim.Tasks
-		SccLocalPath7 = eHesabim.Tasks
-		SccProjectUniqueName8 = eHesabim.Web\\eHesabim.Web.Portal.csproj
-		SccProjectName8 = eHesabim.Web
-		SccLocalPath8 = eHesabim.Web
 	EndGlobalSection
 EndGlobal
