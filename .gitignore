@@ -39,3 +39,12 @@
 /packages/Microsoft.Azure.KeyVault.Core.2.0.4
 /packages/Microsoft.AspNet.WebPages.3.2.3
 /packages/Microsoft.AspNet.WebApi.Core.5.2.3
+/eHesabim.v3.ncrunchsolution.user
+/.vs/config
+/eHesabim.Web.Task
+/eHesabim.Web.Portal
+/eHesabim.Tasks/obj/Debug
+/eHesabim.Services/obj/Debug
+/eHesabim.Framework/obj/Debug
+/eHesabim.Data/obj/Debug
+/eHesabim.Core/obj/Debug
