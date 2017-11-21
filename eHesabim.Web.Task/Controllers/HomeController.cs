@@ -18,7 +18,7 @@ namespace eHesabim.Web.Task.Controllers {
         }
 
         public ActionResult Index() {
-            logging.Trace("HomeController=>GetHeartbeat");
+            ////logging.Trace("HomeController=>GetHeartbeat");
             return View(GetModel(false));
         }
 
@@ -65,15 +65,13 @@ namespace eHesabim.Web.Task.Controllers {
             var lines = new List<string>();
             const int MaxLines = 100;
 
-            var count = 1;
             if (hasLog) {
-                var fileName = string.Format(@"c:\@logs\task_{0}.log", DateTime.Today.ToString("yyyy-MM-dd"));
+                var fileName = string.Format(@"c:\@logs\task_{0:yyyy-MM-dd}.log", DateTime.Today);
                 using (var file = System.IO.File.OpenRead(fileName)) {
                     var streamReader = new StreamReader(file);
                     string line;
                     while ((line = streamReader.ReadLine()) != null) {
                         lines.Add(line);
-                        count++;
                     }
 
                     lines.Reverse();
