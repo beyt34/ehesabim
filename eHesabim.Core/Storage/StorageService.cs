@@ -18,6 +18,13 @@ namespace eHesabim.Core.Storage {
             blockBlobReference.UploadFromStream(fileStream);
         }
 
+        public void Upload(byte[] buffer, string path, string fileName, string contentType) {
+            var blockBlobReference = GetContainer(path).GetBlockBlobReference(fileName);
+            blockBlobReference.Properties.ContentType = contentType;
+            blockBlobReference.Properties.CacheControl = "public, max-age=2629000";
+            blockBlobReference.UploadFromByteArray(buffer, 0, buffer.Length);
+        }
+        
         public bool Delete(string path, string fileName) {
             return GetContainer(path).GetBlockBlobReference(fileName).DeleteIfExists();
         }

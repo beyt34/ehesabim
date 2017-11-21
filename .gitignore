@@ -53,3 +53,10 @@
 /eHesabim.Framework
 /eHesabim.Data
 /eHesabim.Core
+/eHesabim.Tasks/bin/Debug
+/eHesabim.Tasks/StyleCop.Cache
+/eHesabim.Console/bin/Debug
+/eHesabim.Console/obj/Debug
+/eHesabim.Console/StyleCop.Cache
+/packages/NLog.4.4.12
+/eHesabim.sln.DotSettings.user

@@ -25,6 +25,7 @@ namespace eHesabim.Web.Portal.Controllers {
         /// <summary>The customer service.</summary>
         private readonly ICustomerService customerService;
 
+        /// <summary>The storage service.</summary>
         private readonly IStorageService storageService;
 
         /// <summary>The work context.</summary>
