@@ -7,6 +7,7 @@
         public const string PasswordRecoveryConfirm = "PasswordRecoveryConfirm";
         public const string Home = "Home";
         public const string Landing = "Landing";
+        public const string Heartbeat = "Heartbeat";
 
         public const string CustomerList = "CustomerList";
         public const string CustomerTransactionList = "CustomerTransactionList";

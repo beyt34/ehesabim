@@ -36,7 +36,7 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         protected string GetCurrencyString(decimal? value) {
-            return string.Format("{0} TL", (value ?? 0).ToString("N2"));
+            return string.Format("{0:N2} TL", value ?? 0);
         }
 
         protected void SetSort([DataSourceRequest]DataSourceRequest request) {

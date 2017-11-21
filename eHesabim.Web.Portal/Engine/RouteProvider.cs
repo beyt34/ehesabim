@@ -17,6 +17,7 @@ namespace eHesabim.Web.Portal.Engine {
             routes.MapRoute(RouteNames.PasswordRecoveryConfirm, "sifre-belirle/{token}", new { controller = "Login", action = "PasswordRecoveryConfirm", token = UrlParameter.Optional });
             routes.MapRoute(RouteNames.Home, "dashboard", new { controller = "Home", action = "Index" });
             routes.MapRoute(RouteNames.Landing, string.Empty, new { controller = "Landing", action = "Index" });
+            routes.MapRoute(RouteNames.Heartbeat, "heartbeat", new { controller = "Landing", action = "Heartbeat" });
 
             // cari
             routes.MapRoute(RouteNames.CustomerList, "cari-kartlar", new { controller = "Customer", action = "CustomerList" });
