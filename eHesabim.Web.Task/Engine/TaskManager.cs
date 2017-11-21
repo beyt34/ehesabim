@@ -9,8 +9,6 @@ namespace eHesabim.Web.Task.Engine {
 
         private static bool started;
 
-        ////private readonly ICommonService commonService = EngineContext.Current.Resolve<ICommonService>();
-
         private List<TaskThread> taskThreads;
 
         private TaskManager() {
@@ -52,7 +50,6 @@ namespace eHesabim.Web.Task.Engine {
                 },
             };
 
-            ////var scheduleTasks = commonService.GetAllScheduledTasks().Data;
             taskThreads = new List<TaskThread>();
             foreach (var scheduleTask in scheduleTasks) {
                 // one thread, one task
@@ -82,13 +79,13 @@ namespace eHesabim.Web.Task.Engine {
                 taskThread => taskThread.Id,
                 taskThread =>
                 string.Format(
-                    "{0};{1};{2};{3};{4};{5};{6}",
+                    "{0};{1};{2};{3};{4};{5:dd.MM.yyyy HH:mm:ss};{6}",
                     taskThread.Name,
                     taskThread.Description,
                     taskThread.Interval / 1000,
                     taskThread.IsActive,
-                    taskThread.IsRunning,
-                    taskThread.Started.ToString("dd.MM.yyyy HH:mm:ss"),
+                    taskThread.IsRunning, 
+                    taskThread.Started,
                     taskThread.LastStatus));
         }
 
