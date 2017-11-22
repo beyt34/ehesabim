@@ -11,7 +11,7 @@ namespace eHesabim.Tasks {
         private readonly ILogging logging = EngineContext.Current.Resolve<ILogging>();
 
         public void Execute(DateTime? lastSuccess) {
-            ////logging.Info("EmailQueueSendTask started.");
+            Console.WriteLine(@"{0:yyyy-MM-dd HH:mm:ss} EmailQueueSendTask started.", DateTime.Now);
             var emailQueues = messageService.GetEmailQueueList();
 
             foreach (var emailQueue in emailQueues) {
@@ -30,7 +30,7 @@ namespace eHesabim.Tasks {
                 }
             }
 
-            ////logging.Info("EmailQueueSendTask ended.");
+            Console.WriteLine(@"{0:yyyy-MM-dd HH:mm:ss} EmailQueueSendTask ended.", DateTime.Now);
         }
     }
 }
