@@ -46,12 +46,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailQueueSendTask.cs" />
@@ -68,10 +63,6 @@
     <ProjectReference Include="..\eHesabim.Core\eHesabim.Core.csproj">
       <Project>{42b3f7e7-5db1-42e5-9cca-1c8ee8c28661}</Project>
       <Name>eHesabim.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eHesabim.Data\eHesabim.Data.csproj">
-      <Project>{784d6270-83c9-4c27-ad40-bca0a7d039e4}</Project>
-      <Name>eHesabim.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\eHesabim.Services\eHesabim.Services.csproj">
       <Project>{40324432-096c-49e4-b265-214a7bc0c969}</Project>

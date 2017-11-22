@@ -331,7 +331,6 @@
     <Content Include="favicon2.ico" />
     <Content Include="Global.asax" />
     <Content Include="eHesabim.Web.Portal.nuspec" />
-    <None Include="Properties\PublishProfiles\myPortal.pubxml" />
     <Content Include="sitemap.xml" />
     <Content Include="static.xml" />
     <Content Include="Web.config">
@@ -412,7 +411,9 @@
       <Name>eHesabim.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
