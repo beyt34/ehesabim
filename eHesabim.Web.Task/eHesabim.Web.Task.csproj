@@ -52,7 +52,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Engine\BundleConfig.cs" />
     <Compile Include="Engine\DependencyRegistrar.cs" />
     <Compile Include="Engine\RouteProvider.cs" />
     <Compile Include="Engine\TaskManager.cs" />
@@ -64,66 +63,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\jquery-ui.css" />
-    <Content Include="Content\css\kendo.common.min.css" />
-    <Content Include="Content\css\kendo.metro.min.css" />
-    <Content Include="Content\css\Metro\editor.png" />
-    <Content Include="Content\css\Metro\imagebrowser.png" />
-    <Content Include="Content\css\Metro\loading-image.gif" />
-    <Content Include="Content\css\Metro\loading.gif" />
-    <Content Include="Content\css\Metro\slider-h.gif" />
-    <Content Include="Content\css\Metro\slider-v.gif" />
-    <Content Include="Content\css\Metro\sprite%402x.png" />
-    <Content Include="Content\css\Metro\sprite.png" />
-    <Content Include="Content\css\style.css" />
-    <Content Include="Content\images\artwork-pattern.png" />
-    <Content Include="Content\images\icons\ic_add.png" />
-    <Content Include="Content\images\icons\ic_cancel.png" />
-    <Content Include="Content\images\icons\ic_delete.png" />
-    <Content Include="Content\images\icons\ic_download.png" />
-    <Content Include="Content\images\icons\ic_edit.png" />
-    <Content Include="Content\images\icons\ic_favorite.png" />
-    <Content Include="Content\images\icons\ic_left.png" />
-    <Content Include="Content\images\icons\ic_lock.png" />
-    <Content Include="Content\images\icons\ic_power.png" />
-    <Content Include="Content\images\icons\ic_print.png" />
-    <Content Include="Content\images\icons\ic_refresh.png" />
-    <Content Include="Content\images\icons\ic_right.png" />
-    <Content Include="Content\images\icons\ic_settings.png" />
-    <Content Include="Content\images\icons\ic_upload.png" />
-    <Content Include="Content\images\icons\ic_up_circle.png" />
-    <Content Include="Content\images\icons\ic_zoom.png" />
-    <Content Include="Content\images\icons\menu\menu-email-over.png" />
-    <Content Include="Content\images\icons\menu\menu-email-special.png" />
-    <Content Include="Content\images\icons\menu\menu-email.png" />
-    <Content Include="Content\images\icons\menu\menu-logoff-over.png" />
-    <Content Include="Content\images\icons\menu\menu-logoff.png" />
-    <Content Include="Content\images\icons\menu\menu-settings-over.png" />
-    <Content Include="Content\images\icons\menu\menu-settings.png" />
-    <Content Include="Content\images\icons\menu\menu-user.png" />
-    <Content Include="Content\images\icons\message-boxes\confirmation.png" />
-    <Content Include="Content\images\icons\message-boxes\error.png" />
-    <Content Include="Content\images\icons\message-boxes\information.png" />
-    <Content Include="Content\images\icons\message-boxes\warning.png" />
-    <Content Include="Content\images\icons\table\actions-delete.png" />
-    <Content Include="Content\images\icons\table\actions-edit.png" />
-    <Content Include="Content\images\login-icon.png" />
-    <Content Include="Content\images\menu-dark-indicator.png" />
-    <Content Include="Content\images\menu-indicator.png" />
-    <Content Include="Content\images\separator-bg.png" />
-    <Content Include="Content\images\tab-dashboard.png" />
-    <Content Include="Content\js\jquery-1.10.2.min.js" />
-    <Content Include="Content\js\jquery-ui-1.10.3.min.js" />
-    <Content Include="Content\js\jquery.blockUI.min.js" />
-    <Content Include="Content\js\jquery.carouFredSel-6.2.1.js" />
-    <None Include="Content\js\jquery.validate-vsdoc.js" />
-    <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Content\js\jquery.validate.min.js" />
-    <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Content\js\kendo.all.min.js" />
-    <Content Include="Content\js\kendo.aspnetmvc.min.js" />
-    <Content Include="Content\js\kendo.web.min.js" />
-    <Content Include="Content\js\scripts.js" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="eHesabim.Web.Task.nuspec" />
@@ -237,6 +176,9 @@
       <Project>{ed5754e7-95f2-4b47-bd32-0a846f911329}</Project>
       <Name>eHesabim.Tasks</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

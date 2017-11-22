@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 
 using eHesabim.Core.Engine;
@@ -15,7 +14,6 @@ namespace eHesabim.Web.Task {
 
             AreaRegistration.RegisterAllAreas();
 
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 

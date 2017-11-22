@@ -7,7 +7,6 @@
 <head>
     <meta charset="utf-8">
     <title>..:: eHesabim - Web Task ::..</title>
-    <link href="~/favicon.ico" rel="shurtcut icon" type="image/x-icon" />
 </head>
 <body>
     <style>
@@ -83,11 +82,5 @@
         <button type="submit" name="stop" value="stop" @Html.Raw(@Model.IsRunning ? "" : "disabled=\"disabled\"")>Stop</button>
         <button type="submit" name="refresh" value="refresh">Refresh</button>
     }
-    @*<br />
-    <textarea rows="20" cols="120" wrap="hard">
-        @foreach (var line in @Model.Logs) {
-            @line @Html.Raw("\r\n")
-        }
-    </textarea>*@
 </body>
 </html>

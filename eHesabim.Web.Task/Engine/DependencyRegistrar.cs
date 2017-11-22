@@ -17,11 +17,10 @@ namespace eHesabim.Web.Task.Engine {
             builder.RegisterControllers(typeFinder.GetAssemblies().ToArray());
 
             // services
-            builder.RegisterType<CommonService>().As<ICommonService>().InstancePerDependency();
             builder.RegisterType<MessageService>().As<IMessageService>().InstancePerDependency();
             builder.RegisterType<UserService>().As<IUserService>().InstancePerDependency();
 
-            // The End
+            // the end
             builder.RegisterType<RoutePublisher>().As<IRoutePublisher>().SingleInstance();
        }
     }
