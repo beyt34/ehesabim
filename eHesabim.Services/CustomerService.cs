@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using eHesabim.Core;
 using eHesabim.Core.Data;
@@ -268,21 +269,62 @@ namespace eHesabim.Services {
             }
 
             // get data
-            var list = customerTransactionRepository
-                        .Filter(query, page, pageSize, sort, sortDescending, out total)
-                        .Include(a => a.Customer)
-                        .ToListNoLock();
+            string newSort;
+            switch (sort) {
+                case "CustomerName":
+                    newSort = "Customer.Name " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
+                    break;
+                case "Name":
+                    newSort = "Name " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
+                    break;
+                case "Debit":
+                case "Claim":
+                    newSort = "Amount " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
+                    break;
+                case "DueDateTime":
+                    newSort = "DueDateTime " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
+                    break;
+                case "Installment":
+                    newSort = "Installment " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
+                    break;
+                default:
+                    newSort = "TrnDateTime " + (sortDescending ? "DESC" : "ASC");
+                    break;
+            }
+
+            const int DebitId = (int)CustomerTransactionTypeEnum.Debit;
+            const int ClaimId = (int)CustomerTransactionTypeEnum.Claim;
+
+            var skipCount = page * pageSize;
+            var list =
+                customerTransactionRepository
+                    .Query(query)
+                    .Include(i => i.Customer)
+                    .OrderBy(newSort)
+                    .Skip(skipCount)
+                    .Take(pageSize)
+                    .Select(s => new CustomerTransactionDataModel {
+                        Id = s.Id,
+                        CustomerName = s.Customer.Name,
+                        TrnDateTime = s.TrnDateTime,
+                        Name = s.Name,
+                        Debit = s.TypeId == DebitId ? s.Amount : 0,
+                        Claim = s.TypeId == ClaimId ? s.Amount : 0,
+                        DueDateTime = s.DueDateTime,
+                        Installment = s.InstallmentNo > 0 && s.InstallmentTotal > 0 ? s.InstallmentNo.ToString() + "/" + s.InstallmentTotal.ToString() : string.Empty
+                    })
+                    .ToList();
 
             // toplamlar
-            const int DebitId = (int)CustomerTransactionTypeEnum.Debit;
             var queryDebit = customerTransactionRepository.Query(query).Where(a => a.TypeId == DebitId);
             debitTotal = queryDebit.Any() ? queryDebit.Sum(s => s.Amount) : 0;
 
-            const int ClaimId = (int)CustomerTransactionTypeEnum.Claim;
             var queryClaim = customerTransactionRepository.Query(query).Where(a => a.TypeId == ClaimId);
             claimTotal = queryClaim.Any() ? queryClaim.Sum(s => s.Amount) : 0;
 
-            return AutoMapperConfiguration.Mapper.Map<List<CustomerTransaction>, List<CustomerTransactionDataModel>>(list);
+            total = customerTransactionRepository.Query(query).Count();
+
+            return list;
         }
 
         public CustomerTransactionDataModel GetCustomerTransactionById(Guid id, int userId) {
