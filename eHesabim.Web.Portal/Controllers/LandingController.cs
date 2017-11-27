@@ -19,8 +19,7 @@ namespace eHesabim.Web.Portal.Controllers {
 
             return View();
         }
-
-
+        
         /// <summary>The heartbeat.</summary>
         /// <returns>The <see cref="ActionResult"/>.</returns>
         public ActionResult Heartbeat() {
