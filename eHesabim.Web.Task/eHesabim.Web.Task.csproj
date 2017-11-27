@@ -64,7 +64,6 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
-    <Content Include="eHesabim.Web.Task.nuspec" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
