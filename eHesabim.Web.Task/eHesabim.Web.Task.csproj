@@ -62,6 +62,7 @@
     <Compile Include="Models\TaskModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="eHesabim.Web.Task.nuspec" />
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <Content Include="Web.config">
