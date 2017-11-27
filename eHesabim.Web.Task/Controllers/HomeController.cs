@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-
 using eHesabim.Core.Logging;
 using eHesabim.Framework.Controllers;
 using eHesabim.Web.Task.Engine;
@@ -18,7 +17,7 @@ namespace eHesabim.Web.Task.Controllers {
         }
 
         public ActionResult Index() {
-            ////logging.Trace("HomeController=>GetHeartbeat");
+            logging.Trace("heartbeat");
             return View(GetModel(false));
         }
 
