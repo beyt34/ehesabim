@@ -277,18 +277,8 @@ namespace eHesabim.Services {
                 case "Name":
                     newSort = "Name " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
                     break;
-                case "Debit":
-                case "Claim":
-                    newSort = "Amount " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
-                    break;
-                case "DueDateTime":
-                    newSort = "DueDateTime " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
-                    break;
-                case "Installment":
-                    newSort = "Installment " + (sortDescending ? "DESC" : "ASC") + ", TrnDateTime DESC";
-                    break;
                 default:
-                    newSort = "TrnDateTime " + (sortDescending ? "DESC" : "ASC");
+                    newSort = "TrnDateTime " + (sortDescending ? "DESC" : "ASC") + ", CreatedDateTime DESC";
                     break;
             }
 

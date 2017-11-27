@@ -11,6 +11,7 @@ form select.input-validation-error { border: 1px solid #A94442; }
 .k-grid { border: 0; }
     .k-grid th.k-header, .k-grid-header { border-bottom: 2px solid #DDDDDD; color: #f0ad4e; vertical-align: bottom; line-height: 1.42857; padding: 8px; }
         .k-grid th.k-header, .k-grid th.k-header .k-link { color: #f0ad4e; }
+            .k-grid th.k-header a.k-link { font-weight: bold; }
 
 .k-state-selected,
 .k-state-selected:link,
@@ -55,13 +56,13 @@ a.show-sidebar { float: left; color: #6d6d6d; outline: none; -webkit-transition:
 
 /* PANEL INFO */
 .panel-info { border-color: #46B8DA; }
-	.panel-info > .panel-heading { color: #FFF; background-color: #5BC0DE; border-color: #46B8DA; }
+    .panel-info > .panel-heading { color: #FFF; background-color: #5BC0DE; border-color: #46B8DA; }
 
 .panel-yellow { border-color: #f0ad4e;; }
-	.panel-yellow > .panel-heading { color: #FFF; background-color: #f0ad4e; border-color: #f0ad4e; }
+    .panel-yellow > .panel-heading { color: #FFF; background-color: #f0ad4e; border-color: #f0ad4e; }
 
 .panel-green { border-color: #5cb85c; }
-.panel-green > .panel-heading { border-color: #5cb85c; color: white; background-color: #5cb85c; }
+    .panel-green > .panel-heading { border-color: #5cb85c; color: white; background-color: #5cb85c; }
 
 .panel-title > a { text-decoration: none; }
 
@@ -71,11 +72,10 @@ a.show-sidebar { float: left; color: #6d6d6d; outline: none; -webkit-transition:
 
 
 .form-group-modal { margin-bottom: 5px; }
-.form-control-modal-inline { display: inline;}
+.form-control-modal-inline { display: inline; }
 
 .max-width-400 { max-width: 400px !important; }
 .max-width-500 { max-width: 500px !important; }
 .max-width-600 { max-width: 600px !important; }
 .max-width-650 { max-width: 650px !important; }
 .max-width-700 { max-width: 700px !important; }
-

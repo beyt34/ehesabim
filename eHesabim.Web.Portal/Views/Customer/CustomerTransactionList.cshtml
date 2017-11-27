@@ -71,10 +71,10 @@
                       columns.Bound(x => x.CustomerName).Title(Labels.Customer);
                       columns.Bound(x => x.TrnDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.Date);
                       columns.Bound(x => x.Name).Title(Labels.Description).HtmlAttributes(new { style = "white-space: nowrap; max-width: 400px; overflow: hidden;" });
-                      columns.Bound(x => x.Debit).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Debit);
-                      columns.Bound(x => x.Claim).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Claim);
-                      columns.Bound(x => x.DueDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.DueDate);
-                      columns.Bound(x => x.Installment).HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Installment);
+                      columns.Bound(x => x.Debit).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Debit).Sortable(false);
+                      columns.Bound(x => x.Claim).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Claim).Sortable(false);
+                      columns.Bound(x => x.DueDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.DueDate).Sortable(false);
+                      columns.Bound(x => x.Installment).HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Installment).Sortable(false);
                       columns.Command(x => x.Custom(Buttons.Edit).Click("onCustomerTransactionEditWindow")).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
                       columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
                   })
