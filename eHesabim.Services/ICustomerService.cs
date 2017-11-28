@@ -6,9 +6,9 @@ namespace eHesabim.Services {
     public interface ICustomerService {
         List<CustomerDataModel> GetDashboardCustomerList(int userId, bool showCustomerExclusion);
 
-        Guid AddUpdateCustomer(Guid id, int userId, string name, string email, string phone, string address, int? cityId, int? countyId, DateTime? birthDate, string notes, bool isExclusion, out string errMessage);
+        Guid AddUpdateCustomer(Guid id, int userId, string name, string email, string phone, string address, int? cityId, int? countyId, DateTime? birthDate, string notes, bool isExclusion, bool isActive, out string errMessage);
 
-        List<CustomerDataModel> GetCustomerList(int userId, string name, string email, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal);
+        List<CustomerDataModel> GetCustomerList(int userId, string name, string email, int? excludeId, int? activeId, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal);
         
         List<SelectGuidDataModel> GetCustomerList(int userId);
 

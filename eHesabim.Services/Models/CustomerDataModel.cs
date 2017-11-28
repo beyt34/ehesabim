@@ -22,6 +22,8 @@ namespace eHesabim.Services.Models {
         
         public bool IsExclusion { get; set; }
 
+        public bool IsActive { get; set; }
+
         public decimal Debit { get; set; }
 
         public decimal Claim { get; set; }

@@ -14,6 +14,8 @@ namespace eHesabim.Web.Portal.Models {
 
         public bool IsExclusion { get; set; }
 
+        public bool IsActive { get; set; }
+
         public string DebitTotal { get; set; }
 
         public string ClaimTotal { get; set; }

@@ -50,6 +50,8 @@ namespace eHesabim.Web.Portal.Controllers {
                     GetCustomerListWebModel(
                         model.SearchName,
                         model.SearchEmail,
+                        model.SearchExcludeId,
+                        model.SearchActiveId,
                         SortField,
                         SortDescending,
                         model.SearchViaForm ? 0 : request.Page - 1,
@@ -91,6 +93,7 @@ namespace eHesabim.Web.Portal.Controllers {
                     model.BirthDate,
                     model.Notes,
                     model.IsExclusion,
+                    model.IsActive,
                     out errMessage);
 
                 return Json(new { Success = string.IsNullOrEmpty(errMessage), Result = errMessage });
@@ -188,7 +191,7 @@ namespace eHesabim.Web.Portal.Controllers {
 
             return View(model);
         }
-        
+
         public ActionResult UploadFile(Guid id, HttpPostedFileBase file) {
             if (file == null) {
                 return Content(string.Empty);
@@ -218,7 +221,7 @@ namespace eHesabim.Web.Portal.Controllers {
             return Json(new { Result = true }, "text/plain");
         }
 
-        private CustomerListWebModel GetCustomerListWebModel(string name = "", string email = "", string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private CustomerListWebModel GetCustomerListWebModel(string name = "", string email = "", int? excludeId = null, int? activeId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
             int total;
             decimal debitTotal;
             decimal claimTotal;
@@ -227,6 +230,8 @@ namespace eHesabim.Web.Portal.Controllers {
                 workContext.CurrentUser.Id,
                 name,
                 email,
+                excludeId,
+                activeId,
                 sort,
                 sortDescending,
                 pageIndex ?? 0,
@@ -248,6 +253,10 @@ namespace eHesabim.Web.Portal.Controllers {
             return new CustomerListWebModel {
                 SearchName = name,
                 SearchEmail = email,
+                SearchExcludeId = excludeId ?? 0,
+                SearchExcludeList = GetYesNoList(),
+                SearchActiveId = activeId ?? 0,
+                SearchActiveList = GetYesNoList(),
                 Data = model,
                 DeleteData = new DeleteWebModel { Permission = PermissionFormEnum.Customer, Form = FormEnum.Customer, GridName = "customerGrid" },
                 Total = total

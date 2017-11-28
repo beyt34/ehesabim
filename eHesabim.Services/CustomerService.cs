@@ -28,7 +28,7 @@ namespace eHesabim.Services {
 
             Expression<Func<CustomerTransaction, bool>> query = f => !f.IsDeleted && f.UserId == userId;
             if (!showCustomerExclusion) {
-                query = query.And(a => !a.Customer.IsExclusion);
+                query = query.And(a => !a.Customer.IsExclusion && a.Customer.IsActive);
             }
 
             return customerTransactionRepository
@@ -51,7 +51,7 @@ namespace eHesabim.Services {
                         .ToList();
         }
 
-        public Guid AddUpdateCustomer(Guid id, int userId, string name, string email, string phone, string address, int? cityId, int? countyId, DateTime? birthDate, string notes, bool isExclusion, out string errMessage) {
+        public Guid AddUpdateCustomer(Guid id, int userId, string name, string email, string phone, string address, int? cityId, int? countyId, DateTime? birthDate, string notes, bool isExclusion, bool isActive, out string errMessage) {
             errMessage = string.Empty;
             var entity = id == Guid.Empty ? new Customer() : customerRepository.Detail(id);
 
@@ -79,11 +79,12 @@ namespace eHesabim.Services {
             entity.BirthDate = birthDate;
             entity.Notes = notes;
             entity.IsExclusion = isExclusion;
+            entity.IsActive = isActive;
 
             return customerRepository.AddUpdate(entity);
         }
 
-        public List<CustomerDataModel> GetCustomerList(int userId, string name, string email, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal) {
+        public List<CustomerDataModel> GetCustomerList(int userId, string name, string email, int? excludeId, int? activeId, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal) {
             Expression<Func<Customer, bool>> query = f => !f.IsDeleted && f.UserId == userId;
 
             if (string.IsNullOrEmpty(sort)) {
@@ -97,6 +98,14 @@ namespace eHesabim.Services {
 
             if (!string.IsNullOrEmpty(email)) {
                 query = query.And(a => a.Email.Contains(email));
+            }
+
+            if ((excludeId ?? 0) != 0) {
+                query = query.And(a => a.IsExclusion == (excludeId == 1));
+            }
+            
+            if ((activeId ?? 0) != 0) {
+                query = query.And(a => a.IsActive == (activeId == 1));
             }
 
             // get data
@@ -122,7 +131,7 @@ namespace eHesabim.Services {
 
         public List<SelectGuidDataModel> GetCustomerList(int userId) {
             return customerRepository
-                       .Query(a => a.UserId == userId)
+                       .Query(a => a.UserId == userId && a.IsActive)
                        .OrderBy(a => a.Name)
                        .Select(x => new SelectGuidDataModel { Id = x.Id, Name = x.Name })
                        .ToListNoLock();

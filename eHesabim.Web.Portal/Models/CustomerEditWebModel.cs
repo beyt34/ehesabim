@@ -26,5 +26,7 @@ namespace eHesabim.Web.Portal.Models {
         public string Notes { get; set; }
 
         public bool IsExclusion { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

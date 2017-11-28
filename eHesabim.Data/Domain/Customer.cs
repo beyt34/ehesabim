@@ -21,5 +21,7 @@ namespace eHesabim.Data.Domain {
         public string Notes { get; set; }
 
         public bool IsExclusion { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
