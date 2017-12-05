@@ -331,6 +331,7 @@
     <Content Include="favicon2.ico" />
     <Content Include="Global.asax" />
     <Content Include="eHesabim.Web.Portal.nuspec" />
+    <Content Include="logo.png" />
     <Content Include="sitemap.xml" />
     <Content Include="static.xml" />
     <Content Include="Web.config">
