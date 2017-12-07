@@ -60,7 +60,7 @@ namespace eHesabim.Web.Portal.Controllers {
 
         [ActionName("_CustomerEdit")]
         public PartialViewResult CustomerEdit(Guid? id) {
-            var model = new CustomerEditWebModel();
+            var model = new CustomerEditWebModel { IsActive = true };
 
             if ((id ?? Guid.Empty) != Guid.Empty) {
                 var dataModel = customerService.GetCustomerById(id ?? Guid.Empty, workContext.CurrentUser.Id);
