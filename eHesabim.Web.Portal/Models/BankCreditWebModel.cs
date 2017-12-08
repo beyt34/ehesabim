@@ -17,5 +17,7 @@ namespace eHesabim.Web.Portal.Models {
         public int RemainInstallment { get; set; }
 
         public DateTime PaymentDateTime { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

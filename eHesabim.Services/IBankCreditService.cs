@@ -4,9 +4,9 @@ using eHesabim.Services.Models;
 
 namespace eHesabim.Services {
     public interface IBankCreditService {
-        Guid AddUpdateBankCredit(Guid id, int userId, int bankId, DateTime creditDateTime, decimal capital, decimal rate, int installment, decimal monthlyPayment, decimal expense, out string errMessage);
+        Guid AddUpdateBankCredit(Guid id, int userId, int bankId, DateTime creditDateTime, decimal capital, decimal rate, int installment, decimal monthlyPayment, decimal expense, bool isActive, out string errMessage);
         
-        List<BankCreditDataModel> GetBankCreditList(int userId, int bankId, string sort, bool sortDescending, int page, int pageSize, out int total);
+        List<BankCreditDataModel> GetBankCreditList(int userId, int bankId, int page, int pageSize, out int total);
         
         List<SelectGuidDataModel> GetBankCreditList(int userId);
         

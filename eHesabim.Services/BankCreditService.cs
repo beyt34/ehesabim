@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Linq.Expressions;
 using eHesabim.Core.Data;
 using eHesabim.Data.Domain;
@@ -23,7 +24,7 @@ namespace eHesabim.Services {
             this.expenseStoreRepository = expenseStoreRepository;
         }
 
-        public Guid AddUpdateBankCredit(Guid id, int userId, int bankId, DateTime creditDateTime, decimal capital, decimal rate, int installment, decimal monthlyPayment, decimal expense, out string errMessage) {
+        public Guid AddUpdateBankCredit(Guid id, int userId, int bankId, DateTime creditDateTime, decimal capital, decimal rate, int installment, decimal monthlyPayment, decimal expense, bool isActive, out string errMessage) {
             errMessage = string.Empty;
             var entity = id == Guid.Empty ? new BankCredit() : bankCreditRepository.Detail(id);
             var newRecord = id == Guid.Empty;
@@ -41,6 +42,7 @@ namespace eHesabim.Services {
             entity.Installment = installment;
             entity.MonthlyPayment = monthlyPayment;
             entity.Expense = expense;
+            entity.IsActive = isActive;
 
             id = bankCreditRepository.AddUpdate(entity);
 
@@ -63,12 +65,7 @@ namespace eHesabim.Services {
             return id;
         }
 
-        public List<BankCreditDataModel> GetBankCreditList(int userId, int bankId, string sort, bool sortDescending, int page, int pageSize, out int total) {
-            if (string.IsNullOrEmpty(sort)) {
-                sort = "CreditDateTime";
-                sortDescending = true;
-            }
-
+        public List<BankCreditDataModel> GetBankCreditList(int userId, int bankId, int page, int pageSize, out int total) {
             Expression<Func<BankCredit, bool>> query = f => !f.IsDeleted && f.UserId == userId;
 
             if (bankId != 0) {
@@ -76,10 +73,17 @@ namespace eHesabim.Services {
             }
 
             // get data
-            var list = bankCreditRepository
-                        .Filter(query, page, pageSize, sort, sortDescending, out total)
-                        .Include(i => i.Bank)
-                        .ToListNoLock();
+            var skipCount = page * pageSize;
+            var list =
+                bankCreditRepository
+                    .Query(query)
+                    .Include(i => i.Bank)
+                    .OrderBy("IsActive DESC, CreditDateTime DESC")
+                    .Skip(skipCount)
+                    .Take(pageSize)
+                    .ToListNoLock();
+
+            total = bankCreditRepository.Query(query).Count();
 
             return GetBankCreditDataModelList(list);
         }
@@ -87,7 +91,7 @@ namespace eHesabim.Services {
         public List<SelectGuidDataModel> GetBankCreditList(int userId) {
             var list =
                 bankCreditRepository
-                    .Query(a => a.UserId == userId && !a.IsDeleted)
+                    .Query(a => a.UserId == userId && a.IsActive && !a.IsDeleted)
                     .OrderByDescending(a => a.CreditDateTime)
                     .Include(i => i.Bank)
                     .ToListNoLock();
@@ -235,13 +239,13 @@ namespace eHesabim.Services {
 
         public List<BankCreditDataModel> GetDashboardBankCreditList(int userId) {
             int total;
-            var list = GetBankCreditList(userId, 0, string.Empty, false, 0, 100, out total);
+            var list = GetBankCreditList(userId, 0, 0, 100, out total);
             return list.Where(a => a.RemainCapital > 0).ToList();
         }
 
         private List<BankCreditDataModel> GetBankCreditDataModelList(List<BankCredit> list) {
-            var model = AutoMapperConfiguration.Mapper.Map<List<BankCredit>, List<BankCreditDataModel>>(list);
-            foreach (var item in model) {
+            var newList = AutoMapperConfiguration.Mapper.Map<List<BankCredit>, List<BankCreditDataModel>>(list);
+            foreach (var item in newList) {
                 var item1 = item;
                 var subList = bankCreditSubRepository.Query(a => a.BankCreditId == item1.Id).OrderBy(a => a.InstallmentDateTime).ToListNoLock();
                 if (subList.Any()) {
@@ -261,7 +265,7 @@ namespace eHesabim.Services {
                 }
             }
 
-            return model;
+            return newList;
         }
 
         private void AddBankAccountTransaction(Guid bankCreditSubId, int userId, DateTime? paymentDate, decimal installmentAmount, Guid? bankAccountId) {

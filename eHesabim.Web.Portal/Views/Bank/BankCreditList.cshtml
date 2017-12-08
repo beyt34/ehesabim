@@ -22,7 +22,7 @@
                 <label>@Html.Raw(Labels.Bank)</label>
                 @Html.DropDownListFor(m => m.SearchBankId, Model.SearchBankList, new { @class = "form-control", placeholder = Labels.Bank })
             </div>
-            
+
             <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
             <a href="#" id="form-detail" class="btn btn-outline btn-warning">@Buttons.Add</a>
         }
@@ -33,13 +33,16 @@
             @(Html.Kendo().Grid(Model.Data)
                   .Name("bankCreditGrid")
                   .Columns(columns => {
-                      columns.Bound(x => x.BankName).Title(Labels.Bank);
-                      columns.Bound(x => x.CreditDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.Date);
-                      columns.Bound(x => x.Capital).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Capital);
-                      columns.Bound(x => x.Installment).Format("{0:N0}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Installment);
-                      columns.Bound(x => x.MonthlyPayment).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.MonthlyPayment);
-                      columns.Bound(x => x.RemainCapital).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.RemainCapital);
-                      columns.Bound(x => x.RemainInstallment).Format("{0:N0}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.RemainInstallment);
+                      columns.Bound(x => x.BankName).Title(Labels.Bank).Sortable(false);
+                      columns.Bound(x => x.CreditDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.Date).Sortable(false);
+                      columns.Bound(x => x.Capital).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Capital).Sortable(false);
+                      columns.Bound(x => x.Installment).Format("{0:N0}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Installment).Sortable(false);
+                      columns.Bound(x => x.MonthlyPayment).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.MonthlyPayment).Sortable(false);
+                      columns.Bound(x => x.RemainCapital).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.RemainCapital).Sortable(false);
+                      columns.Bound(x => x.RemainInstallment).Format("{0:N0}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.RemainInstallment).Sortable(false);
+                      columns.Bound(p => p.IsActive).Sortable(false)
+                        .ClientTemplate("<input type='checkbox' name='chkIsActive' #= IsActive ? checked='checked' : '' # disabled />")
+                        .HtmlAttributes(new { style = "text-align:center;" }).Title(Labels.IsActive);
                       columns.Command(x => x.Custom(Buttons.Edit).Click("onBankCreditEditWindow")).Width(50).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
                       columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).Width(50).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
                   })
@@ -48,11 +51,11 @@
                   .EnableCustomBinding(true)
                   .Events(events => events.DataBound("onGridDataBound"))
                   .DataSource(dataSource => dataSource
-                                                .Ajax()
-                                                .Model(m => m.Id(p => p.Id))
-                                                .PageSize(20)
-                                                .Total(Model.Total)
-                                                .Read(read => read.Action("BankCreditList", "Bank").Data("GetSearchModel"))
+                        .Ajax()
+                        .Model(m => m.Id(p => p.Id))
+                        .PageSize(20)
+                        .Total(Model.Total)
+                        .Read(read => read.Action("BankCreditList", "Bank").Data("GetSearchModel"))
                   )
             )
         </div>
@@ -61,12 +64,12 @@
 </div>
 
 @{Html.Kendo().Window()
-          .Name("bankCreditEditWindow")
-          .Title(Headers.BankCreditEdit)
-          .Draggable(true)
-          .Modal(true)
-          .Visible(false)
-          .Render();
+        .Name("bankCreditEditWindow")
+        .Title(Headers.BankCreditEdit)
+        .Draggable(true)
+        .Modal(true)
+        .Visible(false)
+        .Render();
 }
 
 @Html.Partial("_DeleteWindow", Model.DeleteData)

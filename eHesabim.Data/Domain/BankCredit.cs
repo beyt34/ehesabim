@@ -19,5 +19,7 @@ namespace eHesabim.Data.Domain {
         public decimal MonthlyPayment { get; set; }
 
         public decimal Expense { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

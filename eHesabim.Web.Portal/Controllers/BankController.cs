@@ -32,12 +32,12 @@ namespace eHesabim.Web.Portal.Controllers {
             }
 
             SetSort(request);
-            return Json(GetBankCreditListWebModel(model.SearchBankId, SortField, SortDescending, model.SearchViaForm ? 0 : request.Page - 1, request.PageSize));
+            return Json(GetBankCreditListWebModel(model.SearchBankId, model.SearchViaForm ? 0 : request.Page - 1, request.PageSize));
         }
 
         [ActionName("_BankCreditEdit")]
         public PartialViewResult BankCreditEdit(Guid? id) {
-            var model = new BankCreditEditWebModel { CreditDateTime = DateTime.Today };
+            var model = new BankCreditEditWebModel { CreditDateTime = DateTime.Today, IsActive = true };
 
             if ((id ?? Guid.Empty) != Guid.Empty) {
                 var dataModel = bankCreditService.GetBankCreditById(id ?? Guid.Empty, workContext.CurrentUser.Id);
@@ -66,6 +66,7 @@ namespace eHesabim.Web.Portal.Controllers {
                     model.Installment,
                     model.MonthlyPayment,
                     model.Expense,
+                    model.IsActive,
                     out errMessage);
 
                 return Json(new { Success = string.IsNullOrEmpty(errMessage), Result = errMessage });
@@ -322,9 +323,9 @@ namespace eHesabim.Web.Portal.Controllers {
             return Json(new { Success = false, Result = Framework.WebViewPage.ValidationSummary(ModelState, string.Empty) });
         }
 
-        private BankCreditListWebModel GetBankCreditListWebModel(int bankId = 0, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private BankCreditListWebModel GetBankCreditListWebModel(int bankId = 0, int? pageIndex = 0, int? pageSize = 20) {
             int total;
-            var data = bankCreditService.GetBankCreditList(workContext.CurrentUser.Id, bankId, sort, sortDescending, pageIndex ?? 0, pageSize ?? 100, out total);
+            var data = bankCreditService.GetBankCreditList(workContext.CurrentUser.Id, bankId, pageIndex ?? 0, pageSize ?? 100, out total);
             var model = Engine.AutoMapperConfiguration.Mapper.Map<List<BankCreditDataModel>, List<BankCreditWebModel>>(data);
 
             return new BankCreditListWebModel {

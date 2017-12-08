@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace eHesabim.Services.Models {
     public class BankCreditDataModel : BaseDataModel<Guid> {
@@ -26,5 +25,7 @@ namespace eHesabim.Services.Models {
         public int RemainInstallment { get; set; }
 
         public DateTime PaymentDateTime { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
