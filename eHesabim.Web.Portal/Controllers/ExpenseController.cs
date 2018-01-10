@@ -10,9 +10,7 @@ using Kendo.Mvc.UI;
 
 namespace eHesabim.Web.Portal.Controllers {
     public class ExpenseController : BaseController {
-        /// <summary>The bank account service.</summary>
         private readonly IBankAccountService bankAccountService;
-
         private readonly ICommonService commonService;
         private readonly IBankCreditCardService bankCreditCardService;
         private readonly IExpenseService expenseService;

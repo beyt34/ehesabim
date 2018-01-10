@@ -195,7 +195,7 @@ namespace eHesabim.Services {
         }
 
         public ExpenseDataModel GetExpenseById(Guid id, int userId) {
-            var data = 
+            var data =
                 expenseRepository
                     .Query(a => a.Id == id && a.UserId == userId)
                     .Include(i => i.Type)
@@ -306,6 +306,10 @@ namespace eHesabim.Services {
                     .Select(s => s.Key)
                     .OrderByDescending(o => o)
                     .ToListNoLock();
+
+            if (!list.Contains(DateTime.Today.Year)) {
+                list.Insert(0, DateTime.Today.Year);
+            }
 
             return list;
         }

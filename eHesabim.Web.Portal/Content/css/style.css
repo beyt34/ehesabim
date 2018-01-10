@@ -79,3 +79,5 @@ a.show-sidebar { float: left; color: #6d6d6d; outline: none; -webkit-transition:
 .max-width-600 { max-width: 600px !important; }
 .max-width-650 { max-width: 650px !important; }
 .max-width-700 { max-width: 700px !important; }
+
+.mt15 { margin-top: 15px; }

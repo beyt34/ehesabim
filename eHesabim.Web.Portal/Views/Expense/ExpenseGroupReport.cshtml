@@ -32,22 +32,23 @@
         </h4>
     </div>
     <div class="panel-body">
-        @if (Model.Data != null && Model.Data.Any()) {
-            if (Model.YearList != null && Model.YearList.Any()) {
-                <ul class="nav nav-tabs">
-                    @foreach (var year in Model.YearList) {
-                        {
-                            var active = year == Model.Year ? "active" : "";
-                            var expanded = year == Model.Year ? "true" : "false";
 
-                            <li class="@active">
-                                <a href="@Url.RouteUrl(RouteNames.ExpenseGroupReport,new { year })" aria-expanded="@expanded">@year</a>
-                            </li>
-                        }
+        @if (Model.YearList != null && Model.YearList.Any()) {
+            <ul class="nav nav-tabs">
+                @foreach (var year in Model.YearList) {
+                    {
+                        var active = year == Model.Year ? "active" : "";
+                        var expanded = year == Model.Year ? "true" : "false";
+
+                        <li class="@active">
+                            <a href="@Url.RouteUrl(RouteNames.ExpenseGroupReport,new { year })" aria-expanded="@expanded">@year</a>
+                        </li>
                     }
-                </ul>
-            }
+                }
+            </ul>
+        }
 
+        @if (Model.Data != null && Model.Data.Any()) {
             <div class="tab-content">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
@@ -87,43 +88,43 @@
 
                                 <tr class="">
                                     <td class="info">@Html.Raw(item.GroupName)</td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 1 })">@Html.Raw(item.Amount01.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 1})">@Html.Raw(item.Amount01.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 2 })">@Html.Raw(item.Amount02.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 2})">@Html.Raw(item.Amount02.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 3 })">@Html.Raw(item.Amount03.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 3})">@Html.Raw(item.Amount03.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 4 })">@Html.Raw(item.Amount04.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 4})">@Html.Raw(item.Amount04.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 5 })">@Html.Raw(item.Amount05.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 5})">@Html.Raw(item.Amount05.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 6 })">@Html.Raw(item.Amount06.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 6})">@Html.Raw(item.Amount06.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 7 })">@Html.Raw(item.Amount07.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 7})">@Html.Raw(item.Amount07.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 8 })">@Html.Raw(item.Amount08.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 8})">@Html.Raw(item.Amount08.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 9 })">@Html.Raw(item.Amount09.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 9})">@Html.Raw(item.Amount09.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 10 })">@Html.Raw(item.Amount10.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 10})">@Html.Raw(item.Amount10.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 11 })">@Html.Raw(item.Amount11.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 11})">@Html.Raw(item.Amount11.ToString("N2"))</a>
                                     </td>
-                                    <td class="warning" style="text-align:right;">
-                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new { groupId = item.GroupId, year = item.GroupYear, month = 12 })">@Html.Raw(item.Amount12.ToString("N2"))</a>
+                                    <td class="warning" style="text-align: right;">
+                                        <a href="@Url.RouteUrl(RouteNames.ExpenseList, new {groupId = item.GroupId, year = item.GroupYear, month = 12})">@Html.Raw(item.Amount12.ToString("N2"))</a>
                                     </td>
-                                    <td class="danger" style="text-align:right;">@Html.Raw(item.AmountTotal.ToString("N2"))</td>
+                                    <td class="danger" style="text-align: right;">@Html.Raw(item.AmountTotal.ToString("N2"))</td>
                                 </tr>
                             }
                         </tbody>
@@ -150,7 +151,11 @@
             </div>
         }
         else {
-            @Html.Raw(Messages.ReportDataEmpty)
+            <div class="tab-content">
+                <div class="table-responsive mt15">
+                    @Html.Raw(Messages.ReportDataEmpty)
+                </div>
+            </div>
         }
     </div>
 </div>
