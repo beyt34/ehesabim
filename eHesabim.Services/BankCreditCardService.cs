@@ -358,15 +358,9 @@ namespace eHesabim.Services {
             item.DebtTotal = expenseTotal - paymentTotal;
             item.AvailableLimit = item.Limit - item.DebtTotal;
 
-            DateTime lastPaymentDate;
-            DateTime lastEndDate;
-            DateTime currentPaymentDate;
-            DateTime currentEndDate;
-            Guid currentPeriodId;
-
-            item.LastDebt = GetLastDebt(item.Id, out lastPaymentDate, out lastEndDate);                                     // ekstre borcu
-            item.CurrentDebt = GetCurrentDebt(item.Id, out currentPaymentDate, out currentEndDate, out currentPeriodId);    // dönem içi
-            item.NextDebt = GetNextDebt(item.Id);                                                                           // sonraki dönem
+            item.LastDebt = GetLastDebt(item.Id, out var lastPaymentDate, out var lastEndDate);                                         // ekstre borcu
+            item.CurrentDebt = GetCurrentDebt(item.Id, out var currentPaymentDate, out var currentEndDate, out var currentPeriodId);    // dönem içi
+            item.NextDebt = GetNextDebt(item.Id);                                                                                       // sonraki dönem
 
             // toplam borç 0 ise, tüm dönem borçları 0
             if (item.DebtTotal == 0) {
