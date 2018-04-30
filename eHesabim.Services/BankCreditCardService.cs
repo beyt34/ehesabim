@@ -244,8 +244,8 @@ namespace eHesabim.Services {
             var list = bankCreditCardPaymentRepository
                         .Filter(query, page, pageSize, sort, sortDescending, out total)
                         .Include(i => i.BankCreditCard)
-                ////.Include(i => i.BankAccountTransactions).DefaultIfEmpty()
-                ////.Include(i => i.BankAccountTransactions.Select(s => s.BankAccount)).DefaultIfEmpty()
+                        ////.Include(i => i.BankAccountTransactions).DefaultIfEmpty()
+                        ////.Include(i => i.BankAccountTransactions.Select(s => s.BankAccount)).DefaultIfEmpty()
                         .ToListNoLock();
 
             var model = AutoMapperConfiguration.Mapper.Map<List<BankCreditCardPayment>, List<BankCreditCardPaymentDataModel>>(list);
@@ -340,12 +340,7 @@ namespace eHesabim.Services {
         }
 
         private string GetBankCreditCardPeriodText(DateTime startDate, DateTime endDate) {
-            return string.Format(
-                    "{0}/{1} » ({2} - {3})",
-                    endDate.ToString("yyyy"),
-                    endDate.ToString("MM"),
-                    startDate.ToString("dd.MM.yyyy"),
-                    endDate.ToString("dd.MM.yyyy"));
+            return string.Format("{0:yyyy}/{1:MM} » ({2:dd.MM.yyyy} - {3:dd.MM.yyyy})", endDate, endDate, startDate, endDate);
         }
 
         private BankCreditCardDataModel GetCalculatedModel(BankCreditCardDataModel item) {
@@ -384,18 +379,19 @@ namespace eHesabim.Services {
                 if (item.DebtTotal > item.NextDebt) {
                     var tmpCurrent = item.DebtTotal - item.NextDebt;
 
+                    // banka uygulamaları farklılık gösteriyor, o yüzden iptal (puan kullanımı ile çakışıyor.)
                     // donemicinde peşin iade varsa, ekstre borcundan düşülecek, donemici borca eklenecek
-                    var currentRefund =
-                        expenseRepository
-                           .Query(a => a.BankCreditCardId == item.Id && a.BankCreditCardPeriodId == currentPeriodId && a.ParentId == null && a.Amount < 0)
-                           .ToListNoLock()
-                           .Sum(a => a.Amount);
+                    ////var currentRefund =
+                    ////    expenseRepository
+                    ////       .Query(a => a.BankCreditCardId == item.Id && a.BankCreditCardPeriodId == currentPeriodId && a.ParentId == null && a.Amount < 0)
+                    ////       .ToListNoLock()
+                    ////       .Sum(a => a.Amount);
 
-                    if (currentRefund < 0) {
-                        currentRefund = currentRefund * -1; // - işlem, tersine çevir
-                        item.LastDebt = item.LastDebt - currentRefund;
-                        item.CurrentDebt = item.CurrentDebt + currentRefund;
-                    }
+                    ////if (currentRefund < 0) {
+                    ////    currentRefund = currentRefund * -1; // - işlem, tersine çevir
+                    ////    item.LastDebt = item.LastDebt - currentRefund;
+                    ////    item.CurrentDebt = item.CurrentDebt + currentRefund;
+                    ////}
 
                     // ekstre ve donemici borc hesaplama
                     if (tmpCurrent > item.CurrentDebt) {
