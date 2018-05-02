@@ -19,7 +19,7 @@ namespace eHesabim.Web.Portal.Controllers {
 
             return View();
         }
-        
+
         /// <summary>The heartbeat.</summary>
         /// <returns>The <see cref="ActionResult"/>.</returns>
         public ActionResult Heartbeat() {
@@ -50,13 +50,25 @@ namespace eHesabim.Web.Portal.Controllers {
                 message2 = "task.coinprice Error";
             }
 
+            var message3 = "task.goommy OK";
+            try {
+                var request1 = WebRequest.Create("http://task.goommy.com");
+                var response1 = request1.GetResponse();
+                if (((HttpWebResponse)response1).StatusCode == HttpStatusCode.OK) {
+                    sum += 1;
+                }
+            }
+            catch (Exception) {
+                message3 = "task.goommy Error";
+            }
+
             // ok
-            if (sum == 2) {
+            if (sum == 3) {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
 
             // error
-            var message = string.Format("{0}|{1}|{2}", sum, message1, message2);
+            var message = string.Format("{0}|{1}|{2}|{3}", sum, message1, message2, message3);
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest, message);
         }
     }
