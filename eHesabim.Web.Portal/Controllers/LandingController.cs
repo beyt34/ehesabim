@@ -26,7 +26,7 @@ namespace eHesabim.Web.Portal.Controllers {
             var sum = 0;
 
             // admin
-            var message1 = "Task OK";
+            var message1 = "task.ehesabim OK";
             try {
                 var request1 = WebRequest.Create("http://task.ehesabim.com");
                 var response1 = request1.GetResponse();
@@ -35,16 +35,28 @@ namespace eHesabim.Web.Portal.Controllers {
                 }
             }
             catch (Exception) {
-                message1 = "Task Error";
+                message1 = "task.ehesabim Error";
+            }
+
+            var message2 = "task.coinprice OK";
+            try {
+                var request1 = WebRequest.Create("http://task.coinprice.cash");
+                var response1 = request1.GetResponse();
+                if (((HttpWebResponse)response1).StatusCode == HttpStatusCode.OK) {
+                    sum += 1;
+                }
+            }
+            catch (Exception) {
+                message2 = "task.coinprice Error";
             }
 
             // ok
-            if (sum == 1) {
+            if (sum == 2) {
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
 
             // error
-            var message = string.Format("{0}|{1}", sum, message1);
+            var message = string.Format("{0}|{1}|{2}", sum, message1, message2);
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest, message);
         }
     }
