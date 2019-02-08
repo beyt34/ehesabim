@@ -12,7 +12,11 @@ namespace eHesabim.Services.Models {
 
         public DateTime TrnDateTime { get; set; }
 
+        public DateTime? DueDateTime { get; set; }
+
         public string Name { get; set; }
+
+        public string FileName { get; set; }
 
         public int TypeId { get; set; }
         
@@ -22,16 +26,14 @@ namespace eHesabim.Services.Models {
 
         public decimal Claim { get; set; }
 
-        public DateTime? DueDateTime { get; set; }
-
         public int? InstallmentNo { get; set; }
 
         public int? InstallmentTotal { get; set; }
 
         public string Installment { get; set; }
 
-        public Guid? BankAccountId { get; set; }
+        public bool IsSales { get; set; }
 
-        public string FileName { get; set; }
+        public Guid? BankAccountId { get; set; }
     }
 }

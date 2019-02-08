@@ -459,4 +459,7 @@
   <data name="FileName" xml:space="preserve">
     <value>Belge</value>
   </data>
+  <data name="IsSales" xml:space="preserve">
+    <value>Ciro</value>
+  </data>
 </root>

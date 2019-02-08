@@ -13,8 +13,14 @@ namespace eHesabim.Web.Portal.Models {
         [ResourceRequired("RequiredDate")]
         public DateTime TrnDateTime { get; set; }
 
+        public DateTime? DueDateTime { get; set; }
+
         [ResourceRequired("RequiredTrnName")]
         public string Name { get; set; }
+
+        public string FileName { get; set; }
+
+        public string FullPath { get; set; }
 
         [ResourceRequired("RequiredTrnType")]
         [Range(1, 999999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "RequiredTrnType")]
@@ -26,21 +32,17 @@ namespace eHesabim.Web.Portal.Models {
         [ResourceRegularExpression("AmountMustBeNumber", @"[+]?[0-9]*\,?[0-9]?[0-9]")]
         [Range(0.01, 999999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "AmountMustBeNumber")]
         public decimal Amount { get; set; }
-
-        public DateTime? DueDateTime { get; set; }
-
+        
         [Range(1, 999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "AmountMustBeNumber")]
         public int? InstallmentNo { get; set; }
 
         [Range(1, 999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "AmountMustBeNumber")]
         public int? InstallmentTotal { get; set; }
 
+        public bool IsSales { get; set; }
+
         public Guid? BankAccountId { get; set; }
 
         public SelectList BankAccountList { get; set; }
-
-        public string FileName { get; set; }
-
-        public string FullPath { get; set; }
     }
 }

@@ -16,11 +16,11 @@ namespace eHesabim.Services {
 
         void DeleteCustomer(Guid id, int userId, out string errMessage);
 
-        Guid AddUpdateCustomerTransaction(Guid id, int userId, Guid customerId, DateTime trnDateTime, string name, int typeId, decimal amount, DateTime? dueDateTime, int? installmentNo, int? installmentTotal, Guid? bankAccountId, string fileName, out string errMessage);
+        Guid AddUpdateCustomerTransaction(Guid id, int userId, Guid customerId, DateTime trnDateTime, DateTime? dueDateTime, string name, string fileName, int typeId, decimal amount, int? installmentNo, int? installmentTotal, bool issales, Guid? bankAccountId, out string errMessage);
 
         void UpdateCustomerTransactionFileName(Guid id, string fileName);
 
-        List<CustomerTransactionDataModel> GetCustomerTransactionList(int userId, Guid? customerId, string name, DateTime? startDate, DateTime? endDate, int? excludeId, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal);
+        List<CustomerTransactionDataModel> GetCustomerTransactionList(int userId, Guid? customerId, string name, DateTime? startDate, DateTime? endDate, int? excludeId, int? saleId, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal);
 
         CustomerTransactionDataModel GetCustomerTransactionById(Guid id, int userId);
 

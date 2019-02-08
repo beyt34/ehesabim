@@ -54,6 +54,13 @@
             </div>
 
             <div class="form-group">
+                <label class="col-sm-2">@Labels.IsSales</label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(m => m.SearchSaleId, Model.SearchSaleList, new {@class = "form-control"})
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-sm-2">&nbsp;</div>
                 <div class="col-sm-10">
                     <a href="#" id="form-search" class="UIButton btn btn-warning">@Buttons.Search</a>
@@ -75,6 +82,9 @@
                       columns.Bound(x => x.Claim).Format("{0:N2}").HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Claim).Sortable(false);
                       columns.Bound(x => x.DueDateTime).Format("{0:dd.MM.yyyy}").Title(Labels.DueDate).Sortable(false);
                       columns.Bound(x => x.Installment).HtmlAttributes(new { style = "text-align:right;" }).Title(Labels.Installment).Sortable(false);
+                      columns.Bound(x => x.IsSales)
+                          .ClientTemplate("<input type='checkbox' name='chkIsSales' #= IsSales ? checked='checked' : '' # disabled />")
+                          .HtmlAttributes(new { style = "text-align:center;" }).Title(Labels.IsSales);
                       columns.Command(x => x.Custom(Buttons.Edit).Click("onCustomerTransactionEditWindow")).HtmlAttributes(new { cmd = "edit", style = "text-align:center;" });
                       columns.Command(x => x.Custom(Buttons.Delete).Click("onDeleteWindow")).HtmlAttributes(new { cmd = "delete", style = "text-align:center;" });
                   })
@@ -185,6 +195,7 @@
                 SearchStartDate: $('#SearchStartDate').val(),
                 SearchEndDate: $('#SearchEndDate').val(),
                 SearchExcludeId: $('#SearchExcludeId').val(),
+                SearchSaleId: $('#SearchSaleId').val(),
                 SearchViaForm: searchViaForm == undefined ? false : searchViaForm
             };
         }

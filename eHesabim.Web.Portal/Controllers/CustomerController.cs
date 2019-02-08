@@ -116,6 +116,7 @@ namespace eHesabim.Web.Portal.Controllers {
                         model.SearchStartDate,
                         model.SearchEndDate,
                         model.SearchExcludeId,
+                        model.SearchSaleId,
                         SortField,
                         SortDescending,
                         model.SearchViaForm ? 0 : request.Page - 1,
@@ -154,14 +155,15 @@ namespace eHesabim.Web.Portal.Controllers {
                     workContext.CurrentUser.Id,
                     model.CustomerId,
                     model.TrnDateTime,
+                    model.DueDateTime,
                     model.Name,
+                    model.FileName,
                     model.TypeId,
                     model.Amount,
-                    model.DueDateTime,
                     model.InstallmentNo,
                     model.InstallmentTotal,
+                    model.IsSales,
                     model.BankAccountId,
-                    model.FileName,
                     out errMessage);
 
                 return Json(new { Success = string.IsNullOrEmpty(errMessage), Result = errMessage });
@@ -263,7 +265,7 @@ namespace eHesabim.Web.Portal.Controllers {
             };
         }
 
-        private CustomerTransactionListWebModel GetCustomerTransactionListWebModel(Guid? customerId = null, string name = "", DateTime? startDate = null, DateTime? endDate = null, int? excludeId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private CustomerTransactionListWebModel GetCustomerTransactionListWebModel(Guid? customerId = null, string name = "", DateTime? startDate = null, DateTime? endDate = null, int? excludeId = null, int? saleId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
             int total;
             decimal debtTotal;
             decimal claimTotal;
@@ -275,6 +277,7 @@ namespace eHesabim.Web.Portal.Controllers {
                 startDate,
                 endDate,
                 excludeId,
+                saleId,
                 sort,
                 sortDescending,
                 pageIndex ?? 0,
@@ -300,6 +303,8 @@ namespace eHesabim.Web.Portal.Controllers {
                 SearchEndDate = endDate,
                 SearchExcludeId = excludeId ?? 0,
                 SearchExcludeList = GetYesNoList(),
+                SearchSaleId = saleId ?? 0,
+                SearchSaleList = GetYesNoList(),
                 SearchName = name,
                 Data = model,
                 DeleteData = new DeleteWebModel { Permission = PermissionFormEnum.Customer, Form = FormEnum.CustomerTransaction, GridName = "customerTransactionGrid" },

@@ -15,7 +15,9 @@ namespace eHesabim.Web.Portal.Models {
         public DateTime? DueDateTime { get; set; }
 
         public string Installment { get; set; }
-        
+
+        public bool IsSales { get; set; }
+
         public string DebitTotal { get; set; }
 
         public string ClaimTotal { get; set; }

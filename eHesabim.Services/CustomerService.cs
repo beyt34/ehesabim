@@ -103,7 +103,7 @@ namespace eHesabim.Services {
             if ((excludeId ?? 0) != 0) {
                 query = query.And(a => a.IsExclusion == (excludeId == 1));
             }
-            
+
             if ((activeId ?? 0) != 0) {
                 query = query.And(a => a.IsActive == (activeId == 1));
             }
@@ -155,7 +155,7 @@ namespace eHesabim.Services {
             }
         }
 
-        public Guid AddUpdateCustomerTransaction(Guid id, int userId, Guid customerId, DateTime trnDateTime, string name, int typeId, decimal amount, DateTime? dueDateTime, int? installmentNo, int? installmentTotal, Guid? bankAccountId, string fileName, out string errMessage) {
+        public Guid AddUpdateCustomerTransaction(Guid id, int userId, Guid customerId, DateTime trnDateTime, DateTime? dueDateTime, string name, string fileName, int typeId, decimal amount, int? installmentNo, int? installmentTotal, bool issales, Guid? bankAccountId, out string errMessage) {
             errMessage = string.Empty;
             var entity = id == Guid.Empty ? new CustomerTransaction() : customerTransactionRepository.Detail(id);
             var newRecord = id == Guid.Empty;
@@ -168,13 +168,14 @@ namespace eHesabim.Services {
             entity.UserId = userId;
             entity.CustomerId = customerId;
             entity.TrnDateTime = trnDateTime;
+            entity.DueDateTime = dueDateTime;
             entity.Name = name;
+            entity.FileName = fileName;
             entity.TypeId = typeId;
             entity.Amount = amount;
-            entity.DueDateTime = dueDateTime;
             entity.InstallmentNo = installmentNo;
             entity.InstallmentTotal = installmentTotal;
-            entity.FileName = fileName;
+            entity.IsSales = issales;
 
             id = customerTransactionRepository.AddUpdate(entity);
 
@@ -199,11 +200,12 @@ namespace eHesabim.Services {
                         Name = entity.Name,
                         TypeId = entity.TypeId,
                         Amount = entity.Amount,
+                        IsSales = entity.IsSales,
                         //// değişen değerler
                         ParentId = id,
                         DueDateTime = Convert.ToDateTime(entity.DueDateTime).AddMonths(i),
                         InstallmentNo = i + 1,
-                        InstallmentTotal = entity.InstallmentTotal,
+                        InstallmentTotal = entity.InstallmentTotal
                     };
 
                     customerTransactionRepository.AddUpdate(entityInstallment);
@@ -250,7 +252,7 @@ namespace eHesabim.Services {
             }
         }
 
-        public List<CustomerTransactionDataModel> GetCustomerTransactionList(int userId, Guid? customerId, string name, DateTime? startDate, DateTime? endDate, int? excludeId, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal) {
+        public List<CustomerTransactionDataModel> GetCustomerTransactionList(int userId, Guid? customerId, string name, DateTime? startDate, DateTime? endDate, int? excludeId, int? saleId, string sort, bool sortDescending, int page, int pageSize, out int total, out decimal debitTotal, out decimal claimTotal) {
             if (string.IsNullOrEmpty(sort)) {
                 sort = "TrnDateTime";
                 sortDescending = true;
@@ -275,6 +277,10 @@ namespace eHesabim.Services {
 
             if ((excludeId ?? 0) != 0) {
                 query = query.And(a => a.Customer.IsExclusion == (excludeId == 1));
+            }
+
+            if ((saleId ?? 0) != 0) {
+                query = query.And(a => a.IsSales == (saleId == 1));
             }
 
             // get data
@@ -306,11 +312,12 @@ namespace eHesabim.Services {
                         Id = s.Id,
                         CustomerName = s.Customer.Name,
                         TrnDateTime = s.TrnDateTime,
+                        DueDateTime = s.DueDateTime,
                         Name = s.Name,
                         Debit = s.TypeId == DebitId ? s.Amount : 0,
                         Claim = s.TypeId == ClaimId ? s.Amount : 0,
-                        DueDateTime = s.DueDateTime,
-                        Installment = s.InstallmentNo > 0 && s.InstallmentTotal > 0 ? s.InstallmentNo.ToString() + "/" + s.InstallmentTotal.ToString() : string.Empty
+                        Installment = s.InstallmentNo > 0 && s.InstallmentTotal > 0 ? s.InstallmentNo.ToString() + "/" + s.InstallmentTotal.ToString() : string.Empty,
+                        IsSales = s.IsSales
                     })
                     .ToList();
 

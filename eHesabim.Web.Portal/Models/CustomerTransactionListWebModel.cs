@@ -18,6 +18,10 @@ namespace eHesabim.Web.Portal.Models {
 
         public SelectList SearchExcludeList { get; set; }
 
+        public int SearchSaleId { get; set; }
+
+        public SelectList SearchSaleList { get; set; }
+
         public IEnumerable<CustomerTransactionWebModel> Data { get; set; }
 
         public DeleteWebModel DeleteData { get; set; }
