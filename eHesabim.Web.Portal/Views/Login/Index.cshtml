@@ -5,83 +5,54 @@
     Layout = "../Shared/_LayoutLogin.cshtml";
 }
 
-<div class="col-md-12">
-
-    <div class="col-md-6">
-        <div class="login-panel panel panel-yellow">
-            <div class="panel-heading">
-                <h3 class="panel-title">@Headers.Login</h3>
+<!-- Nested Row within Card Body -->
+<div class="row">
+    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">@Headers.Login</h1>
             </div>
-            <div class="panel-body">
-                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "loginForm" })) {
-                    @Html.HiddenFor(m => m.LoginReturnUrl)
 
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.LoginEmail, new { @class = "form-control", placeholder = Labels.Email })
-                        @Html.ValidationMessageFor(m => m.LoginEmail)
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "loginForm", @class = "user" })) {
+                @Html.HiddenFor(m => m.ReturnUrl)
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", placeholder = Labels.Email })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", placeholder = Labels.Password })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox small">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "custom-control-input" })
+                        <label class="custom-control-label" for="RememberMe">@Labels.RememberMe</label>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        @Html.PasswordFor(m => m.LoginPassword, new { @class = "form-control", placeholder = Labels.Password })
-                        @Html.ValidationMessageFor(m => m.LoginPassword)
-                    </div>
-
-                    <div class="checkbox">
-                        <label>
-                            @Html.CheckBoxFor(m => m.LoginRememberMe)
-                            <label>@Labels.RememberMe</label>
-                        </label>
-                    </div>
-
-                    if (!string.IsNullOrEmpty(Model.LoginErrorMessage)) {
-                        <div id="resultDiv" class="alert alert-danger">
-                            @Html.Raw(Model.LoginErrorMessage)
+                if (!string.IsNullOrEmpty(Model.ErrorMessage)) {
+                    <div id="errorDiv" class="card mb-2 border-left-danger">
+                        <div class="card-body">
+                            @Html.Raw(Model.ErrorMessage)
                         </div>
-                    }
-
-                    <input type="submit" name="login" class="btn btn-lg btn-warning btn-block" value="@Buttons.Login" />
-                    <a href="@Url.RouteUrl(RouteNames.PasswordRecovery)" class="">@Buttons.ForgetPassword</a>
-
-                    <a href="@Url.RouteUrl(RouteNames.RegisterFacebook)" class="btn btn-social btn-facebook pull-right pull-right" style="margin-top: 10px;">
-                        <i class="fa fa-facebook"></i> @Buttons.FacebookLogin
-                    </a>
+                    </div>
                 }
+                
+                <input type="submit" name="login" class="btn btn-primary btn-user btn-block" value="@Buttons.Login" />
+                
+                <hr>
+                <a href="@Url.RouteUrl(RouteNames.RegisterFacebook)" class="btn btn-facebook btn-user btn-block">
+                    <i class="fab fa-facebook-f fa-fw"></i> @Buttons.FacebookLogin
+                </a>
+            }
+
+            <hr>
+            <div class="text-center">
+                <a href="@Url.RouteUrl(RouteNames.PasswordRecovery)" class="small">@Buttons.ForgetPassword</a>
             </div>
-        </div>
-    </div>
-
-    <div class="col-md-6">
-        <div class="login-panel panel panel-yellow">
-            <div class="panel-heading">
-                <h3 class="panel-title">@Headers.Register</h3>
-            </div>
-            <div class="panel-body">
-                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "registerForm" })) {
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.RegisterName, new { @class = "form-control", placeholder = Labels.UserName, maxLength = 50, autocomplete = "off" })
-                        @Html.ValidationMessageFor(m => m.RegisterName)
-                    </div>
-
-                    <div class="form-group">
-                        @Html.TextBoxFor(m => m.RegisterEmail, new { @class = "form-control", placeholder = Labels.Email, maxLength = 100, autocomplete = "off" })
-                        @Html.ValidationMessageFor(m => m.RegisterEmail)
-                    </div>
-
-                    <div class="form-group">
-                        @Html.PasswordFor(m => m.RegisterPassword, new { @class = "form-control", placeholder = Labels.Password, maxLength = 10, autocomplete = "off" })
-                        @Html.ValidationMessageFor(m => m.RegisterPassword)
-                    </div>
-
-                    if (!string.IsNullOrEmpty(Model.RegisterErrorMessage)) {
-                        <div id="resultDiv" class="alert alert-danger">
-                            @Html.Raw(Model.RegisterErrorMessage)
-                        </div>
-                    }
-
-                    <input type="submit" name="register" class="btn btn-lg btn-warning btn-block" value="@Buttons.Register" />
-                    
-                    <div style="margin-bottom: 25px;"></div>
-                }
+            <div class="text-center">
+                <a href="@Url.RouteUrl(RouteNames.Register)" class="small">@Buttons.Register</a>
             </div>
         </div>
     </div>

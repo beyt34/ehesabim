@@ -2,6 +2,7 @@
     public static class RouteNames {
         public const string Login = "Login";
         public const string Logout = "Logout";
+        public const string Register = "Register";
         public const string RegisterFacebook = "RegisterFacebook";
         public const string PasswordRecovery = "PasswordRecovery";
         public const string PasswordRecoveryConfirm = "PasswordRecoveryConfirm";

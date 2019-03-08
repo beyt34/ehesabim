@@ -4,7 +4,9 @@
         public const string Bootstrap = "~/Content/bootstrap";
         public const string SbAdmin = "~/Content/sb-admin";
         public const string Kendo = "~/Content/kendo";
-        public const string Style = "~/Content/style";
         public const string Landing = "~/Content/landing";
+
+        public const string SbAdminNew = "~/Content/sb-admin-new";
+        public const string Style = "~/Content/style";
     }
 }

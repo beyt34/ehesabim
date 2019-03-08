@@ -1,0 +1,56 @@
+﻿@using eHesabim.Framework.Localization
+@using eHesabim.Web.Portal.Engine
+@model eHesabim.Web.Portal.Models.UserRegisterWebModel
+@{
+    Layout = "../Shared/_LayoutLogin.cshtml";
+}
+<!-- Nested Row within Card Body -->
+<div class="row">
+    <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">@Headers.Register</h1>
+            </div>
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "registerForm", @class = "user" })) {
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control form-control-user", placeholder = Labels.UserName, maxLength = 50, autocomplete = "off" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", placeholder = Labels.Email })
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", placeholder = Labels.Password })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+
+                if (!string.IsNullOrEmpty(Model.ErrorMessage)) {
+                    <div id="errorDiv" class="card mb-2 border-left-danger">
+                        <div class="card-body">
+                            @Html.Raw(Model.ErrorMessage)
+                        </div>
+                    </div>
+                }
+
+                <input type="submit" name="register" class="btn btn-primary btn-user btn-block" value="@Buttons.Register" />
+
+                <hr>
+                <a href="@Url.RouteUrl(RouteNames.RegisterFacebook)" class="btn btn-facebook btn-user btn-block">
+                    <i class="fab fa-facebook-f fa-fw"></i> @Buttons.FacebookLogin
+                </a>
+            }
+
+            <hr>
+            <div class="text-center">
+                <a href="@Url.RouteUrl(RouteNames.PasswordRecovery)" class="small">@Buttons.ForgetPassword</a>
+            </div>
+            <div class="text-center">
+                <a href="@Url.RouteUrl(RouteNames.Login)" class="small">Zaten bir hesabın mı var? Giriş!</a>
+            </div>
+        </div>
+    </div>
+</div>

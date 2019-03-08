@@ -12,6 +12,7 @@ namespace eHesabim.Web.Portal.Engine {
             // main
             routes.MapRoute(RouteNames.Login, "giris", new { controller = "Login", action = "Index" });
             routes.MapRoute(RouteNames.Logout, "cikis", new { controller = "Login", action = "Logout" });
+            routes.MapRoute(RouteNames.Register, "uye-ol", new { controller = "Login", action = "Register" });
             routes.MapRoute(RouteNames.RegisterFacebook, "facebook-ile-baglan", new { controller = "Login", action = "RegisterFacebook" });
             routes.MapRoute(RouteNames.PasswordRecovery, "sifremi-unuttum", new { controller = "Login", action = "PasswordRecovery" });
             routes.MapRoute(RouteNames.PasswordRecoveryConfirm, "sifre-belirle/{token}", new { controller = "Login", action = "PasswordRecoveryConfirm", token = UrlParameter.Optional });

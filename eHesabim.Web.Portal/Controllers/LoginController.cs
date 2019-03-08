@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
+
 using eHesabim.Framework;
-using eHesabim.Framework.Controllers;
 using eHesabim.Framework.Facebook;
 using eHesabim.Framework.Localization;
 using eHesabim.Services;
@@ -25,44 +25,44 @@ namespace eHesabim.Web.Portal.Controllers {
                 Response.RedirectToRoute(RouteNames.Home);
             }
 
-            return View(new UserLoginWebModel { LoginReturnUrl = returnUrl });
+            return View(new UserLoginWebModel { ReturnUrl = returnUrl });
         }
 
-        [HttpPost, ActionName("Index"), FormValueRequired("login")]
+        [HttpPost]
         public ActionResult Index(UserLoginWebModel model) {
-            ModelState.Remove("RegisterName");
-            ModelState.Remove("RegisterEmail");
-            ModelState.Remove("RegisterPassword");
-            ModelState.Remove("RegisterRePassword");
-
             if (ModelState.IsValid) {
-                var userDataModel = userService.GetUserByEmailAndPassword(model.LoginEmail.Trim(), model.LoginPassword.Trim());
+                var userDataModel = userService.GetUserByEmailAndPassword(model.Email.Trim(), model.Password.Trim());
                 if (userDataModel != null) {
-                    workContext.SignIn(userDataModel, model.LoginRememberMe);
+                    workContext.SignIn(userDataModel, model.RememberMe);
 
-                    if (!string.IsNullOrEmpty(model.LoginReturnUrl)) {
-                        Response.Redirect(model.LoginReturnUrl);
+                    if (!string.IsNullOrEmpty(model.ReturnUrl)) {
+                        Response.Redirect(model.ReturnUrl);
                     }
                     else {
                         Response.RedirectToRoute(RouteNames.Home);
                     }
                 }
                 else {
-                    model.LoginErrorMessage = Messages.LoginError;
+                    model.ErrorMessage = Messages.LoginError;
                 }
             }
 
             return View(model);
         }
 
-        [HttpPost, ActionName("Index"), FormValueRequired("register")]
-        public ActionResult Register(UserLoginWebModel model) {
-            ModelState.Remove("LoginEmail");
-            ModelState.Remove("LoginPassword");
+        public ActionResult Register() {
+            if (workContext.CurrentUser != null) {
+                Response.RedirectToRoute(RouteNames.Home);
+            }
 
+            return View(new UserRegisterWebModel());
+        }
+
+        [HttpPost]
+        public ActionResult Register(UserRegisterWebModel model) {
             if (ModelState.IsValid) {
                 string errMessage;
-                var id = userService.RegisterUser(model.RegisterName, model.RegisterEmail, model.RegisterPassword, out errMessage);
+                var id = userService.RegisterUser(model.Name, model.Email, model.Password, out errMessage);
 
                 if (string.IsNullOrEmpty(errMessage) && id != 0) {
                     var userDataModel = userService.GetUserById(id);
@@ -70,7 +70,7 @@ namespace eHesabim.Web.Portal.Controllers {
                     Response.RedirectToRoute(RouteNames.Home);
                 }
                 else {
-                    model.RegisterErrorMessage = Messages.ResourceManager.GetString(errMessage ?? string.Empty);
+                    model.ErrorMessage = Messages.ResourceManager.GetString(errMessage ?? string.Empty);
                 }
             }
 
@@ -104,7 +104,7 @@ namespace eHesabim.Web.Portal.Controllers {
 
             return RedirectToRoute(RouteNames.Login);
         }
-        
+
         public ActionResult Logout() {
             workContext.SignOut();
             return RedirectToRoute(RouteNames.Home);
