@@ -331,7 +331,7 @@
     <Content Include="Views\Common\Error_404.cshtml" />
     <Content Include="Views\Common\Error_500.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\MenuSidebar.cshtml" />
     <Content Include="Views\User\_UserEdit.cshtml" />
     <Content Include="Views\User\_PasswordChange.cshtml" />
     <Content Include="Views\User\UserList.cshtml" />
@@ -414,6 +414,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
+    <Content Include="Views\Shared\MenuTopbar.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
