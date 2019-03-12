@@ -226,12 +226,6 @@
     <Compile Include="Models\ViewExpenseGroupReportWebModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\vendor\fontawesome\all.min.css">
-      <DependentUpon>all.css</DependentUpon>
-    </Content>
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-brands-400.svg" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-regular-400.svg" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-solid-900.svg" />
     <Content Include="Content\vendor\kendo\kendo.common.css" />
     <Content Include="Content\vendor\kendo\kendo.metro.css" />
     <Content Include="Content\css\landing.css" />
@@ -302,7 +296,6 @@
     <Content Include="Content\vendor\datatables\dataTables.bootstrap4.min.js" />
     <Content Include="Content\vendor\datatables\jquery.dataTables.js" />
     <Content Include="Content\vendor\datatables\jquery.dataTables.min.js" />
-    <Content Include="Content\vendor\fontawesome\all.css" />
     <Content Include="Content\vendor\jquery\jquery.min.js" />
     <Content Include="Content\vendor\jquery\jquery.easing.min.js" />
     <Content Include="Content\vendor\jquery\jquery.unobtrusive-ajax.min.js" />
@@ -397,20 +390,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Login\Register.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-brands-400.eot" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-brands-400.ttf" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-brands-400.woff" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-regular-400.eot" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-regular-400.ttf" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-regular-400.woff" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-solid-900.eot" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-solid-900.ttf" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-solid-900.woff" />
-    <Content Include="Content\vendor\fontawesome\webfonts\fa-solid-900.woff2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bundleconfig.json" />
