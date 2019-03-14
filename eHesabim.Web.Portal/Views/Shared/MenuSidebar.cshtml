@@ -1,7 +1,6 @@
 ﻿@using eHesabim.Framework.Localization
 @using eHesabim.Services
 @using eHesabim.Web.Portal.Engine
-@using Kendo.Mvc.UI
 
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -24,11 +23,11 @@
 
     <!-- Nav Item - Pages Customer Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer" aria-expanded="true" aria-controls="collapseCustomer">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer" aria-controls="collapseCustomer">
             <i class="fa fa-th-large fa-fw"></i>
             <span>@Menus.Customer</span>
         </a>
-        <div id="collapseCustomer" class="collapse show" aria-labelledby="headingCustomer" aria-expanded="true" data-parent="#accordionSidebar">
+        <div id="collapseCustomer" class="collapse" aria-labelledby="headingCustomer" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="@Url.RouteUrl(RouteNames.CustomerList)"><i class="fa fa-book fa-fw"></i> @Menus.Customers</a>
                 <a class="collapse-item" href="@Url.RouteUrl(RouteNames.CustomerTransactionList)"><i class="fa fa-edit fa-fw"></i> @Menus.CustomerTransactions</a>
