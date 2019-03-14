@@ -96,8 +96,9 @@ function AjaxResult(data) {
     $('#resultDiv').html(data.Result);
 }
 
-function SetLeftMenu(li) {
-    $('#' + li).addClass("active");
+function SetLeftMenu(div) {
+    $(".collapse").removeClass("show");
+    $('#' + div).addClass("show");
 }
 
 function OpenWindow(query, w, h, scroll) {
