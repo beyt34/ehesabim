@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Beytullah\.Rider2019.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Beytullah\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_eHesabim.-1352937819.00" t="ExcludeRecursive" />
+    <e p="D:\tfs-beyt34\eHesabim" t="IncludeFlat">
+      <e p="eHesabim.Core" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CommonHelper.cs" t="Include" />
+        <e p="Data" t="Include">
+          <e p="EntityExtensions.cs" t="Include" />
+          <e p="GenericRepository.cs" t="Include" />
+          <e p="IProcedureManager.cs" t="Include" />
+          <e p="IReadOnlyRepository.cs" t="Include" />
+          <e p="IRepository.cs" t="Include" />
+          <e p="ParameterRebinder.cs" t="Include" />
+          <e p="ProcedureManager.cs" t="Include" />
+          <e p="ReadOnlyRepository.cs" t="Include" />
+          <e p="Utility.cs" t="Include" />
+        </e>
+        <e p="eHesabim.Core.csproj" t="IncludeRecursive" />
+        <e p="Engine" t="Include">
+          <e p="AppDomainTypeFinder.cs" t="Include" />
+          <e p="AttributedAssembly.cs" t="Include" />
+          <e p="AutofacRequestLifetimeHttpModule.cs" t="Include" />
+          <e p="ComponentLifeStyle.cs" t="Include" />
+          <e p="ContainerConfigurer.cs" t="Include" />
+          <e p="ContainerManager.cs" t="Include" />
+          <e p="ContainerManagerExtensions.cs" t="Include" />
+          <e p="Engine.cs" t="Include" />
+          <e p="EngineContext.cs" t="Include" />
+          <e p="IDependencyRegistrar.cs" t="Include" />
+          <e p="IEngine.cs" t="Include" />
+          <e p="IStartupTask.cs" t="Include" />
+          <e p="ITypeFinder.cs" t="Include" />
+          <e p="Singleton.cs" t="Include" />
+          <e p="SingletonGeneric.cs" t="Include" />
+          <e p="WebAppTypeFinder.cs" t="Include" />
+        </e>
+        <e p="IWebHelper.cs" t="Include" />
+        <e p="Logging" t="Include">
+          <e p="BaseHandleErrorAttribute.cs" t="Include" />
+          <e p="ILogger.cs" t="Include" />
+          <e p="Logger.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include" />
+        <e p="Routes" t="Include">
+          <e p="IRouteProvider.cs" t="Include" />
+          <e p="IRoutePublisher.cs" t="Include" />
+          <e p="RoutePublisher.cs" t="Include" />
+        </e>
+        <e p="Storage" t="Include">
+          <e p="IStorageService.cs" t="Include" />
+          <e p="StorageService.cs" t="Include" />
+        </e>
+        <e p="Tasks" t="Include">
+          <e p="ITask.cs" t="Include" />
+          <e p="ScheduledTaskModel.cs" t="Include" />
+          <e p="Task.cs" t="Include" />
+          <e p="TaskThread.cs" t="Include" />
+        </e>
+        <e p="Token" t="Include">
+          <e p="ITokenizer.cs" t="Include" />
+          <e p="Token.cs" t="Include" />
+          <e p="Tokenizer.cs" t="Include" />
+        </e>
+        <e p="UrlHelperExtensions.cs" t="Include" />
+        <e p="WebHelper.cs" t="Include" />
+      </e>
+      <e p="eHesabim.Data" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="BaseEntity.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="DataContext.cs" t="Include" />
+        <e p="Domain" t="Include">
+          <e p="Bank.cs" t="Include" />
+          <e p="BankAccount.cs" t="Include" />
+          <e p="BankAccountTransaction.cs" t="Include" />
+          <e p="BankCredit.cs" t="Include" />
+          <e p="BankCreditCard.cs" t="Include" />
+          <e p="BankCreditCardPayment.cs" t="Include" />
+          <e p="BankCreditCardPeriod.cs" t="Include" />
+          <e p="BankCreditSub.cs" t="Include" />
+          <e p="City.cs" t="Include" />
+          <e p="County.cs" t="Include" />
+          <e p="Customer.cs" t="Include" />
+          <e p="CustomerTransaction.cs" t="Include" />
+          <e p="EmailAccount.cs" t="Include" />
+          <e p="EmailQueue.cs" t="Include" />
+          <e p="EmailTemplate.cs" t="Include" />
+          <e p="Expense.cs" t="Include" />
+          <e p="ExpenseGroup.cs" t="Include" />
+          <e p="ExpenseStore.cs" t="Include" />
+          <e p="Type.cs" t="Include" />
+          <e p="User.cs" t="Include" />
+          <e p="ViewExpenseGroupReport.cs" t="Include" />
+        </e>
+        <e p="eHesabim.Data.csproj" t="IncludeRecursive" />
+        <e p="IDataContext.cs" t="Include" />
+        <e p="Mapping" t="Include">
+          <e p="BankAccountMap.cs" t="Include" />
+          <e p="BankAccountTransactionMap.cs" t="Include" />
+          <e p="BankCreditCardMap.cs" t="Include" />
+          <e p="BankCreditCardPaymentMap.cs" t="Include" />
+          <e p="BankCreditCardPeriodMap.cs" t="Include" />
+          <e p="BankCreditMap.cs" t="Include" />
+          <e p="BankCreditSubMap.cs" t="Include" />
+          <e p="BankMap.cs" t="Include" />
+          <e p="CityMap.cs" t="Include" />
+          <e p="CountyMap.cs" t="Include" />
+          <e p="CustomerMap.cs" t="Include" />
+          <e p="CustomerTransactionMap.cs" t="Include" />
+          <e p="EmailAccountMap.cs" t="Include" />
+          <e p="EmailQueueMap.cs" t="Include" />
+          <e p="EmailTemplateMap.cs" t="Include" />
+          <e p="ExpenseGroupMap.cs" t="Include" />
+          <e p="ExpenseMap.cs" t="Include" />
+          <e p="ExpenseStoreMap.cs" t="Include" />
+          <e p="TypeMap.cs" t="Include" />
+          <e p="UserMap.cs" t="Include" />
+          <e p="ViewExpenseGroupReportMap.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include" />
+        <e p="ReadOnlyEntity.cs" t="Include" />
+      </e>
+      <e p="eHesabim.Framework" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ContextExtensions.cs" t="Include" />
+        <e p="Controllers" t="Include">
+          <e p="FormValueRequiredAttribute.cs" t="Include" />
+        </e>
+        <e p="CorsHandler.cs" t="Include" />
+        <e p="DependencyRegistrar.cs" t="Include" />
+        <e p="DependencyResolver.cs" t="Include" />
+        <e p="eHesabim.Framework.csproj" t="IncludeRecursive" />
+        <e p="Facebook" t="Include">
+          <e p="FacebookService.cs" t="Include" />
+          <e p="IFacebookService.cs" t="Include" />
+          <e p="Person.cs" t="Include" />
+        </e>
+        <e p="IWorkContext.cs" t="Include" />
+        <e p="Localization" t="Include">
+          <e p="Buttons.Designer.cs" t="Include" />
+          <e p="Buttons.resx" t="Include" />
+          <e p="Headers.Designer.cs" t="Include" />
+          <e p="Headers.resx" t="Include" />
+          <e p="Labels.Designer.cs" t="Include" />
+          <e p="Labels.resx" t="Include" />
+          <e p="Menus.Designer.cs" t="Include" />
+          <e p="Menus.resx" t="Include" />
+          <e p="Messages.Designer.cs" t="Include" />
+          <e p="Messages.resx" t="Include" />
+          <e p="ResourceDataAnnotationsCompareAttribute.cs" t="Include" />
+          <e p="ResourceRegularExpressionAttribute.cs" t="Include" />
+          <e p="ResourceRequiredAttribute.cs" t="Include" />
+          <e p="ResourceStringLengthAttribute.cs" t="Include" />
+        </e>
+        <e p="NoCache.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Security" t="Include">
+          <e p="HttpsAttribute.cs" t="Include" />
+          <e p="SslRequirement.cs" t="Include" />
+        </e>
+        <e p="WebViewPage.cs" t="Include" />
+        <e p="WebViewPageDynamic.cs" t="Include" />
+        <e p="WebWorkContext.cs" t="Include" />
+      </e>
+      <e p="eHesabim.Services" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="AutoMapperConfiguration.cs" t="Include" />
+        <e p="AutoMapperStartupTask.cs" t="Include" />
+        <e p="BankAccountService.cs" t="Include" />
+        <e p="BankCreditCardService.cs" t="Include" />
+        <e p="BankCreditService.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="CommonService.cs" t="Include" />
+        <e p="CustomerService.cs" t="Include" />
+        <e p="eHesabim.Services.csproj" t="IncludeRecursive" />
+        <e p="Enums.cs" t="Include" />
+        <e p="ExpenseService.cs" t="Include" />
+        <e p="IBankAccountService.cs" t="Include" />
+        <e p="IBankCreditCardService.cs" t="Include" />
+        <e p="IBankCreditService.cs" t="Include" />
+        <e p="ICommonService.cs" t="Include" />
+        <e p="ICustomerService.cs" t="Include" />
+        <e p="IExpenseService.cs" t="Include" />
+        <e p="IMessageService.cs" t="Include" />
+        <e p="IUserService.cs" t="Include" />
+        <e p="MessageService.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="BankAccountDataModel.cs" t="Include" />
+          <e p="BankAccountTransactionDataModel.cs" t="Include" />
+          <e p="BankCreditCardDataModel.cs" t="Include" />
+          <e p="BankCreditCardPaymentDataModel.cs" t="Include" />
+          <e p="BankCreditCardPeriodDataModel.cs" t="Include" />
+          <e p="BankCreditDataModel.cs" t="Include" />
+          <e p="BankCreditSubDataModel.cs" t="Include" />
+          <e p="BaseDataModel.cs" t="Include" />
+          <e p="CustomerAbstractDataModel.cs" t="Include" />
+          <e p="CustomerDataModel.cs" t="Include" />
+          <e p="CustomerTransactionDataModel.cs" t="Include" />
+          <e p="EmailQueueDataModel.cs" t="Include" />
+          <e p="EmailTemplateDataModel.cs" t="Include" />
+          <e p="ExpenseDataModel.cs" t="Include" />
+          <e p="ExpenseGroupDataModel.cs" t="Include" />
+          <e p="ExpenseStoreDataModel.cs" t="Include" />
+          <e p="SelectGuidDataModel.cs" t="Include" />
+          <e p="SelectIntDataModel.cs" t="Include" />
+          <e p="UserDataModel.cs" t="Include" />
+          <e p="ViewExpenseGroupReportDataModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include" />
+        <e p="UserService.cs" t="Include" />
+      </e>
+      <e p="eHesabim.sln" t="IncludeFlat" />
+      <e p="eHesabim.Tasks" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="eHesabim.Tasks.csproj" t="IncludeRecursive" />
+        <e p="EmailQueueSendTask.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="TestTask.cs" t="Include" />
+      </e>
+      <e p="eHesabim.Web.Portal" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="bundleconfig.json" t="Include" />
+        <e p="Content" t="Include">
+          <e p="css" t="Include">
+            <e p="landing.css" t="Include" />
+            <e p="sb-admin-2.css" t="Include" />
+            <e p="style.css" t="Include" />
+          </e>
+          <e p="images" t="Include">
+            <e p="artwork-pattern.png" t="Include" />
+            <e p="bg.jpg" t="Include" />
+            <e p="calculator.png" t="Include" />
+            <e p="icons" t="Include">
+              <e p="ic_add.png" t="Include" />
+              <e p="ic_cancel.png" t="Include" />
+              <e p="ic_delete.png" t="Include" />
+              <e p="ic_download.png" t="Include" />
+              <e p="ic_edit.png" t="Include" />
+              <e p="ic_favorite.png" t="Include" />
+              <e p="ic_left.png" t="Include" />
+              <e p="ic_lock.png" t="Include" />
+              <e p="ic_power.png" t="Include" />
+              <e p="ic_print.png" t="Include" />
+              <e p="ic_refresh.png" t="Include" />
+              <e p="ic_right.png" t="Include" />
+              <e p="ic_settings.png" t="Include" />
+              <e p="ic_up_circle.png" t="Include" />
+              <e p="ic_upload.png" t="Include" />
+              <e p="ic_zoom.png" t="Include" />
+              <e p="menu" t="Include">
+                <e p="menu-email-over.png" t="Include" />
+                <e p="menu-email-special.png" t="Include" />
+                <e p="menu-email.png" t="Include" />
+                <e p="menu-logoff-over.png" t="Include" />
+                <e p="menu-logoff.png" t="Include" />
+                <e p="menu-settings-over.png" t="Include" />
+                <e p="menu-settings.png" t="Include" />
+                <e p="menu-user.png" t="Include" />
+              </e>
+              <e p="message-boxes" t="Include">
+                <e p="confirmation.png" t="Include" />
+                <e p="error.png" t="Include" />
+                <e p="information.png" t="Include" />
+                <e p="warning.png" t="Include" />
+              </e>
+              <e p="table" t="Include">
+                <e p="actions-delete.png" t="Include" />
+                <e p="actions-edit.png" t="Include" />
+              </e>
+            </e>
+            <e p="login-icon.png" t="Include" />
+            <e p="menu-dark-indicator.png" t="Include" />
+            <e p="menu-indicator.png" t="Include" />
+            <e p="separator-bg.png" t="Include" />
+            <e p="tab-dashboard.png" t="Include" />
+            <e p="undraw_posting_photo.svg" t="Include" />
+          </e>
+          <e p="js" t="Include">
+            <e p="sb-admin-2.js" t="Include" />
+            <e p="scripts.js" t="Include" />
+          </e>
+          <e p="vendor" t="Include">
+            <e p="bootstrap" t="Include">
+              <e p="bootstrap.min.css" t="Include" />
+              <e p="bootstrap.min.js" t="Include" />
+            </e>
+            <e p="chart.js" t="Include">
+              <e p="Chart.bundle.js" t="Include" />
+              <e p="Chart.bundle.min.js" t="Include" />
+              <e p="chart.js" t="Include" />
+              <e p="Chart.min.js" t="Include" />
+            </e>
+            <e p="datatables" t="Include">
+              <e p="dataTables.bootstrap4.css" t="Include" />
+              <e p="dataTables.bootstrap4.js" t="Include" />
+              <e p="dataTables.bootstrap4.min.css" t="Include" />
+              <e p="dataTables.bootstrap4.min.js" t="Include" />
+              <e p="jquery.dataTables.js" t="Include" />
+              <e p="jquery.dataTables.min.js" t="Include" />
+            </e>
+            <e p="jquery" t="Include">
+              <e p="jquery.easing.min.js" t="Include" />
+              <e p="jquery.min.js" t="Include" />
+              <e p="jquery.unobtrusive-ajax.min.js" t="Include" />
+              <e p="jquery.validate.min.js" t="Include" />
+              <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+            </e>
+            <e p="kendo" t="Include">
+              <e p="kendo.all.min.js" t="Include" />
+              <e p="kendo.aspnetmvc.min.js" t="Include" />
+              <e p="kendo.common.css" t="Include" />
+              <e p="kendo.culture.tr-TR.min.js" t="Include" />
+              <e p="kendo.metro.css" t="Include" />
+              <e p="kendo.web.min.js" t="Include" />
+              <e p="Metro" t="Include">
+                <e p="editor.png" t="Include" />
+                <e p="imagebrowser.png" t="Include" />
+                <e p="loading-image.gif" t="Include" />
+                <e p="loading.gif" t="Include" />
+                <e p="slider-h.gif" t="Include" />
+                <e p="slider-v.gif" t="Include" />
+                <e p="sprite.png" t="Include" />
+                <e p="sprite@2x.png" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Controllers" t="Include">
+          <e p="BankAccountController.cs" t="Include" />
+          <e p="BankController.cs" t="Include" />
+          <e p="BaseController.cs" t="Include" />
+          <e p="CommonController.cs" t="Include" />
+          <e p="CustomerController.cs" t="Include" />
+          <e p="ExpenseController.cs" t="Include" />
+          <e p="HomeController.cs" t="Include" />
+          <e p="LandingController.cs" t="Include" />
+          <e p="LoginController.cs" t="Include" />
+          <e p="UserController.cs" t="Include" />
+        </e>
+        <e p="eHesabim.Web.Portal.csproj" t="IncludeRecursive" />
+        <e p="eHesabim.Web.Portal.nuspec" t="Include" />
+        <e p="Engine" t="Include">
+          <e p="ActionAuthorize.cs" t="Include" />
+          <e p="AutoMapperConfiguration.cs" t="Include" />
+          <e p="AutoMapperStartupTask.cs" t="Include" />
+          <e p="BundleConfig.cs" t="Include" />
+          <e p="ControllerContextHelper.cs" t="Include" />
+          <e p="DependencyRegistrar.cs" t="Include" />
+          <e p="DependencyResolver.cs" t="Include" />
+          <e p="NoCache.cs" t="Include" />
+          <e p="RouteNames.cs" t="Include" />
+          <e p="RouteProvider.cs" t="Include" />
+        </e>
+        <e p="Export" t="Include">
+          <e p="ExcelColumn.cs" t="Include" />
+          <e p="ExcelColumns.cs" t="Include" />
+          <e p="ExportToExcel.cs" t="Include" />
+        </e>
+        <e p="favicon2.ico" t="Include" />
+        <e p="Global.asax" t="Include" />
+        <e p="Global.asax.cs" t="Include" />
+        <e p="Helper" t="Include">
+          <e p="CssBundles.cs" t="Include" />
+          <e p="JsBundles.cs" t="Include" />
+        </e>
+        <e p="logo.png" t="Include" />
+        <e p="Models" t="Include">
+          <e p="BankAccountEditWebModel.cs" t="Include" />
+          <e p="BankAccountListWebModel.cs" t="Include" />
+          <e p="BankAccountTransactionEditWebModel.cs" t="Include" />
+          <e p="BankAccountTransactionListWebModel.cs" t="Include" />
+          <e p="BankAccountTransactionWebModel.cs" t="Include" />
+          <e p="BankAccountWebModel.cs" t="Include" />
+          <e p="BankCreditCardEditWebModel.cs" t="Include" />
+          <e p="BankCreditCardListWebModel.cs" t="Include" />
+          <e p="BankCreditCardPaymentEditWebModel.cs" t="Include" />
+          <e p="BankCreditCardPaymentListWebModel.cs" t="Include" />
+          <e p="BankCreditCardPaymentWebModel.cs" t="Include" />
+          <e p="BankCreditCardPeriodEditWebModel.cs" t="Include" />
+          <e p="BankCreditCardPeriodListWebModel.cs" t="Include" />
+          <e p="BankCreditCardPeriodWebModel.cs" t="Include" />
+          <e p="BankCreditCardWebModel.cs" t="Include" />
+          <e p="BankCreditEditWebModel.cs" t="Include" />
+          <e p="BankCreditListWebModel.cs" t="Include" />
+          <e p="BankCreditSubEditWebModel.cs" t="Include" />
+          <e p="BankCreditSubListWebModel.cs" t="Include" />
+          <e p="BankCreditSubWebModel.cs" t="Include" />
+          <e p="BankCreditWebModel.cs" t="Include" />
+          <e p="BaseWebModel.cs" t="Include" />
+          <e p="CustomerAbstractWebModel.cs" t="Include" />
+          <e p="CustomerEditWebModel.cs" t="Include" />
+          <e p="CustomerListWebModel.cs" t="Include" />
+          <e p="CustomerTransactionEditWebModel.cs" t="Include" />
+          <e p="CustomerTransactionListWebModel.cs" t="Include" />
+          <e p="CustomerTransactionWebModel.cs" t="Include" />
+          <e p="CustomerWebModel.cs" t="Include" />
+          <e p="DashboardBankAccountWebModel.cs" t="Include" />
+          <e p="DashboardCustomerWebModel.cs" t="Include" />
+          <e p="DashboardWebModel.cs" t="Include" />
+          <e p="DeleteWebModel.cs" t="Include" />
+          <e p="ExpenseEditWebModel.cs" t="Include" />
+          <e p="ExpenseGroupEditWebModel.cs" t="Include" />
+          <e p="ExpenseGroupListWebModel.cs" t="Include" />
+          <e p="ExpenseGroupReportWebModel.cs" t="Include" />
+          <e p="ExpenseGroupWebModel.cs" t="Include" />
+          <e p="ExpenseListWebModel.cs" t="Include" />
+          <e p="ExpenseStoreEditWebModel.cs" t="Include" />
+          <e p="ExpenseStoreListWebModel.cs" t="Include" />
+          <e p="ExpenseStoreWebModel.cs" t="Include" />
+          <e p="ExpenseWebModel.cs" t="Include" />
+          <e p="UserEditWebModel.cs" t="Include" />
+          <e p="UserListWebModel.cs" t="Include" />
+          <e p="UserLoginWebModel.cs" t="Include" />
+          <e p="UserPasswordChangeWebModel.cs" t="Include" />
+          <e p="UserPasswordRecoveryConfirmWebModel.cs" t="Include" />
+          <e p="UserPasswordRecoveryWebModel.cs" t="Include" />
+          <e p="UserRegisterWebModel.cs" t="Include" />
+          <e p="UserRoleListWebModel.cs" t="Include" />
+          <e p="UserRoleWebModel.cs" t="Include" />
+          <e p="UserUpdateProfileWebModel.cs" t="Include" />
+          <e p="UserWebModel.cs" t="Include" />
+          <e p="ViewExpenseGroupReportWebModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include" />
+        <e p="sitemap.xml" t="Include" />
+        <e p="static.xml" t="Include" />
+        <e p="Views" t="Include">
+          <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Bank" t="Include">
+            <e p="_BankCreditCardEdit.cshtml" t="Include" />
+            <e p="_BankCreditCardPaymentEdit.cshtml" t="Include" />
+            <e p="_BankCreditCardPeriodEdit.cshtml" t="Include" />
+            <e p="_BankCreditEdit.cshtml" t="Include" />
+            <e p="_BankCreditSubEdit.cshtml" t="Include" />
+            <e p="BankCreditCardList.cshtml" t="Include" />
+            <e p="BankCreditCardPaymentList.cshtml" t="Include" />
+            <e p="BankCreditCardPeriodList.cshtml" t="Include" />
+            <e p="BankCreditList.cshtml" t="Include" />
+            <e p="BankCreditSubList.cshtml" t="Include" />
+          </e>
+          <e p="BankAccount" t="Include">
+            <e p="_BankAccountEdit.cshtml" t="Include" />
+            <e p="_BankAccountTransactionEdit.cshtml" t="Include" />
+            <e p="BankAccountList.cshtml" t="Include" />
+            <e p="BankAccountTransactionList.cshtml" t="Include" />
+          </e>
+          <e p="Common" t="Include">
+            <e p="AccessDenied.cshtml" t="Include" />
+            <e p="Error_404.cshtml" t="Include" />
+            <e p="Error_500.cshtml" t="Include" />
+          </e>
+          <e p="Customer" t="Include">
+            <e p="_CustomerEdit.cshtml" t="Include" />
+            <e p="_CustomerTransactionEdit.cshtml" t="Include" />
+            <e p="CustomerAbstract.cshtml" t="Include" />
+            <e p="CustomerList.cshtml" t="Include" />
+            <e p="CustomerTransactionList.cshtml" t="Include" />
+          </e>
+          <e p="Expense" t="Include">
+            <e p="_ExpenseEdit.cshtml" t="Include" />
+            <e p="_ExpenseGroupEdit.cshtml" t="Include" />
+            <e p="_ExpenseStoreEdit.cshtml" t="Include" />
+            <e p="ExpenseGroupList.cshtml" t="Include" />
+            <e p="ExpenseGroupReport.cshtml" t="Include" />
+            <e p="ExpenseList.cshtml" t="Include" />
+            <e p="ExpenseStoreList.cshtml" t="Include" />
+          </e>
+          <e p="Home" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Landing" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Login" t="Include">
+            <e p="Index.cshtml" t="Include" />
+            <e p="PasswordRecovery.cshtml" t="Include" />
+            <e p="PasswordRecoveryConfirm.cshtml" t="Include" />
+            <e p="Register.cshtml" t="Include" />
+          </e>
+          <e p="Shared" t="Include">
+            <e p="_DeleteWindow.cshtml" t="Include" />
+            <e p="_Layout.cshtml" t="Include" />
+            <e p="_LayoutLanding.cshtml" t="Include" />
+            <e p="_LayoutLogin.cshtml" t="Include" />
+            <e p="MenuSidebar.cshtml" t="Include" />
+            <e p="MenuTopbar.cshtml" t="Include" />
+          </e>
+          <e p="User" t="Include">
+            <e p="_PasswordChange.cshtml" t="Include" />
+            <e p="_UpdateProfile.cshtml" t="Include" />
+            <e p="_UserEdit.cshtml" t="Include" />
+            <e p="UserList.cshtml" t="Include" />
+          </e>
+          <e p="Web.config" t="Include" />
+        </e>
+        <e p="Web.config" t="Include" />
+        <e p="Web.Debug.config" t="Include" />
+        <e p="Web.Release.config" t="Include" />
+      </e>
+      <e p="eHesabim.Web.Task" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="HomeController.cs" t="Include" />
+        </e>
+        <e p="eHesabim.Web.Task.csproj" t="IncludeRecursive" />
+        <e p="eHesabim.Web.Task.nuspec" t="Include" />
+        <e p="Engine" t="Include">
+          <e p="DependencyRegistrar.cs" t="Include" />
+          <e p="RouteProvider.cs" t="Include" />
+          <e p="TaskManager.cs" t="Include" />
+        </e>
+        <e p="Global.asax" t="Include" />
+        <e p="Global.asax.cs" t="Include" />
+        <e p="Models" t="Include">
+          <e p="HomeTaskModel.cs" t="Include" />
+          <e p="TaskModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include" />
+        <e p="Views" t="Include">
+          <e p="Home" t="Include">
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Web.config" t="Include" />
+        </e>
+        <e p="Web.config" t="Include" />
+        <e p="Web.Debug.config" t="Include" />
+        <e p="Web.Release.config" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
