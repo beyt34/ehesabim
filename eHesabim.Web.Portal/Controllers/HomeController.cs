@@ -24,7 +24,7 @@ namespace eHesabim.Web.Portal.Controllers {
         public ActionResult Index() {
             var model = new DashboardWebModel();
 
-            //// show customer
+            //// show customer.
             if (workContext.CurrentUser.ShowCustomer) {
                 var customers = customerService.GetDashboardCustomerList(workContext.CurrentUser.Id, workContext.CurrentUser.ShowCustomerExclusion);
                 model.Customers = Engine.AutoMapperConfiguration.Mapper.Map<List<CustomerDataModel>, List<DashboardCustomerWebModel>>(customers);
