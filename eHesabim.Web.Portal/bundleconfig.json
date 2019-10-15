@@ -1,8 +1,20 @@
 [
   {
-    "outputFileName": "Content/vendor/fontawesome/all.min.css",
+    "outputFileName": "Content/css/sb-admin-2.min.css",
     "inputFiles": [
-      "Content/vendor/fontawesome/all.css"
+      "Content/css/sb-admin-2.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/css/style.min.css",
+    "inputFiles": [
+      "Content/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/js/sb-admin-2.min.js",
+    "inputFiles": [
+      "Content/js/sb-admin-2.js"
     ]
   }
 ]

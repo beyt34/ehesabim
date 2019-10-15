@@ -125,9 +125,6 @@ namespace eHesabim.Services {
                     message.Bcc.Add(address.Trim());
                 }
             }
-            else {
-                message.Bcc.Add("beyt34@gmail.com");
-            }
 
             if (cc != null) {
                 foreach (var address in cc.Where(ccValue => !string.IsNullOrWhiteSpace(ccValue))) {

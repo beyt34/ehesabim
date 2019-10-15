@@ -15,5 +15,7 @@ namespace eHesabim.Web.Portal.Models {
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

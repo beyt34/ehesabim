@@ -13,23 +13,13 @@
     <link rel="icon" href="~/favicon2.ico" type="image/x-icon">
     <link rel="shortcut icon" href="~/favicon2.ico" type="image/x-icon">
 
-    <link rel="icon" href="~/favicon2.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="~/favicon2.ico" type="image/x-icon">
-
-    <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css">
-    <link href="//fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
+    @Styles.Render(CssBundles.JQueryUi)
+    @Styles.Render(CssBundles.Bootstrap)
     @Styles.Render(CssBundles.SbAdmin)
     @Styles.Render(CssBundles.Kendo)
     @Styles.Render(CssBundles.Style)
 
-    <!-- Bootstrap core JavaScript-->
     @Scripts.Render(JsBundles.JQuery)
-    @Scripts.Render(JsBundles.JQueryEasing)
-    @Scripts.Render(JsBundles.JQueryValidation)
-    @Scripts.Render(JsBundles.Bootstrap)
 
     @RenderSection("head", false)
 
@@ -50,6 +40,7 @@
         ga('send', 'pageview');
     </script>
     <!-- /Google Analytics -->
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (d, w, c) {
@@ -79,74 +70,50 @@
     <!-- /Yandex.Metrika counter -->
 
 </head>
-<body id="page-top">
+<body>
     <noscript><div><img src="https://mc.yandex.ru/watch/32268614" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- Page Wrapper -->
     <div id="wrapper">
-        @Html.Partial("MenuSidebar")
+        @Html.Partial("Menu")
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-                @Html.Partial("MenuTopbar")
-                <!-- End of Topbar -->
-                
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    @RenderBody()
-                </div>
-                <!-- End of Page Content -->
-                </div>
-            <!-- End of Main Content -->
+        <div id="page-wrapper">
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <p>
-                            <span>Tasarım: <a href="http://startbootstrap.com/sb-admin-v2" target="_blank">SB Admin</a></span>
-                            <span>Barındırma: <a href="http://4flyy.com" target="_blank">4Flyy</a></span>
-                            <span>İletişim: <a href="mailto:info@ehesabim.com">info@ehesabim.com</a></span>
-                        </p>
-                        <span>Copyright &copy; eHesabim.com</span>
-                    </div>
+            @RenderBody()
+
+            @Scripts.Render(JsBundles.JQueryUi)
+            @Scripts.Render(JsBundles.JQueryMenu)
+            @Scripts.Render(JsBundles.Bootstrap)
+            @Scripts.Render(JsBundles.SbAdmin)
+            @Scripts.Render(JsBundles.Kendo)
+            @Scripts.Render(JsBundles.Scripts)
+
+            <script type="text/javascript" language="javascript">
+                $(document).ajaxStop($.unblockUI);
+                $(document).ready(function () {
+                    $('.UIButton').click(function () {
+                        var form = $(this).parents('form:first');
+                        if (form.valid()) {
+                            BlockUI();
+                        }
+                    });
+                });
+
+                // kendo
+                kendo.culture("tr-TR");
+                var culture = kendo.culture();
+                console.log(culture.name);
+            </script>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="pull-left" style="padding-right: 20px;">Tasarım: <a href="http://startbootstrap.com/sb-admin-v2" target="_blank">SB Admin</a></p>
+                    <p class="pull-left" style="padding-right: 20px;">Barındırma: <a href="http://4flyy.com" target="_blank">4Flyy</a></p>
+                    <p class="pull-left">İletişim: <a href="mailto:info@ehesabim.com">info@ehesabim.com</a></p>
+                    <p class="pull-right">Copyright &copy; eHesabim.com</p>
                 </div>
-            </footer>
-            <!-- End of Footer -->
+            </div>
 
         </div>
-        <!-- End of Content Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Custom scripts for all pages-->
-        @Scripts.Render(JsBundles.SbAdmin)
-        @Scripts.Render(JsBundles.Kendo)
-        @Scripts.Render(JsBundles.Scripts)
-
-        <script type="text/javascript" language="javascript">
-            $(document).ajaxStop($.unblockUI);
-            $(document).ready(function () {
-                $('.UIButton').click(function () {
-                    var form = $(this).parents('form:first');
-                    if (form.valid()) {
-                        BlockUI();
-                    }
-                });
-            });
-
-            // kendo
-            kendo.culture("tr-TR");
-            var culture = kendo.culture();
-            console.log(culture.name);
-        </script>
     </div>
-    <!-- End of Page Wrapper -->
 
     @RenderSection("scripts", false)
 
