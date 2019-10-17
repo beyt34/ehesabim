@@ -226,7 +226,7 @@ namespace eHesabim.Web.Portal.Controllers {
             return Json(new { Success = false, Result = Framework.WebViewPage.ValidationSummary(ModelState, string.Empty) });
         }
 
-        private ExpenseListWebModel GetExpenseListWebModel(int typeId = 0, Guid? storeId = null, Guid? groupId = null, Guid? creditCardId = null, Guid? creditCardPeriodId = null, DateTime? startDate = null, DateTime? endDate = null, int? nextPeriodId = null, int? excludeId = null, string notes = "", string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private ExpenseListWebModel GetExpenseListWebModel(int typeId = 0, Guid? storeId = null, Guid? groupId = null, Guid? creditCardId = null, Guid? creditCardPeriodId = null, DateTime? startDate = null, DateTime? endDate = null, int? nextPeriodId = null, int? excludeId = null, string notes = "", string sort = "", bool sortDescending = true, int? pageIndex = 0, int? pageSize = 20) {
             int total;
             decimal expenseMe;
             decimal expenseExclusion;
@@ -234,6 +234,11 @@ namespace eHesabim.Web.Portal.Controllers {
             if (string.IsNullOrEmpty(sort) && creditCardPeriodId.HasValue) {
                 sort = "ExpenseDateTime";
                 sortDescending = false;
+            }
+
+            if (string.IsNullOrEmpty(sort)) {
+                sort = "CreatedDateTime";
+                sortDescending = true;
             }
 
             var data = expenseService.GetExpenseList(

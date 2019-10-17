@@ -36,6 +36,8 @@ namespace eHesabim.Services.Models {
 
         public Guid? BankCreditCardPeriodId { get; set; }
 
+        public DateTime? BankCreditCardPeriodEndDate { get; set; }
+
         public string BankCreditCardPeriodName { get; set; }
 
         public bool IsExclusion { get; set; }

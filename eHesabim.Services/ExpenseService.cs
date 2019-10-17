@@ -181,7 +181,45 @@ namespace eHesabim.Services {
                         .Include(i => i.BankCreditCard).DefaultIfEmpty()
                         .Include(i => i.BankCreditCardPeriod).DefaultIfEmpty()
                         .Where(a => a != null)
+                        .Select(s => new ExpenseDataModel {
+                            Id = s.Id,
+                            UserId = s.UserId,
+                            TypeId = s.TypeId,
+                            TypeName = s.Type != null ? s.Type.Name : string.Empty,
+                            ParentId = s.ParentId,
+                            ExpenseDateTime = s.ExpenseDateTime,
+                            ExpenseStoreId = s.ExpenseStoreId,
+                            ExpenseStoreName = s.ExpenseStore != null ? s.ExpenseStore.Name : string.Empty,
+                            ExpenseGroupId = s.ExpenseGroupId,
+                            ExpenseGroupName = s.ExpenseGroup != null ? s.ExpenseGroup.Name : string.Empty,
+                            Amount = s.Amount,
+                            InstallmentNo = s.InstallmentNo,
+                            InstallmentTotal = s.InstallmentTotal,
+                            BankCreditCardId = s.BankCreditCardId,
+                            BankCreditCardName = s.BankCreditCard != null ? s.BankCreditCard.Name : string.Empty,
+                            BankCreditCardPeriodId = s.BankCreditCardPeriodId,
+                            BankCreditCardPeriodEndDate = s.BankCreditCardPeriod != null ? s.BankCreditCardPeriod.EndDate : (DateTime?)null,
+                            IsExclusion = s.IsExclusion,
+                            Notes = s.Notes
+                        })
                         .ToListNoLock();
+
+            // taksitli işlem, toplam tutar hesaplama
+            // taksit texti oluşturma
+            // k.kartı period texti oluşturma
+            foreach (var item in list) {
+                item.TotalAmount = item.ParentId.HasValue
+                                        ? expenseRepository.Query(f => f.Id == item.ParentId || f.ParentId == item.ParentId).ToListNoLock().Sum(s => s.Amount)
+                                        : expenseRepository.Query(f => f.Id == item.Id || f.ParentId == item.Id).ToListNoLock().Sum(s => s.Amount);
+
+                item.Installment = item.InstallmentNo > 0 && item.InstallmentTotal > 0
+                                       ? string.Format("{0}/{1}", item.InstallmentNo, item.InstallmentTotal)
+                                       : string.Empty;
+
+                if (item.BankCreditCardPeriodEndDate.HasValue) {
+                    item.BankCreditCardPeriodName = string.Format("{0:yy}/{1:MM}", item.BankCreditCardPeriodEndDate, item.BankCreditCardPeriodEndDate);
+                }
+            }
 
             // toplamlar
             var queryMe = expenseRepository.Query(query).Where(a => !a.IsExclusion);
@@ -191,7 +229,7 @@ namespace eHesabim.Services {
             expenseExclusion = queryExclusion.Any() ? queryExclusion.Sum(s => s.Amount) : 0;
 
             // get model
-            return list.Select(ToModel).ToList();
+            return list;
         }
 
         public ExpenseDataModel GetExpenseById(Guid id, int userId) {
@@ -383,16 +421,6 @@ namespace eHesabim.Services {
             else {
                 errMessage = "record not found";
             }
-        }
-
-        private ExpenseDataModel ToModel(Expense data) {
-            var model = AutoMapperConfiguration.Mapper.Map<Expense, ExpenseDataModel>(data);
-
-            model.TotalAmount = data.ParentId.HasValue
-                ? expenseRepository.Query(f => f.Id == data.ParentId || f.ParentId == data.ParentId).ToListNoLock().Sum(s => s.Amount)
-                : expenseRepository.Query(f => f.Id == data.Id || f.ParentId == data.Id).ToListNoLock().Sum(s => s.Amount);
-
-            return model;
         }
     }
 }
