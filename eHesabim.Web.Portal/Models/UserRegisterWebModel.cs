@@ -16,7 +16,5 @@ namespace eHesabim.Web.Portal.Models {
         [ResourceStringLength("StringLengthPassword", 10, 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        public string ErrorMessage { get; set; }
     }
 }

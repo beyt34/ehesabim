@@ -241,14 +241,10 @@
     <Content Include="Content\css\Metro\sprite%402x.png" />
     <Content Include="Content\css\Metro\sprite.png" />
     <Content Include="Content\css\sb-admin-2.css" />
-    <Content Include="Content\css\sb-admin-2.min.css">
-      <DependentUpon>sb-admin-2.css</DependentUpon>
-    </Content>
+    <Content Include="Content\css\sb-admin-2.min.css" />
     <Content Include="Content\css\sb-admin.css" />
     <Content Include="Content\css\style.css" />
-    <Content Include="Content\css\style.min.css">
-      <DependentUpon>style.css</DependentUpon>
-    </Content>
+    <Content Include="Content\css\style.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\images\artwork-pattern.png" />
@@ -294,48 +290,16 @@
     <Content Include="Content\js\jquery-1.10.2.min.js" />
     <Content Include="Content\js\jquery-ui-1.10.3.min.js" />
     <Content Include="Content\js\jquery.blockUI.min.js" />
+    <Content Include="Content\js\jquery.metisMenu.js" />
     <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
-    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
-    <Content Include="Content\font-awesome\less\core.less" />
-    <Content Include="Content\font-awesome\less\fixed-width.less" />
-    <Content Include="Content\font-awesome\less\font-awesome.less" />
-    <Content Include="Content\font-awesome\less\icons.less" />
-    <Content Include="Content\font-awesome\less\larger.less" />
-    <Content Include="Content\font-awesome\less\list.less" />
-    <Content Include="Content\font-awesome\less\mixins.less" />
-    <Content Include="Content\font-awesome\less\path.less" />
-    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
-    <Content Include="Content\font-awesome\less\spinning.less" />
-    <Content Include="Content\font-awesome\less\stacked.less" />
-    <Content Include="Content\font-awesome\less\variables.less" />
-    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
-    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
-    <Content Include="Content\font-awesome\scss\_core.scss" />
-    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
-    <Content Include="Content\font-awesome\scss\_icons.scss" />
-    <Content Include="Content\font-awesome\scss\_larger.scss" />
-    <Content Include="Content\font-awesome\scss\_list.scss" />
-    <Content Include="Content\font-awesome\scss\_mixins.scss" />
-    <Content Include="Content\font-awesome\scss\_path.scss" />
-    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
-    <Content Include="Content\font-awesome\scss\_spinning.scss" />
-    <Content Include="Content\font-awesome\scss\_stacked.scss" />
-    <Content Include="Content\font-awesome\scss\_variables.scss" />
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\js\kendo.all.min.js" />
     <Content Include="Content\js\kendo.aspnetmvc.min.js" />
     <Content Include="Content\js\kendo.culture.tr-TR.min.js" />
     <Content Include="Content\js\kendo.web.min.js" />
-    <Content Include="Content\js\jquery.metisMenu.js" />
     <Content Include="Content\js\sb-admin-2.js" />
-    <Content Include="Content\js\sb-admin-2.min.js">
-      <DependentUpon>sb-admin-2.js</DependentUpon>
-    </Content>
+    <Content Include="Content\js\sb-admin-2.min.js" />
     <Content Include="Content\js\sb-admin.js" />
     <Content Include="Content\js\scripts.js" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js" />
@@ -1983,6 +1947,38 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome\less\core.less" />
+    <Content Include="Content\font-awesome\less\fixed-width.less" />
+    <Content Include="Content\font-awesome\less\font-awesome.less" />
+    <Content Include="Content\font-awesome\less\icons.less" />
+    <Content Include="Content\font-awesome\less\larger.less" />
+    <Content Include="Content\font-awesome\less\list.less" />
+    <Content Include="Content\font-awesome\less\mixins.less" />
+    <Content Include="Content\font-awesome\less\path.less" />
+    <Content Include="Content\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome\less\spinning.less" />
+    <Content Include="Content\font-awesome\less\stacked.less" />
+    <Content Include="Content\font-awesome\less\variables.less" />
+    <Content Include="Content\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome\scss\_core.scss" />
+    <Content Include="Content\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\font-awesome\scss\_list.scss" />
+    <Content Include="Content\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome\scss\_path.scss" />
+    <Content Include="Content\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome\scss\_spinning.scss" />
+    <Content Include="Content\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome\scss\_variables.scss" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js.map" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.js.map" />
@@ -2127,10 +2123,6 @@
     <Content Include="Content\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\vendor\jquery\jquery.min.map" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bundleconfig.json" />
-    <Content Include="Views\Login\Register.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
