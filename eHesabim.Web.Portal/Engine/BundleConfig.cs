@@ -4,6 +4,7 @@ using eHesabim.Web.Portal.Helper;
 namespace eHesabim.Web.Portal.Engine {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles) {
+            // css
             bundles.Add(new StyleBundle(CssBundles.JQueryUi).Include("~/Content/css/jquery-ui.min.css"));
             bundles.Add(new StyleBundle(CssBundles.Bootstrap).Include(
                 "~/Content/css/bootstrap.min.css", 
@@ -14,6 +15,7 @@ namespace eHesabim.Web.Portal.Engine {
             bundles.Add(new StyleBundle(CssBundles.Kendo).Include("~/Content/css/kendo.common.min.css", "~/Content/css/kendo.metro.min.css"));
             bundles.Add(new StyleBundle(CssBundles.Landing).Include("~/Content/css/landing.css"));
 
+            // js
             bundles.Add(
                 new ScriptBundle(JsBundles.JQuery).Include(
                     "~/Content/js/jquery-1.10.2.min.js", 
@@ -25,7 +27,6 @@ namespace eHesabim.Web.Portal.Engine {
             bundles.Add(new ScriptBundle(JsBundles.JQueryMenu).Include("~/Content/js/jquery.metisMenu.js"));
             bundles.Add(new ScriptBundle(JsBundles.Bootstrap).Include("~/Content/js/bootstrap.min.js"));
             bundles.Add(new ScriptBundle(JsBundles.SbAdmin).Include("~/Content/js/sb-admin.js"));
-            bundles.Add(new ScriptBundle(JsBundles.SbAdminNew).Include("~/Content/js/sb-admin-2.min.js"));
             bundles.Add(new ScriptBundle(JsBundles.Kendo).Include(
                 "~/Content/js/kendo.all.min.js",
                 "~/Content/js/kendo.aspnetmvc.min.js", 

@@ -13,16 +13,12 @@
     <link rel="icon" href="~/favicon2.ico" type="image/x-icon">
     <link rel="shortcut icon" href="~/favicon2.ico" type="image/x-icon">
 
-    <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/all.min.css">
-    <link href="//fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
     @Styles.Render(CssBundles.JQueryUi)
     @Styles.Render(CssBundles.Bootstrap)
     @Styles.Render(CssBundles.SbAdmin)
     @Styles.Render(CssBundles.Kendo)
     @Styles.Render(CssBundles.Style)
-    
+
     @Scripts.Render(JsBundles.JQuery)
 
     @RenderSection("head", false)
@@ -44,6 +40,7 @@
         ga('send', 'pageview');
     </script>
     <!-- /Google Analytics -->
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (d, w, c) {
