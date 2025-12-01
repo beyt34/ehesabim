@@ -24,7 +24,7 @@ namespace eHesabim.Web.Portal.Models {
 
         [ResourceRequired("RequiredAmount")]
         [ResourceRegularExpression("AmountMustBeNumber", @"[+]?[0-9]*\,?[0-9]?[0-9]")]
-        [Range(0.01, 999999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "AmountMustBeNumber")]
+        [Range(0.01, 999999999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "AmountMustBeNumber")]
         public decimal Amount { get; set; }
 
         public Guid? RelatedBankAccountId { get; set; }

@@ -75,7 +75,7 @@
                 <label class="col-sm-4">@Labels.Amount</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = Labels.Amount, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", placeholder = Labels.Amount, maxLength = 15, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
                         <span class="input-group-addon">TL</span>
                     </div>
                     <div>@Html.ValidationMessageFor(m => m.Amount)</div>

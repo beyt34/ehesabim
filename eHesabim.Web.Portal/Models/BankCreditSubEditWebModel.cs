@@ -24,7 +24,7 @@ namespace eHesabim.Web.Portal.Models {
 
         [ResourceRequired("RequiredCapital")]
         [ResourceRegularExpression("RequiredCapital", @"[+]?[0-9]*\,?[0-9]?[0-9]")]
-        [Range(0.01, 999999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "RequiredCapital")]
+        [Range(0.01, 999999999, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "RequiredCapital")]
         public decimal CapitalAmount { get; set; }
 
         [ResourceRequired("RequiredInterest")]

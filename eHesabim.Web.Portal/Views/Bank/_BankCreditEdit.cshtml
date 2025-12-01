@@ -30,7 +30,7 @@
                 <label class="col-sm-3">@Labels.Capital</label>
                 <div class="col-sm-9">
                     <div class="input-group">
-                        @Html.TextBoxFor(m => m.Capital, new { @class = "form-control", placeholder = Labels.Capital, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.TextBoxFor(m => m.Capital, new { @class = "form-control", placeholder = Labels.Capital, maxLength = 15, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
                         <span class="input-group-addon">TL</span>
                     </div>
                     <div>@Html.ValidationMessageFor(m => m.Capital)</div>

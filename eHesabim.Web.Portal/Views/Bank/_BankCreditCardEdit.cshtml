@@ -44,7 +44,7 @@
                 <label class="col-sm-4">@Labels.BankCreditCardLimit</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        @Html.TextBoxFor(m => m.Limit, new { @class = "form-control", placeholder = Labels.BankCreditCardLimit, maxLength = 10, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
+                        @Html.TextBoxFor(m => m.Limit, new { @class = "form-control", placeholder = Labels.BankCreditCardLimit, maxLength = 15, onkeypress = "return OnlyNumberChars(event);", autocomplete = "off" })
                         <span class="input-group-addon">TL</span>
                     </div>
                     <div>@Html.ValidationMessageFor(m => m.Limit)</div>
