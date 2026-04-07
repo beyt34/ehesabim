@@ -1,26 +1,29 @@
 ﻿using System;
 using System.Linq;
+using Autofac;
 
-namespace eHesabim.Core.Engine {
-    public class ContainerConfigurer {
-        public virtual void Configure(IEngine engine, ContainerManager containerManager) {
-            // register dependencies provided by other assemblies
-            containerManager.AddComponent<IWebHelper, WebHelper>("eHesabim.webHelper");
-            containerManager.AddComponent<ITypeFinder, WebAppTypeFinder>("eHesabim.typeFinder");
-            var typeFinder = containerManager.Resolve<ITypeFinder>();
-            containerManager.UpdateContainer(x => {
-                var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
-                var drInstances = drTypes.Select(drType => (IDependencyRegistrar)Activator.CreateInstance(drType)).ToList();
+namespace eHesabim.Core.Engine
+{
+    public class ContainerConfigurer
+    {
+        public virtual void Configure(IEngine engine, ContainerBuilder builder)
+        {
+            builder.RegisterType<WebHelper>().As<IWebHelper>().SingleInstance();
+            builder.RegisterType<WebAppTypeFinder>().As<ITypeFinder>().SingleInstance();
 
-                // sort
-                drInstances = drInstances.AsQueryable().OrderBy(t => t.Order).ToList();
-                foreach (var dependencyRegistrar in drInstances) {
-                    dependencyRegistrar.Register(x, typeFinder);
-                }
-            });
+            var typeFinder = new WebAppTypeFinder(new WebHelper());
+            var drTypes = typeFinder.FindClassesOfType<IDependencyRegistrar>();
+            var drInstances = drTypes.Select(drType => (IDependencyRegistrar)Activator.CreateInstance(drType)).ToList();
 
-            containerManager.AddComponentInstance<IEngine>(engine, "eHesabim.engine");
-            containerManager.AddComponentInstance<ContainerConfigurer>(this, "eHesabim.containerConfigurer");
+            // sort
+            drInstances = drInstances.AsQueryable().OrderBy(t => t.Order).ToList();
+            foreach (var dependencyRegistrar in drInstances)
+            {
+                dependencyRegistrar.Register(builder, typeFinder);
+            }
+
+            builder.RegisterInstance(engine).As<IEngine>();
+            builder.RegisterInstance(this).As<ContainerConfigurer>();
         }
     }
 }
