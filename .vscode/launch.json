@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "eHesabim.Web.Portal",
+            "type": "clr",
+            "request": "attach",
+            "processName": "iisexpress.exe",
+            "preLaunchTask": "start-iisexpress"
+        }
+    ]
+}

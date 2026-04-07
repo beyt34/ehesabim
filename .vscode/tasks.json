@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "& 'C:\\Program Files\\Microsoft Visual Studio\\18\\Professional\\MSBuild\\Current\\Bin\\MSBuild.exe' '${workspaceFolder}\\eHesabim.sln' /p:Configuration=Debug /t:Build /m",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            "label": "start-iisexpress",
+            "type": "process",
+            "command": "C:\\Program Files\\IIS Express\\iisexpress.exe",
+            "args": [
+                "/path:${workspaceFolder}\\eHesabim.Web.Portal",
+                "/port:16347"
+            ],
+            "dependsOn": "build",
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": ".",
+                    "file": 0,
+                    "location": 1,
+                    "message": 2
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".",
+                    "endsPattern": "IIS Express is running"
+                }
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}
