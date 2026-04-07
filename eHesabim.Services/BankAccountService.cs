@@ -101,7 +101,7 @@ namespace eHesabim.Services {
 
         public List<SelectGuidDataModel> GetBankAccountList(int userId) {
             return bankAccountRepository
-                       .Query(a => a.UserId == userId)
+                       .Query(a => a.UserId == userId && a.IsActive)
                        .OrderBy(o => o.TypeId).ThenBy(t => t.Name)
                        .Select(x => new SelectGuidDataModel { Id = x.Id, Name = x.Name })
                        .ToListNoLock();
