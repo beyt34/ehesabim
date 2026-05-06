@@ -62,9 +62,62 @@
     </div>
 }
 
+<style type="text/css">
+    .field-validation-error::before {
+        content: '' !important;
+    }
+</style>
+
 <script type="text/javascript">
+    var endDateErrorMsg = '@Html.Raw(Messages.EndDateMustBeAfterStartDate)';
+    var paymentDateErrorMsg = '@Html.Raw(Messages.PaymentDateMustBeAfterEndDate)';
+
     $(document).ready(function () {
         ValidateForm("bankCreditCardPeriodEditForm");
+
+        // Form submit handler
+        $("#bankCreditCardPeriodEditForm").submit(function (e) {
+            // Clear previous error states
+            $("#EndDate, #PaymentDate").closest(".col-sm-8").find(".k-invalid").removeClass("k-invalid");
+            $(".enddate-error, .paymentdate-error").remove();
+
+            var validator = $("#bankCreditCardPeriodEditForm").validate();
+            if (!validator.form()) {
+                return false;
+            }
+
+            // Get Kendo DatePicker values
+            var startDatePicker = $("#StartDate").data("kendoDatePicker");
+            var endDatePicker = $("#EndDate").data("kendoDatePicker");
+            var paymentDatePicker = $("#PaymentDate").data("kendoDatePicker");
+
+            var startDate = startDatePicker ? startDatePicker.value() : null;
+            var endDate = endDatePicker ? endDatePicker.value() : null;
+            var paymentDate = paymentDatePicker ? paymentDatePicker.value() : null;
+
+            var hasError = false;
+
+            // EndDate > StartDate validation
+            if (startDate && endDate && endDate <= startDate) {
+                var $endDateInput = $("#EndDate").closest(".col-sm-8");
+                $endDateInput.find(".k-datepicker").addClass("k-invalid");
+                $endDateInput.append('<span class="field-validation-error enddate-error" style="display:block;"><span class="k-icon k-i-warning"></span> ' + endDateErrorMsg + '</span>');
+                hasError = true;
+            }
+
+            // PaymentDate > EndDate validation
+            if (endDate && paymentDate && paymentDate <= endDate) {
+                var $paymentDateInput = $("#PaymentDate").closest(".col-sm-8");
+                $paymentDateInput.find(".k-datepicker").addClass("k-invalid");
+                $paymentDateInput.append('<span class="field-validation-error paymentdate-error" style="display:block;"><span class="k-icon k-i-warning"></span> ' + paymentDateErrorMsg + '</span>');
+                hasError = true;
+            }
+
+            if (hasError) {
+                e.preventDefault();
+                return false;
+            }
+        });
     });
 
     function onBankCreditCardPeriodEditSuccess(data) {

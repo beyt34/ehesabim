@@ -8,8 +8,10 @@ using eHesabim.Web.Portal.Engine;
 using eHesabim.Web.Portal.Models;
 using Kendo.Mvc.UI;
 
-namespace eHesabim.Web.Portal.Controllers {
-    public class BankController : BaseController {
+namespace eHesabim.Web.Portal.Controllers
+{
+    public class BankController : BaseController
+    {
         private readonly IBankAccountService bankAccountService;
         private readonly IBankCreditService bankCreditService;
         private readonly IBankCreditCardService bankCreditCardService;
@@ -17,7 +19,8 @@ namespace eHesabim.Web.Portal.Controllers {
         private readonly ICommonService commonService;
         private readonly IWorkContext workContext;
 
-        public BankController(IBankAccountService bankAccountService, IBankCreditService bankCreditService, IBankCreditCardService bankCreditCardService, IExpenseService expenseService, ICommonService commonService, IWorkContext workContext) {
+        public BankController(IBankAccountService bankAccountService, IBankCreditService bankCreditService, IBankCreditCardService bankCreditCardService, IExpenseService expenseService, ICommonService commonService, IWorkContext workContext)
+        {
             this.bankAccountService = bankAccountService;
             this.bankCreditService = bankCreditService;
             this.bankCreditCardService = bankCreditCardService;
@@ -26,8 +29,10 @@ namespace eHesabim.Web.Portal.Controllers {
             this.workContext = workContext;
         }
 
-        public ActionResult BankCreditList([DataSourceRequest]DataSourceRequest request, BankCreditListWebModel model) {
-            if (!Request.IsAjaxRequest()) {
+        public ActionResult BankCreditList([DataSourceRequest] DataSourceRequest request, BankCreditListWebModel model)
+        {
+            if (!Request.IsAjaxRequest())
+            {
                 return View(GetBankCreditListWebModel());
             }
 
@@ -36,12 +41,15 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [ActionName("_BankCreditEdit")]
-        public PartialViewResult BankCreditEdit(Guid? id) {
+        public PartialViewResult BankCreditEdit(Guid? id)
+        {
             var model = new BankCreditEditWebModel { CreditDateTime = DateTime.Today, IsActive = true };
 
-            if ((id ?? Guid.Empty) != Guid.Empty) {
+            if ((id ?? Guid.Empty) != Guid.Empty)
+            {
                 var dataModel = bankCreditService.GetBankCreditById(id ?? Guid.Empty, workContext.CurrentUser.Id);
-                if (dataModel == null) {
+                if (dataModel == null)
+                {
                     return PartialView(model);
                 }
 
@@ -53,8 +61,10 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost, ValidateInput(false), ActionName("_BankCreditEdit")]
-        public ActionResult BankCreditEdit(BankCreditEditWebModel model) {
-            if (ModelState.IsValid) {
+        public ActionResult BankCreditEdit(BankCreditEditWebModel model)
+        {
+            if (ModelState.IsValid)
+            {
                 string errMessage;
                 bankCreditService.AddUpdateBankCredit(
                     model.Id,
@@ -75,8 +85,10 @@ namespace eHesabim.Web.Portal.Controllers {
             return Json(new { Success = false, Result = Framework.WebViewPage.ValidationSummary(ModelState, string.Empty) });
         }
 
-        public ActionResult BankCreditSubList([DataSourceRequest]DataSourceRequest request, BankCreditSubListWebModel model) {
-            if (!Request.IsAjaxRequest()) {
+        public ActionResult BankCreditSubList([DataSourceRequest] DataSourceRequest request, BankCreditSubListWebModel model)
+        {
+            if (!Request.IsAjaxRequest())
+            {
                 return View(GetBankCreditSubListWebModel());
             }
 
@@ -85,12 +97,15 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [ActionName("_BankCreditSubEdit")]
-        public PartialViewResult BankCreditSubEdit(Guid? id) {
+        public PartialViewResult BankCreditSubEdit(Guid? id)
+        {
             var model = new BankCreditSubEditWebModel();
 
-            if ((id ?? Guid.Empty) != Guid.Empty) {
+            if ((id ?? Guid.Empty) != Guid.Empty)
+            {
                 var dataModel = bankCreditService.GetBankCreditSubById(id ?? Guid.Empty, workContext.CurrentUser.Id);
-                if (dataModel == null) {
+                if (dataModel == null)
+                {
                     return PartialView(model);
                 }
 
@@ -105,8 +120,10 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost, ValidateInput(false), ActionName("_BankCreditSubEdit")]
-        public ActionResult BankCreditSubEdit(BankCreditSubEditWebModel model) {
-            if (ModelState.IsValid) {
+        public ActionResult BankCreditSubEdit(BankCreditSubEditWebModel model)
+        {
+            if (ModelState.IsValid)
+            {
                 string errMessage;
                 bankCreditService.AddUpdateBankCreditSub(
                     model.Id,
@@ -129,15 +146,18 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost]
-        public ActionResult GetPaymentPlan(BankCreditEditWebModel model) {
+        public ActionResult GetPaymentPlan(BankCreditEditWebModel model)
+        {
             // todo : get calculation
             ////var rate = Convert.ToDouble(model.Rate / 100.0M * 1.2M);
             ////var capital = Convert.ToDouble(model.Capital);
             ////var payment = Financial.Pmt(rate, model.Installment, capital) * (-1);
 
             var list = new List<BankCreditSubEditWebModel>();
-            for (var i = 1; i <= model.Installment; i++) {
-                var item = new BankCreditSubEditWebModel {
+            for (var i = 1; i <= model.Installment; i++)
+            {
+                var item = new BankCreditSubEditWebModel
+                {
                     Id = Guid.Empty,
                     Installment = i,
                     InstallmentDateTime = model.CreditDateTime.AddMonths(i),
@@ -146,14 +166,17 @@ namespace eHesabim.Web.Portal.Controllers {
                 list.Add(item);
             }
 
-            return Json(new {
+            return Json(new
+            {
                 Result = true,
                 PartialHtml = ControllerContextHelper.RenderRazorViewToString(ControllerContext, "~/Views/Bank/_BankCreditSubEdit.cshtml", list),
             });
         }
 
-        public ActionResult BankCreditCardList([DataSourceRequest]DataSourceRequest request, BankCreditCardListWebModel model) {
-            if (!Request.IsAjaxRequest()) {
+        public ActionResult BankCreditCardList([DataSourceRequest] DataSourceRequest request, BankCreditCardListWebModel model)
+        {
+            if (!Request.IsAjaxRequest())
+            {
                 return View(GetBankCreditCardListWebModel());
             }
 
@@ -162,12 +185,15 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [ActionName("_BankCreditCardEdit")]
-        public PartialViewResult BankCreditCardEdit(Guid? id) {
+        public PartialViewResult BankCreditCardEdit(Guid? id)
+        {
             var model = new BankCreditCardEditWebModel { IsActive = true };
 
-            if ((id ?? Guid.Empty) != Guid.Empty) {
+            if ((id ?? Guid.Empty) != Guid.Empty)
+            {
                 var dataModel = bankCreditCardService.GetBankCreditCardById(id ?? Guid.Empty, workContext.CurrentUser.Id);
-                if (dataModel == null) {
+                if (dataModel == null)
+                {
                     return PartialView(model);
                 }
 
@@ -180,15 +206,19 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost, ValidateInput(false), ActionName("_BankCreditCardEdit")]
-        public ActionResult BankCreditCardEdit(BankCreditCardEditWebModel model) {
-            if ((model.ParentId ?? Guid.Empty) != Guid.Empty) {
+        public ActionResult BankCreditCardEdit(BankCreditCardEditWebModel model)
+        {
+            if ((model.ParentId ?? Guid.Empty) != Guid.Empty)
+            {
                 model.BankId = bankCreditCardService.GetBankId(model.ParentId);
-                if (model.BankId > 0) {
+                if (model.BankId > 0)
+                {
                     ModelState.Remove("BankId");
                 }
             }
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 string errMessage;
                 bankCreditCardService.AddUpdateBankCreditCard(
                     model.Id,
@@ -211,13 +241,16 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost]
-        public ActionResult GetBankId(Guid? parentId) {
+        public ActionResult GetBankId(Guid? parentId)
+        {
             var bankId = bankCreditCardService.GetBankId(parentId);
             return Json(bankId);
         }
 
-        public ActionResult BankCreditCardPeriodList([DataSourceRequest]DataSourceRequest request, BankCreditCardPeriodListWebModel model) {
-            if (!Request.IsAjaxRequest()) {
+        public ActionResult BankCreditCardPeriodList([DataSourceRequest] DataSourceRequest request, BankCreditCardPeriodListWebModel model)
+        {
+            if (!Request.IsAjaxRequest())
+            {
                 return View(GetBankCreditCardPeriodListWebModel());
             }
 
@@ -226,16 +259,20 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [ActionName("_BankCreditCardPeriodEdit")]
-        public PartialViewResult BankCreditCardPeriodEdit(Guid? id, Guid? creditCardId) {
-            var model = new BankCreditCardPeriodEditWebModel {
+        public PartialViewResult BankCreditCardPeriodEdit(Guid? id, Guid? creditCardId)
+        {
+            var model = new BankCreditCardPeriodEditWebModel
+            {
                 StartDate = DateTime.Today,
                 BankCreditCardId = creditCardId ?? default(Guid),
                 SetExpense = true,
             };
 
-            if ((id ?? Guid.Empty) != Guid.Empty) {
+            if ((id ?? Guid.Empty) != Guid.Empty)
+            {
                 var dataModel = bankCreditCardService.GetBankCreditCardPeriodById(id ?? Guid.Empty, workContext.CurrentUser.Id);
-                if (dataModel == null) {
+                if (dataModel == null)
+                {
                     return PartialView(model);
                 }
 
@@ -247,8 +284,24 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost, ValidateInput(false), ActionName("_BankCreditCardPeriodEdit")]
-        public ActionResult BankCreditCardPeriodEdit(BankCreditCardPeriodEditWebModel model) {
-            if (ModelState.IsValid) {
+        public ActionResult BankCreditCardPeriodEdit(BankCreditCardPeriodEditWebModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Cross-field date validations
+                if (model.EndDate != DateTime.MinValue && model.StartDate != DateTime.MinValue && model.EndDate <= model.StartDate)
+                {
+                    ModelState.AddModelError(nameof(model.EndDate), Framework.Localization.Messages.EndDateMustBeAfterStartDate);
+                }
+
+                if (model.PaymentDate != DateTime.MinValue && model.EndDate != DateTime.MinValue && model.PaymentDate <= model.EndDate)
+                {
+                    ModelState.AddModelError(nameof(model.PaymentDate), Framework.Localization.Messages.PaymentDateMustBeAfterEndDate);
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
                 string errMessage;
                 bankCreditCardService.AddUpdateBankCreditCardPeriod(
                     model.Id,
@@ -267,13 +320,16 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost]
-        public ActionResult SetExpensePeriod(Guid id) {
+        public ActionResult SetExpensePeriod(Guid id)
+        {
             bankCreditCardService.SetExpensePeriod(id, workContext.CurrentUser.Id);
             return Json(new { Success = true, Message = Framework.Localization.Messages.SetPeriodSuccesfully });
         }
 
-        public ActionResult BankCreditCardPaymentList([DataSourceRequest]DataSourceRequest request, BankCreditCardPaymentListWebModel model) {
-            if (!Request.IsAjaxRequest()) {
+        public ActionResult BankCreditCardPaymentList([DataSourceRequest] DataSourceRequest request, BankCreditCardPaymentListWebModel model)
+        {
+            if (!Request.IsAjaxRequest())
+            {
                 return View(GetBankCreditCardPaymentListWebModel());
             }
 
@@ -282,15 +338,19 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [ActionName("_BankCreditCardPaymentEdit")]
-        public PartialViewResult BankCreditCardPaymentEdit(Guid? id, Guid? creditCardId) {
-            var model = new BankCreditCardPaymentEditWebModel {
+        public PartialViewResult BankCreditCardPaymentEdit(Guid? id, Guid? creditCardId)
+        {
+            var model = new BankCreditCardPaymentEditWebModel
+            {
                 PaymentDateTime = DateTime.Today,
                 BankCreditCardId = creditCardId ?? default(Guid),
             };
 
-            if ((id ?? Guid.Empty) != Guid.Empty) {
+            if ((id ?? Guid.Empty) != Guid.Empty)
+            {
                 var dataModel = bankCreditCardService.GetBankCreditCardPaymentById(id ?? Guid.Empty, workContext.CurrentUser.Id);
-                if (dataModel == null) {
+                if (dataModel == null)
+                {
                     return PartialView(model);
                 }
 
@@ -304,8 +364,10 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost, ValidateInput(false), ActionName("_BankCreditCardPaymentEdit")]
-        public ActionResult BankCreditCardPaymentEdit(BankCreditCardPaymentEditWebModel model) {
-            if (ModelState.IsValid) {
+        public ActionResult BankCreditCardPaymentEdit(BankCreditCardPaymentEditWebModel model)
+        {
+            if (ModelState.IsValid)
+            {
                 string errMessage;
                 bankCreditCardService.AddUpdateBankCreditCardPayment(
                     model.Id,
@@ -323,12 +385,14 @@ namespace eHesabim.Web.Portal.Controllers {
             return Json(new { Success = false, Result = Framework.WebViewPage.ValidationSummary(ModelState, string.Empty) });
         }
 
-        private BankCreditListWebModel GetBankCreditListWebModel(int bankId = 0, int? pageIndex = 0, int? pageSize = 20) {
+        private BankCreditListWebModel GetBankCreditListWebModel(int bankId = 0, int? pageIndex = 0, int? pageSize = 20)
+        {
             int total;
             var data = bankCreditService.GetBankCreditList(workContext.CurrentUser.Id, bankId, pageIndex ?? 0, pageSize ?? 100, out total);
             var model = Engine.AutoMapperConfiguration.Mapper.Map<List<BankCreditDataModel>, List<BankCreditWebModel>>(data);
 
-            return new BankCreditListWebModel {
+            return new BankCreditListWebModel
+            {
                 SearchBankList = GetSelectList(commonService.GetBankList()),
                 Data = model,
                 DeleteData = new DeleteWebModel { Permission = PermissionFormEnum.BankCredit, Form = FormEnum.BankCredit, GridName = "bankCreditGrid" },
@@ -336,12 +400,14 @@ namespace eHesabim.Web.Portal.Controllers {
             };
         }
 
-        private BankCreditSubListWebModel GetBankCreditSubListWebModel(Guid? bankCreditId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private BankCreditSubListWebModel GetBankCreditSubListWebModel(Guid? bankCreditId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20)
+        {
             int total;
             var data = bankCreditService.GetBankCreditSubList(workContext.CurrentUser.Id, bankCreditId, sort, sortDescending, pageIndex ?? 0, pageSize ?? 100, out total);
             var model = Engine.AutoMapperConfiguration.Mapper.Map<List<BankCreditSubDataModel>, List<BankCreditSubWebModel>>(data);
 
-            return new BankCreditSubListWebModel {
+            return new BankCreditSubListWebModel
+            {
                 SearchBankCreditList = GetSelectList(bankCreditService.GetBankCreditList(workContext.CurrentUser.Id)),
                 Data = model,
                 DeleteData = new DeleteWebModel { Permission = PermissionFormEnum.BankCredit, Form = FormEnum.BankCreditSub, GridName = "bankCreditSubGrid" },
@@ -349,12 +415,14 @@ namespace eHesabim.Web.Portal.Controllers {
             };
         }
 
-        private BankCreditCardListWebModel GetBankCreditCardListWebModel(int bankId = 0, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private BankCreditCardListWebModel GetBankCreditCardListWebModel(int bankId = 0, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20)
+        {
             int total;
             var data = bankCreditCardService.GetBankCreditCardList(workContext.CurrentUser.Id, bankId, sort, sortDescending, pageIndex ?? 0, pageSize ?? 100, out total);
             var model = Engine.AutoMapperConfiguration.Mapper.Map<List<BankCreditCardDataModel>, List<BankCreditCardWebModel>>(data);
 
-            return new BankCreditCardListWebModel {
+            return new BankCreditCardListWebModel
+            {
                 SearchBankId = bankId,
                 SearchBankList = GetSelectList(commonService.GetBankList()),
                 Data = model,
@@ -363,12 +431,14 @@ namespace eHesabim.Web.Portal.Controllers {
             };
         }
 
-        private BankCreditCardPeriodListWebModel GetBankCreditCardPeriodListWebModel(Guid? creditCardId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private BankCreditCardPeriodListWebModel GetBankCreditCardPeriodListWebModel(Guid? creditCardId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20)
+        {
             int total;
             var data = bankCreditCardService.GetBankCreditCardPeriodList(workContext.CurrentUser.Id, creditCardId, sort, sortDescending, pageIndex ?? 0, pageSize ?? 100, out total);
             var model = Engine.AutoMapperConfiguration.Mapper.Map<List<BankCreditCardPeriodDataModel>, List<BankCreditCardPeriodWebModel>>(data);
 
-            return new BankCreditCardPeriodListWebModel {
+            return new BankCreditCardPeriodListWebModel
+            {
                 SearchBankCreditCardId = creditCardId,
                 SearchBankCreditCardList = GetSelectList(bankCreditCardService.GetBankCreditCardList(workContext.CurrentUser.Id, null, null)),
                 Data = model,
@@ -377,12 +447,14 @@ namespace eHesabim.Web.Portal.Controllers {
             };
         }
 
-        private BankCreditCardPaymentListWebModel GetBankCreditCardPaymentListWebModel(Guid? creditCardId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20) {
+        private BankCreditCardPaymentListWebModel GetBankCreditCardPaymentListWebModel(Guid? creditCardId = null, string sort = "", bool sortDescending = false, int? pageIndex = 0, int? pageSize = 20)
+        {
             int total;
             var data = bankCreditCardService.GetBankCreditCardPaymentList(workContext.CurrentUser.Id, creditCardId, sort, sortDescending, pageIndex ?? 0, pageSize ?? 100, out total);
             var model = Engine.AutoMapperConfiguration.Mapper.Map<List<BankCreditCardPaymentDataModel>, List<BankCreditCardPaymentWebModel>>(data);
 
-            return new BankCreditCardPaymentListWebModel {
+            return new BankCreditCardPaymentListWebModel
+            {
                 SearchBankCreditCardId = creditCardId,
                 SearchBankCreditCardList = GetSelectList(bankCreditCardService.GetBankCreditCardList(workContext.CurrentUser.Id, null, null)),
                 Data = model,

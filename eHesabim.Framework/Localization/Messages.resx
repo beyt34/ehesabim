@@ -276,4 +276,10 @@
   <data name="RequiredAccountType" xml:space="preserve">
     <value>Lütfen Hesap Tipi seçiniz.</value>
   </data>
+  <data name="EndDateMustBeAfterStartDate" xml:space="preserve">
+    <value>Bitiş tarihi başlangıç tarihinden sonra olmalıdır.</value>
+  </data>
+  <data name="PaymentDateMustBeAfterEndDate" xml:space="preserve">
+    <value>Ödeme tarihi bitiş tarihinden sonra olmalıdır.</value>
+  </data>
 </root>
