@@ -1,55 +1,65 @@
-﻿using System.Configuration;
-using System.IO;
+﻿using System.IO;
+using System.Web.Hosting;
 using eHesabim.Core.Logging;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace eHesabim.Core.Storage {
-    public class StorageService : IStorageService {
+namespace eHesabim.Core.Storage
+{
+    public class StorageService : IStorageService
+    {
         private readonly ILogging logging;
+        private readonly string rootPath;
 
-        public StorageService(ILogging logging) {
+        public StorageService(ILogging logging)
+        {
             this.logging = logging;
+            rootPath = HostingEnvironment.MapPath("~/Content");
         }
 
-        public void Upload(Stream fileStream, string path, string fileName, string contentType) {
-            var blockBlobReference = GetContainer(path).GetBlockBlobReference(fileName);
-            blockBlobReference.Properties.ContentType = contentType;
-            blockBlobReference.UploadFromStream(fileStream);
+        public void Upload(Stream fileStream, string path, string fileName, string contentType)
+        {
+            var filePath = GetFilePath(path, fileName);
+            EnsureDirectory(path);
+
+            using (var output = File.Create(filePath))
+            {
+                fileStream.CopyTo(output);
+            }
         }
 
-        public void Upload(byte[] buffer, string path, string fileName, string contentType) {
-            var blockBlobReference = GetContainer(path).GetBlockBlobReference(fileName);
-            blockBlobReference.Properties.ContentType = contentType;
-            blockBlobReference.Properties.CacheControl = "public, max-age=2629000";
-            blockBlobReference.UploadFromByteArray(buffer, 0, buffer.Length);
-        }
-        
-        public bool Delete(string path, string fileName) {
-            return GetContainer(path).GetBlockBlobReference(fileName).DeleteIfExists();
+        public void Upload(byte[] buffer, string path, string fileName, string contentType)
+        {
+            var filePath = GetFilePath(path, fileName);
+            EnsureDirectory(path);
+            File.WriteAllBytes(filePath, buffer);
         }
 
-        protected CloudBlobClient ConnectStorage() {
-            var connectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
-            if (string.IsNullOrEmpty(connectionString)) {
-                logging.Error("StorageService => ConnectionString not found");
+        public bool Delete(string path, string fileName)
+        {
+            var filePath = GetFilePath(path, fileName);
+            if (!File.Exists(filePath))
+            {
+                return false;
             }
 
-            var storageAccount = CloudStorageAccount.Parse(connectionString);
-            return storageAccount.CreateCloudBlobClient();
+            File.Delete(filePath);
+            return true;
         }
 
-        protected CloudBlobContainer GetContainer(string containerName) {
-            var client = ConnectStorage();
-            var container = client.GetContainerReference(containerName);
-            var created = container.CreateIfNotExists();
-
-            if (created) {
-                logging.Info("StorageService => Blob Created");
-                container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+        private void EnsureDirectory(string path)
+        {
+            var directoryPath = Path.Combine(rootPath ?? string.Empty, path);
+            if (Directory.Exists(directoryPath))
+            {
+                return;
             }
 
-            return container;
+            Directory.CreateDirectory(directoryPath);
+            logging.Info("StorageService => Directory Created");
+        }
+
+        private string GetFilePath(string path, string fileName)
+        {
+            return Path.Combine(rootPath ?? string.Empty, path, fileName);
         }
     }
 }

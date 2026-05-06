@@ -1,9 +1,10 @@
-﻿namespace eHesabim.Web.Portal.Engine {
-    public static class RouteNames {
+﻿namespace eHesabim.Web.Portal.Engine
+{
+    public static class RouteNames
+    {
         public const string Login = "Login";
         public const string Logout = "Logout";
         public const string Register = "Register";
-        public const string RegisterFacebook = "RegisterFacebook";
         public const string PasswordRecovery = "PasswordRecovery";
         public const string PasswordRecoveryConfirm = "PasswordRecoveryConfirm";
         public const string Home = "Home";
@@ -21,12 +22,12 @@
         public const string BankCreditCardList = "BankCreditCardList";
         public const string BankCreditCardPeriodList = "BankCreditCardPeriodList";
         public const string BankCreditCardPaymentList = "BankCreditCardPaymentList";
-        
+
         public const string ExpenseList = "ExpenseList";
         public const string ExpenseGroupList = "ExpenseGroupList";
         public const string ExpenseGroupReport = "ExpenseGroupReport";
         public const string ExpenseStoreList = "ExpenseStoreList";
-        
+
         public const string UserList = "UserList";
         public const string UserEdit = "UserEdit";
         public const string PermissionList = "PermissionList";

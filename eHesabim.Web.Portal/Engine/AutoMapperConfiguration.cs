@@ -3,15 +3,19 @@ using AutoMapper;
 using eHesabim.Services.Models;
 using eHesabim.Web.Portal.Models;
 
-namespace eHesabim.Web.Portal.Engine {
-    public static class AutoMapperConfiguration {
+namespace eHesabim.Web.Portal.Engine
+{
+    public static class AutoMapperConfiguration
+    {
         public static IMapper Mapper { get; private set; }
 
         public static MapperConfiguration MapperConfiguration { get; private set; }
 
-        public static void Init() {
+        public static void Init()
+        {
             MapperConfiguration = new MapperConfiguration(
-                cfg => {
+                cfg =>
+                {
                     cfg.CreateMap<CustomerDataModel, CustomerWebModel>();
                     cfg.CreateMap<CustomerDataModel, CustomerEditWebModel>();
                     cfg.CreateMap<CustomerDataModel, DashboardCustomerWebModel>();
@@ -62,7 +66,13 @@ namespace eHesabim.Web.Portal.Engine {
             Mapper = MapperConfiguration.CreateMapper();
         }
 
-        private static string GetFullPath(string fileName) {
+        private static string GetFullPath(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return string.Empty;
+            }
+
             return string.Format("{0}{1}/{2}", ConfigurationManager.AppSettings["FilePath"], "files", fileName);
         }
     }

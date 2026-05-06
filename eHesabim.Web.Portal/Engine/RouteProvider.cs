@@ -2,18 +2,21 @@
 using System.Web.Routing;
 using eHesabim.Core.Routes;
 
-namespace eHesabim.Web.Portal.Engine {
-    public class RouteProvider : IRouteProvider {
-        public int Priority {
+namespace eHesabim.Web.Portal.Engine
+{
+    public class RouteProvider : IRouteProvider
+    {
+        public int Priority
+        {
             get { return 0; }
         }
 
-        public void RegisterRoutes(RouteCollection routes) {
+        public void RegisterRoutes(RouteCollection routes)
+        {
             // main
             routes.MapRoute(RouteNames.Login, "giris", new { controller = "Login", action = "Index" });
             routes.MapRoute(RouteNames.Logout, "cikis", new { controller = "Login", action = "Logout" });
             routes.MapRoute(RouteNames.Register, "uye-ol", new { controller = "Login", action = "Register" });
-            routes.MapRoute(RouteNames.RegisterFacebook, "facebook-ile-baglan", new { controller = "Login", action = "RegisterFacebook" });
             routes.MapRoute(RouteNames.PasswordRecovery, "sifremi-unuttum", new { controller = "Login", action = "PasswordRecovery" });
             routes.MapRoute(RouteNames.PasswordRecoveryConfirm, "sifre-belirle/{token}", new { controller = "Login", action = "PasswordRecoveryConfirm", token = UrlParameter.Optional });
             routes.MapRoute(RouteNames.Home, "dashboard", new { controller = "Home", action = "Index" });
@@ -28,7 +31,7 @@ namespace eHesabim.Web.Portal.Engine {
             // banka
             routes.MapRoute(RouteNames.BankAccountList, "hesaplar", new { controller = "BankAccount", action = "BankAccountList" });
             routes.MapRoute(RouteNames.BankAccountTransactionList, "hesap-hareketleri", new { controller = "BankAccount", action = "BankAccountTransactionList" });
-            
+
             routes.MapRoute(RouteNames.BankCreditList, "krediler", new { controller = "Bank", action = "BankCreditList" });
             routes.MapRoute(RouteNames.BankCreditSubList, "kredi-taksitleri", new { controller = "Bank", action = "BankCreditSubList" });
 
@@ -41,7 +44,7 @@ namespace eHesabim.Web.Portal.Engine {
             routes.MapRoute(RouteNames.ExpenseGroupList, "gider-gruplari", new { controller = "Expense", action = "ExpenseGroupList" });
             routes.MapRoute(RouteNames.ExpenseGroupReport, "gider-raporu", new { controller = "Expense", action = "ExpenseGroupReport" });
             routes.MapRoute(RouteNames.ExpenseStoreList, "magazalar", new { controller = "Expense", action = "ExpenseStoreList" });
-             
+
             // sistem
             routes.MapRoute(RouteNames.UserList, "kullanici-listesi", new { controller = "User", action = "UserList" });
             routes.MapRoute(RouteNames.UserEdit, "kullanici-detay/{id}", new { controller = "User", action = "UserEdit", id = UrlParameter.Optional });

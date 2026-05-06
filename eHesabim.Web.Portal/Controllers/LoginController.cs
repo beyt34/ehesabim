@@ -2,26 +2,28 @@
 using System.Web.Mvc;
 
 using eHesabim.Framework;
-using eHesabim.Framework.Facebook;
 using eHesabim.Framework.Localization;
 using eHesabim.Services;
 using eHesabim.Web.Portal.Engine;
 using eHesabim.Web.Portal.Models;
 
-namespace eHesabim.Web.Portal.Controllers {
-    public class LoginController : Controller {
+namespace eHesabim.Web.Portal.Controllers
+{
+    public class LoginController : Controller
+    {
         private readonly IUserService userService;
-        private readonly IFacebookService facebookService;
         private readonly IWorkContext workContext;
 
-        public LoginController(IUserService userService, IFacebookService facebookService, IWorkContext workContext) {
+        public LoginController(IUserService userService, IWorkContext workContext)
+        {
             this.userService = userService;
-            this.facebookService = facebookService;
             this.workContext = workContext;
         }
 
-        public ActionResult Index(string returnUrl) {
-            if (workContext.CurrentUser != null) {
+        public ActionResult Index(string returnUrl)
+        {
+            if (workContext.CurrentUser != null)
+            {
                 Response.RedirectToRoute(RouteNames.Home);
             }
 
@@ -29,20 +31,26 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Index(UserLoginWebModel model) {
-            if (ModelState.IsValid) {
+        public ActionResult Index(UserLoginWebModel model)
+        {
+            if (ModelState.IsValid)
+            {
                 var userDataModel = userService.GetUserByEmailAndPassword(model.Email.Trim(), model.Password.Trim());
-                if (userDataModel != null) {
+                if (userDataModel != null)
+                {
                     workContext.SignIn(userDataModel, model.RememberMe);
 
-                    if (!string.IsNullOrEmpty(model.ReturnUrl)) {
+                    if (!string.IsNullOrEmpty(model.ReturnUrl))
+                    {
                         Response.Redirect(model.ReturnUrl);
                     }
-                    else {
+                    else
+                    {
                         Response.RedirectToRoute(RouteNames.Home);
                     }
                 }
-                else {
+                else
+                {
                     model.ErrorMessage = Messages.LoginError;
                 }
             }
@@ -50,8 +58,10 @@ namespace eHesabim.Web.Portal.Controllers {
             return View(model);
         }
 
-        public ActionResult Register() {
-            if (workContext.CurrentUser != null) {
+        public ActionResult Register()
+        {
+            if (workContext.CurrentUser != null)
+            {
                 Response.RedirectToRoute(RouteNames.Home);
             }
 
@@ -59,17 +69,21 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Register(UserRegisterWebModel model) {
-            if (ModelState.IsValid) {
+        public ActionResult Register(UserRegisterWebModel model)
+        {
+            if (ModelState.IsValid)
+            {
                 string errMessage;
                 var id = userService.RegisterUser(model.Name, model.Email, model.Password, out errMessage);
 
-                if (string.IsNullOrEmpty(errMessage) && id != 0) {
+                if (string.IsNullOrEmpty(errMessage) && id != 0)
+                {
                     var userDataModel = userService.GetUserById(id);
                     workContext.SignIn(userDataModel, false);
                     Response.RedirectToRoute(RouteNames.Home);
                 }
-                else {
+                else
+                {
                     model.ErrorMessage = Messages.ResourceManager.GetString(errMessage ?? string.Empty);
                 }
             }
@@ -77,53 +91,31 @@ namespace eHesabim.Web.Portal.Controllers {
             return View(model);
         }
 
-        public ActionResult RegisterFacebook() {
-            if (Request["code"] == null) {
-                // Redirect the user back to Facebook for authorization.
-                return new RedirectResult(facebookService.GetLoginUrl());
-            }
-
-            // Get the access token and secret.
-            var accessToken = facebookService.GetAccessToken(Request["code"]);
-
-            if (!string.IsNullOrEmpty(accessToken)) {
-                // get user info
-                var person = facebookService.GetUserInfo(accessToken);
-                if (person != null) {
-                    // register
-                    string errMessage;
-                    var id = userService.RegisterFacebook(person.FullName, person.Email, person.Id, out errMessage);
-
-                    if (string.IsNullOrEmpty(errMessage) && id != 0) {
-                        var userDataModel = userService.GetUserById(id);
-                        workContext.SignIn(userDataModel, false);
-                        return RedirectToRoute(RouteNames.Home);
-                    }
-                }
-            }
-
-            return RedirectToRoute(RouteNames.Login);
-        }
-
-        public ActionResult Logout() {
+        public ActionResult Logout()
+        {
             workContext.SignOut();
             return RedirectToRoute(RouteNames.Home);
         }
 
-        public ActionResult PasswordRecovery() {
+        public ActionResult PasswordRecovery()
+        {
             return View(new UserPasswordRecoveryWebModel());
         }
 
         [HttpPost]
-        public ActionResult PasswordRecovery(UserPasswordRecoveryWebModel model) {
+        public ActionResult PasswordRecovery(UserPasswordRecoveryWebModel model)
+        {
             var returnModel = new UserPasswordRecoveryWebModel();
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 var result = userService.SendPasswordGuid(model.Email) != Guid.Empty;
 
-                if (result) {
+                if (result)
+                {
                     returnModel.SuccessMessage = Messages.SendPasswordGuidSuccess;
                 }
-                else {
+                else
+                {
                     returnModel.ErrorMessage = Messages.SendPasswordGuidError;
                 }
 
@@ -133,8 +125,10 @@ namespace eHesabim.Web.Portal.Controllers {
             return View(returnModel);
         }
 
-        public ActionResult PasswordRecoveryConfirm(string token) {
-            if (!CheckPasswordRecoveryData(token)) {
+        public ActionResult PasswordRecoveryConfirm(string token)
+        {
+            if (!CheckPasswordRecoveryData(token))
+            {
                 return RedirectToRoute(RouteNames.Home);
             }
 
@@ -147,16 +141,20 @@ namespace eHesabim.Web.Portal.Controllers {
         }
 
         [HttpPost]
-        public ActionResult PasswordRecoveryConfirm(UserPasswordRecoveryConfirmWebModel model) {
+        public ActionResult PasswordRecoveryConfirm(UserPasswordRecoveryConfirmWebModel model)
+        {
             var baseModel = new UserPasswordRecoveryConfirmWebModel();
-            if (ModelState.IsValid) {
-                if (model.PasswordGuid == default(Guid)) {
+            if (ModelState.IsValid)
+            {
+                if (model.PasswordGuid == default(Guid))
+                {
                     return RedirectToRoute(RouteNames.Home);
                 }
 
                 var userDataModel = userService.SetNewPassword(model.PasswordGuid, model.Password);
 
-                if (userDataModel != null) {
+                if (userDataModel != null)
+                {
                     workContext.SignIn(userDataModel, false);
                     return RedirectToRoute(RouteNames.Home);
                 }
@@ -167,13 +165,16 @@ namespace eHesabim.Web.Portal.Controllers {
             return View(baseModel);
         }
 
-        private bool CheckPasswordRecoveryData(string token) {
-            if (string.IsNullOrEmpty(token)) {
+        private bool CheckPasswordRecoveryData(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
                 return false;
             }
 
             Guid guidPasswordRecoveryToken;
-            if (!Guid.TryParse(token, out guidPasswordRecoveryToken)) {
+            if (!Guid.TryParse(token, out guidPasswordRecoveryToken))
+            {
                 return false;
             }
 
